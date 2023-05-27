@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Progress of Student",
   "scripts": {
-    "start": "parcel serve src/index.html --public-url / --dist-dir dist",
+    "start": "parcel serve src/index.html --public-url -p 3000 / --dist-dir dist",
     "build": "parcel build src/index.html --dist-dir Build --no-cache",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
