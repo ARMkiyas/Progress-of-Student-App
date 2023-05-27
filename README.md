@@ -1,6 +1,6 @@
 <h1>Progress-of-Student App</h1>
 
-<p>Welcome to the Progress-of-Student repository! This repository contains the source code and relevant files for the "Progress-of-Student" app, which is designed to create progress reports for students in a school.</p>
+<p>Welcome to the Progress-of-Student repository! This repository contains the source code and relevant files for the "Progress-of-Student" app, which is designed to create progress reports for students in a school by Team Maverick.</p>
 
 <h2>Table of Contents</h2>
 
