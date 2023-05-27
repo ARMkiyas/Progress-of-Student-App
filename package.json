@@ -7,7 +7,7 @@
     "build": "parcel build src/index.html --dist-dir Build --no-cache",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Maverick",
+  "author": "Team Maverick",
   "license": "MIT",
   "devDependencies": {
     "parcel": "^2.9.0",
