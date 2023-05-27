@@ -13,7 +13,7 @@
 
 <h2>Introduction</h2>
 
-<p>The "Progress-of-Student" app is a web-based application built using Node.js and Parsel. It aims to simplify the process of generating progress reports for students in a school setting. The app provides an intuitive interface for teachers to input student data and generate comprehensive reports that highlight their academic progress, attendance, behavior, and any additional notes.</p>
+<p>The "Progress-of-Student" app is a web-based application. It aims to simplify the process of generating progress reports for students in a school setting. The app provides an intuitive interface for teachers to input student data and generate comprehensive reports that highlight their academic progress, attendance, behavior, and any additional notes.</p>
 
 
 <h2>Installation</h2>
