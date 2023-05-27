@@ -43,7 +43,7 @@
 
 <h2>Contributing</h2>
 
-<p>Contributions to the "Progress-of-Student" app are welcome! If you would like to contribute, please follow these guidelines:</p>
+<p>Contributions to the "Progress-of-Student" app, please follow these guidelines:</p>
 
 <ol>
   <li>Fork the repository.</li>
