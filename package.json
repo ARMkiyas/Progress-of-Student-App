@@ -1,0 +1,21 @@
+{
+  "name": "pos",
+  "version": "1.0.0",
+  "description": "Progress of Student",
+  "scripts": {
+    "start": "parcel serve src/index.html --public-url / --dist-dir dist",
+    "build": "parcel build src/index.html --dist-dir Build --no-cache",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel": "^2.9.0",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.2.3"
+  }
+}
