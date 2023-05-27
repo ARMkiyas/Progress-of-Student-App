@@ -34,7 +34,6 @@
 
 <pre><code>npm install</code></pre>
 
-  <li>Configure the app by modifying the <code>config.js</code> file to suit your requirements. You may need to set up your database connection and other environment-specific settings.</li>
   <li>Start the application:</li>
 
 <pre><code>npm start</code></pre>
