@@ -22,9 +22,9 @@
 
 <ol>
   <li>Install Node.js by visiting the official website: <a href="https://nodejs.org/">https://nodejs.org/</a></li>
-  <li>Clone the repository to your local machine using the following command:</li>
-
-<pre><code>git clone https://github.com/ARMkiyas/Progress-of-Student.git</code></pre>
+  <li><a href="https://github.com/ARMkiyas/Progress-of-Student/fork">Fork</a> this repo to your account</li>
+  <li>Clone forked repository to your local machine using the following command (rename "Your-username" to your username :</li>
+<pre><code>git clone https://github.com/Your-username/Progress-of-Student.git</code></pre>
 
   <li>Navigate to the project directory:</li>
 
