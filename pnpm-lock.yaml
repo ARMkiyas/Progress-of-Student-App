@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@popperjs/core':
     specifier: ^2.11.8
@@ -9,6 +13,9 @@ dependencies:
     version: 5.2.3(@popperjs/core@2.11.8)
 
 devDependencies:
+  '@parcel/transformer-sass':
+    specifier: 2.9.0
+    version: 2.9.0(@parcel/core@2.9.0)
   parcel:
     specifier: ^2.9.0
     version: 2.9.0(postcss@8.4.23)
@@ -833,6 +840,17 @@ packages:
       - '@parcel/core'
     dev: true
 
+  /@parcel/transformer-sass@2.9.0(@parcel/core@2.9.0):
+    resolution: {integrity: sha512-gN/TMB2HeYUt/c7RE7zIre2stVWK1yzMHLYT9CRQ8QKysFIKaIDqCTDvwVfiEeV0f4qMtUjF7Z/DoGpXA37aaQ==}
+    engines: {node: '>= 12.0.0', parcel: ^2.9.0}
+    dependencies:
+      '@parcel/plugin': 2.9.0(@parcel/core@2.9.0)
+      '@parcel/source-map': 2.1.1
+      sass: 1.63.6
+    transitivePeerDependencies:
+      - '@parcel/core'
+    dev: true
+
   /@parcel/transformer-svg@2.9.0(@parcel/core@2.9.0):
     resolution: {integrity: sha512-pzIyfWK/l4rabNNOfB89bK3Q3l5B7GOZF5gSoHE8G9gh0BHnVHWTcZUY2zDn1M69LFYyL/2ERyoSLwFss0awEg==}
     engines: {node: '>= 12.0.0', parcel: ^2.9.0}
@@ -1475,6 +1493,10 @@ packages:
       entities: 3.0.1
     dev: true
 
+  /immutable@4.3.0:
+    resolution: {integrity: sha512-0AOCmOip+xgJwEVTQj1EfiDDOkPmuyllDuTuEX+DDXUgapLAsBIfkg3sxCYyCEA8mQqZrrxPUGjcOQ2JS3WLkg==}
+    dev: true
+
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -2041,6 +2063,16 @@ packages:
 
   /safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
+    dev: true
+
+  /sass@1.63.6:
+    resolution: {integrity: sha512-MJuxGMHzaOW7ipp+1KdELtqKbfAWbH7OLIdoSMnVe3EXPMTmxTmlaZDCTsgIpPCs3w99lLo9/zDKkOrJuT5byw==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.3
+      immutable: 4.3.0
+      source-map-js: 1.0.2
     dev: true
 
   /semver@5.7.1:
