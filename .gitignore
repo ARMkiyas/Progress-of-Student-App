@@ -2,3 +2,4 @@ node_modules
 dist
 Build
 .parcel-cache
+pnpm-lock.yaml
