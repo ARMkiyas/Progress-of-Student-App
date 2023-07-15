@@ -5,6 +5,7 @@
   "scripts": {
     "start": "parcel serve src/index.html -p 3000 --public-url  / --dist-dir dist",
     "build": "parcel build src/index.html --dist-dir Build --no-cache",
+    "watch": "parcel watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Team Maverick",
