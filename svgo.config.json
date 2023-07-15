@@ -1,0 +1,17 @@
+{
+  "plugins": [
+    {
+      "name": "preset-default",
+      "params": {
+        "overrides": {
+          "removeViewBox": false,
+          "removeHiddenElems": false,
+          "cleanupIds": false,
+          "removeXMLNS": false
+          
+        }
+      },
+      "cleanupIDs": false
+    }
+  ]
+}
