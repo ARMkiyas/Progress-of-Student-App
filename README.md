@@ -21,14 +21,14 @@
 <p>To set up the "Progress-of-Student" app locally, follow these steps:</p>
 
 <ol>
-  <li>Install Node.js by visiting the official website: <a href="https://nodejs.org/">https://nodejs.org/</a></li>
+  <li>Install Node LTS by visiting the official website: <a href="https://nodejs.org/">https://nodejs.org/</a></li>
   <li>Clone the repository to your local machine using the following command:</li>
 
-<pre><code>git clone https://github.com/ARMkiyas/Progress-of-Student.git</code></pre>
+<pre><code>git clone https://github.com/ARMkiyas/Progress-of-Student-App.git</code></pre>
 
   <li>Navigate to the project directory:</li>
 
-<pre><code>cd progress-of-student</code></pre>
+<pre><code>cd Progress-of-Student-App</code></pre>
 
   <li>Install the necessary dependencies using npm:</li>
 
@@ -36,7 +36,7 @@
 
   <li>Start the application:</li>
 
-<pre><code>npm start</code></pre>
+<pre><code>npm dev</code></pre>
 
 <p>The app should now be running locally on <a href="http://localhost:3000">http://localhost:3000</a>.</p>
 
