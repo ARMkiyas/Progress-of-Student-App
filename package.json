@@ -1,23 +1,50 @@
 {
-  "name": "pos",
-  "version": "1.0.0",
-  "description": "Progress of Student",
+  "name": "pos-progress-of-student-",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "parcel serve src/index.html -p 3000 --public-url  / --dist-dir dist",
-    "build": "parcel build src/index.html --dist-dir Build --no-cache",
-    "watch": "parcel watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Team Maverick",
-  "license": "MIT",
-  "devDependencies": {
-    "@parcel/transformer-sass": "2.9.3",
-    "parcel": "^2.9.3",
-    "postcss": "^8.4.26",
-    "tailwindcss": "^3.3.3"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.0"
+    "@radix-ui/react-popover": "^1.0.6",
+    "@radix-ui/react-slot": "^1.0.2",
+    "bootstrap": "^5.3.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "date-fns": "^2.30.0",
+    "lucide-react": "^0.263.1",
+    "papaparse": "^5.4.1",
+    "react": "^18.2.0",
+    "react-day-picker": "^8.8.1",
+    "react-dom": "^18.2.0",
+    "react-indexed-db": "^2.0.1",
+    "react-router-dom": "^6.14.2",
+    "read-excel-file": "^5.6.1",
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss-animate": "^1.0.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.5",
+    "@types/papaparse": "^5.3.8",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@vitejs/plugin-react-swc": "^3.3.2",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.44.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.1",
+    "postcss": "^8.4.27",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.3",
+    "sass": "^1.63.6",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.0"
   }
 }
