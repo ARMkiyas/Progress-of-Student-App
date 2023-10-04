@@ -14,7 +14,7 @@ export default function Generate() {
   return (
     <>
     {
-      acedamicDetail && schoolDetails && studentData ? <h1>students data</h1> : <DataForm />
+      acedamicDetail && schoolDetails && studentData ? <h1>show students data</h1> : <DataForm />
     }
     </>
   );
