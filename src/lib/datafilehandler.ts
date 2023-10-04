@@ -46,7 +46,19 @@ export const handleFileRead = async (file: any) => {
             return b.totalMark - a.totalMark
         })
 
-        console.log(sortedarr);
+
+        sortedarr.forEach((student: TStudentData, index: any) => {
+            let temp = sortedarr[index - 1]
+            if (temp && temp.totalMark === student.totalMark) {
+                student.rank = temp.rank
+            }
+            else {
+                student.rank = index + 1
+            }
+
+        })
+
+       return sortedarr
     }
     else if (fileType === 'csv') {
         const data = await readCSV(file)

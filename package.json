@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": ".",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mantine/hooks": "^6.0.20",
     "@popperjs/core": "^2.11.8",
     "@radix-ui/react-popover": "^1.0.6",
     "@radix-ui/react-slot": "^1.0.2",
@@ -28,7 +30,9 @@
     "react-router-dom": "^6.14.2",
     "read-excel-file": "^5.6.1",
     "tailwind-merge": "^1.14.0",
-    "tailwindcss-animate": "^1.0.6"
+    "tailwindcss-animate": "^1.0.6",
+    "zod": "^3.22.2",
+    "zustand": "^4.4.2"
   },
   "devDependencies": {
     "@types/node": "^20.4.5",
@@ -52,5 +56,4 @@
   "engines": {
     "node": ">=18.0.0"
   }
-
 }
