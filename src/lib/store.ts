@@ -21,7 +21,7 @@ const actions = (set) => ({
 
         console.log(schoolDetails, acedamicDetail, studentData);
         const data = await handleFileRead(studentData);
-        console.log("data",data);
+        console.log(data);
         return set({ schoolDetails, acedamicDetail, studentData: data })
     },
 
