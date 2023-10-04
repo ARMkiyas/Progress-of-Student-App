@@ -10,7 +10,7 @@ import { handleFileRead } from "@/lib/datafilehandler.ts";
 import { Calendar } from "@/components/ui/ui/calendar";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/ui/popover";
 import { SchoolDetailSchema, AcedamicDetailSchema, StudentDataschema } from "@/lib/schema.ts";
-import { useStore } from "@/lib/store.ts";
+import useStore from "@/lib/store.ts";
 
 
 
@@ -44,8 +44,9 @@ export default function DataForm() {
 
     const [invalidinput, setinvalidinput] = useState([]);
 
-    console.log(acedamicDetails);
-    console.log(invalidinput);
+
+
+    // data input feild onChange event handler
 
     const inputHandeler = (e) => {
 
@@ -100,7 +101,7 @@ export default function DataForm() {
 
 
 
-    console.log(invalidinput);
+
 
     const handleDrop = (e) => {
         e.preventDefault();
@@ -410,27 +411,22 @@ export default function DataForm() {
 
                             </div>
                         )}
-
                         {step === 3 && (
                             <div className="animate__animated animate__fadeIn animate__fast" >
                                 <div className="mb-5" >
-
-
                                     <div className="flex items-center justify-center w-full" >
                                         <label onChange={datafile_handler} onDragOver={handleDragOver}
                                             onDragEnter={handleDragEnter} onDragLeave={handleDragLeave}
                                             onDrop={handleDrop} htmlFor="dropzone-file"
                                             className={`flex flex-col items-center 
-                      justify-center w-full h-64 border-2  border-dashed rounded-lg cursor-pointer
-                        dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 
-                        dark:hover:border-gray-500 dark:hover:bg-gray-600  
-                        ${dropzone ? "bg-gray-100 dark:bg-bray-800  dark:border-gray-500" : "bg-gray-50 border-gray-300"}
-                        ${invalidinput.includes("file") & !datafile ? "border-red-600" : "dark:border-gray-600 border-gray-600"}
-                    
-
-                        `}
-
+                                                 justify-center w-full h-64 border-2  border-dashed rounded-lg cursor-pointer
+                                                 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 
+                                                 dark:hover:border-gray-500 dark:hover:bg-gray-600  
+                                                ${dropzone ? "bg-gray-100 dark:bg-bray-800  dark:border-gray-500" : "bg-gray-50 border-gray-300"}
+                                                ${invalidinput.includes("file") & !datafile ? "border-red-600" : "dark:border-gray-600 border-gray-600"}
+                                        `}
                                         >
+
                                             <div className="flex flex-col items-center justify-center pt-5 pb-6" >
 
                                                 {

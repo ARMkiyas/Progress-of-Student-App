@@ -58,7 +58,7 @@ export const handleFileRead = async (file: any) => {
 
         })
 
-       return sortedarr
+        return sortedarr
     }
     else if (fileType === 'csv') {
         const data = await readCSV(file)
