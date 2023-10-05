@@ -9,16 +9,15 @@ export interface TSubject {
 }
 
 export interface TStudentDetails {
-    [key: string]: string | number
+    [key: string]: any   //string | number | undefined
 }
 
 export type TStudentData = {
     totalMark: number,
     avarage: number,
-    subjects: TSubject,
+    subjects: TSubject[],
     rank: number
 } & TStudentDetails
-
 
 
 
@@ -34,12 +33,13 @@ export type TStoreActions = {
 
     DataHandler: (schoolDetails: TSchoolDetails, acedamicDetail: TAcedamicDetails, studentData: TStudentDataFile) => void,
     setLoading: (loading: boolean) => void
-
+    setHeader: (header: string[]) => void
 }
 
 export type TStoreState = {
-    schoolDetails  : TSchoolDetails,
-    acedamicDetail  : TAcedamicDetails,
-    studentData  : TStudentData,
+    schoolDetails: TSchoolDetails | undefined,
+    acedamicDetail: TAcedamicDetails | undefined,
+    studentData: TStudentData[] | undefined,
     loading: boolean
+    header: string[] | undefined
 }

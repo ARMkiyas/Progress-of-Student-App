@@ -2,6 +2,10 @@
 import readXlsxFile from 'read-excel-file'
 import { TSubject, TStudentDetails, TStudentData } from './types'
 import Papa from 'papaparse';
+import useStore from './store';
+
+
+
 
 
 export const handleFileRead = async (file: any) => {
@@ -16,9 +20,12 @@ export const handleFileRead = async (file: any) => {
 
         const rows = await readXlsxFile(file)
         const header = rows.shift()
+
+
+
         data = rows.map((row: any) => {
             let details: TStudentDetails = {}
-            let sub: TSubject = {}
+            let sub: TSubject[] = []
             let total = 0
 
             header?.forEach((column: any, index: any) => {
@@ -27,19 +34,18 @@ export const handleFileRead = async (file: any) => {
                 }
                 else {
                     total = total + row[index]
-                    sub[column] = row[index]
+                    sub.push({ [column]: row[index] })
                 }
 
             })
 
 
             return <TStudentData>{
-                ...details, subjects: {
-                    ...sub
-                }, totalMark: total, avarage: total / Object.keys(sub).length
+                ...details, subjects: sub, totalMark: total, avarage: total / Object.keys(sub).length
             }
 
         })
+
 
 
         const sortedarr = data.sort((a: any, b: any) => {
@@ -57,6 +63,10 @@ export const handleFileRead = async (file: any) => {
             }
 
         })
+
+        // set header to state for table header
+
+        useStore.setState({ header: Array.prototype.concat(header, ["Total,", "Avarage", "Rank"]) })
 
         return sortedarr
     }
