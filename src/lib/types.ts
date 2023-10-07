@@ -23,9 +23,9 @@ export type TStudentData = {
 
 // store types
 
-type TSchoolDetails = z.infer<typeof SchoolDetailSchema>
-type TAcedamicDetails = z.infer<typeof AcedamicDetailSchema>
-type TStudentDataFile = z.infer<typeof StudentDataschema>
+export type TSchoolDetails = z.infer<typeof SchoolDetailSchema>
+export type TAcedamicDetails = z.infer<typeof AcedamicDetailSchema>
+export type TStudentDataFile = z.infer<typeof StudentDataschema>
 
 
 
@@ -43,3 +43,16 @@ export type TStoreState = {
     loading: boolean
     header: string[] | undefined
 }
+
+
+
+// types of pdf generators
+
+export type TPDFGenProps = {
+    schoolDetails: TSchoolDetails | undefined,
+    acedamicDetail: TAcedamicDetails | undefined,
+    studentData: TStudentData | undefined,
+    TableHeader: string[] | undefined
+
+}
+

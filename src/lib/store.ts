@@ -10,11 +10,11 @@ import { TempStudentData, TempAcedamicData, TempSchoolData, TempHeaderData } fro
 
 
 const initialState: TStoreState = {
-    schoolDetails: undefined,
-    acedamicDetail: undefined,
-    studentData: undefined,
+    schoolDetails: TempSchoolData,
+    acedamicDetail: TempAcedamicData,
+    studentData: TempStudentData,
     loading: false,
-    header: undefined,
+    header: TempHeaderData,
 }
 
 
