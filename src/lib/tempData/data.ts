@@ -452,13 +452,13 @@ export const TempAcedamicData =
 
 {
 
-    Grade: '57457547',
+    Grade: '11',
 
-    Term: '457457',
+    Term: '3rd Term',
 
-    SchoolYear: '45745745',
+    SchoolYear: '2015',
 
-    ClassTeacherName: '745'
+    ClassTeacherName: 'Mr. Mohammed Farnas',
 
 }
 
@@ -466,13 +466,13 @@ export const TempSchoolData =
 
 {
 
-    schoolname: 'gjfgjfg',
+    schoolname: 'Km/km al matheena vidyalaya',
 
-    SchoolAddress: 'sdgsokp@spohpo.sd',
+    SchoolAddress: 'no 45, Mounlana Road, Nintavur 4',
 
-    SchoolEmail: 'kdjgp@psdji.com',
+    SchoolEmail: 'info@matheena.com',
 
-    SchoolPhone: 'j33032643465'
+    SchoolPhone: '+94745745745'
 
 }
 
