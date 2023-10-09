@@ -4,6 +4,7 @@ import ReportInfo from "./ReportInfo";
 import StudentSubjectTable from "./StudentSubjectTable";
 import ReportPDFFooter from "./ReportPDFFooter";
 import { TPDFGenProps } from "@/lib/types";
+import ResultSummary from "./ResultSummary";
 
 const styles = StyleSheet.create({
   page: {
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   contentBody: {
-    padding: 30,
+    padding: 20,
     flexGrow: 1,
   },
 });
@@ -52,6 +53,8 @@ const ReportCardPdfMain = ({
           <ReportCardHeader title={schoolDetails.schoolname} />
           <view style={styles.contentBody}>
             <ReportInfo STDInfo={studentData} ACEInfo={acedamicDetail} />
+            <StudentSubjectTable studentData={studentData} />
+            <ResultSummary studentData={studentData} />
           </view>
         </view>
       </Page>

@@ -11,41 +11,42 @@ const styles = StyleSheet.create({
     height: 24,
     fontStyle: "bold",
   },
-  description: {
-    width: "60%",
+  subjectrow: {
+    width: "70%",
     textAlign: "left",
     borderRightColor: borderColor,
     borderRightWidth: 1,
     paddingLeft: 8,
+    textTransform: "capitalize",
   },
-  qty: {
-    width: "10%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-    textAlign: "right",
-    paddingRight: 8,
-  },
-  rate: {
-    width: "15%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-    textAlign: "right",
-    paddingRight: 8,
-  },
-  amount: {
-    width: "15%",
-    textAlign: "right",
+  // qty: {
+  //   width: "10%",
+  //   borderRightColor: borderColor,
+  //   borderRightWidth: 1,
+  //   textAlign: "right",
+  //   paddingRight: 8,
+  // },
+  // rate: {
+  //   width: "15%",
+  //   borderRightColor: borderColor,
+  //   borderRightWidth: 1,
+  //   textAlign: "right",
+  //   paddingRight: 8,
+  // },
+  valuerow: {
+    width: "30%",
+    textAlign: "center",
     paddingRight: 8,
   },
 });
 
 const SSTTableRow = ({ items }) => {
   const rows = items.map((item) => (
-    <View style={styles.row} key={item.sno.toString()}>
-      <Text style={styles.description}>{item.desc}</Text>
-      <Text style={styles.qty}>{item.qty}</Text>
-      <Text style={styles.rate}>{item.rate}</Text>
-      <Text style={styles.amount}>{(item.qty * item.rate).toFixed(2)}</Text>
+    <View style={styles.row} key={Object.keys(item)[0]}>
+      <Text style={styles.subjectrow}>{Object.keys(item)[0]}</Text>
+      {/* <Text style={styles.qty}>{item.qty}</Text>
+      <Text style={styles.rate}>{item.rate}</Text> */}
+      <Text style={styles.valuerow}>{Object.values(item)}</Text>
     </View>
   ));
   return <Fragment>{rows}</Fragment>;

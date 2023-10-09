@@ -13,32 +13,32 @@ const styles = StyleSheet.create({
     fontStyle: "bold",
     flexGrow: 1,
   },
-  description: {
-    width: "60%",
+  subjectrow: {
+    width: "70%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
   },
-  qty: {
-    width: "10%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-  },
-  rate: {
-    width: "15%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-  },
-  amount: {
-    width: "15%",
+  // qty: {
+  //   width: "10%",
+  //   borderRightColor: borderColor,
+  //   borderRightWidth: 1,
+  // },
+  // rate: {
+  //   width: "15%",
+  //   borderRightColor: borderColor,
+  //   borderRightWidth: 1,
+  // },
+  valuerow: {
+    width: "30%",
   },
 });
 
 const SSTTableHeader = () => (
   <View style={styles.container}>
-    <Text style={styles.description}>Item Description</Text>
-    <Text style={styles.qty}>Qty</Text>
-    <Text style={styles.rate}>@</Text>
-    <Text style={styles.amount}>Amount</Text>
+    <Text style={styles.subjectrow}>Subjects</Text>
+
+    {/* <Text style={styles.rate}>Marks</Text> */}
+    <Text style={styles.valuerow}>Marks</Text>
   </View>
 );
 
