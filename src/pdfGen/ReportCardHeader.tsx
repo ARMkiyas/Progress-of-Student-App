@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 });
 
 const ReportCardHeader = ({ title }) => (
-  <View style={styles.titleContainer} debug={true}>
+  <View style={styles.titleContainer}>
     <Text style={styles.reportTitle}>Student Report Card</Text>
   </View>
 );

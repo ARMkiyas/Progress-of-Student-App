@@ -14,31 +14,31 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   description: {
-    width: "60%",
+    width: "70%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
   },
-  qty: {
-    width: "10%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-  },
-  rate: {
-    width: "15%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-  },
+  // qty: {
+  //   width: "10%",
+  //   borderRightColor: borderColor,
+  //   borderRightWidth: 1,
+  // },
+  // rate: {
+  //   width: "15%",
+  //   borderRightColor: borderColor,
+  //   borderRightWidth: 1,
+  // },
   amount: {
-    width: "15%",
+    width: "30%",
   },
 });
 
 const SSTTableHeader = () => (
   <View style={styles.container}>
-    <Text style={styles.description}>Item Description</Text>
-    <Text style={styles.qty}>Qty</Text>
-    <Text style={styles.rate}>@</Text>
-    <Text style={styles.amount}>Amount</Text>
+    <Text style={styles.description}>Subjects</Text>
+
+    {/* <Text style={styles.rate}>Marks</Text> */}
+    <Text style={styles.amount}>Marks</Text>
   </View>
 );
 

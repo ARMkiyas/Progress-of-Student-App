@@ -13,22 +13,22 @@ const styles = StyleSheet.create({
     color: "white",
   },
   description: {
-    width: "60%",
+    width: "70%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
   },
-  qty: {
-    width: "10%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-  },
-  rate: {
-    width: "15%",
-    borderRightColor: borderColor,
-    borderRightWidth: 1,
-  },
+  // qty: {
+  //   width: "10%",
+  //   borderRightColor: borderColor,
+  //   borderRightWidth: 1,
+  // },
+  // rate: {
+  //   width: "15%",
+  //   borderRightColor: borderColor,
+  //   borderRightWidth: 1,
+  // },
   amount: {
-    width: "15%",
+    width: "30%",
   },
 });
 
@@ -37,8 +37,8 @@ const SSTTableBlankSpace = ({ rowsCount }) => {
   const rows = blankRows.map((x, i) => (
     <View style={styles.row} key={`BR${i}`}>
       <Text style={styles.description}>-</Text>
-      <Text style={styles.qty}>-</Text>
-      <Text style={styles.rate}>-</Text>
+      {/* <Text style={styles.qty}>-</Text>
+      <Text style={styles.rate}>-</Text> */}
       <Text style={styles.amount}>-</Text>
     </View>
   ));
