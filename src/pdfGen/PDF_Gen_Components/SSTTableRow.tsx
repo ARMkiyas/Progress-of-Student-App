@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     height: 24,
     fontStyle: "bold",
   },
-  description: {
+  subjectrow: {
     width: "70%",
     textAlign: "left",
     borderRightColor: borderColor,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   //   textAlign: "right",
   //   paddingRight: 8,
   // },
-  amount: {
+  valuerow: {
     width: "30%",
     textAlign: "center",
     paddingRight: 8,
@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
 const SSTTableRow = ({ items }) => {
   const rows = items.map((item) => (
     <View style={styles.row} key={Object.keys(item)[0]}>
-      <Text style={styles.description}>{Object.keys(item)[0]}</Text>
+      <Text style={styles.subjectrow}>{Object.keys(item)[0]}</Text>
       {/* <Text style={styles.qty}>{item.qty}</Text>
       <Text style={styles.rate}>{item.rate}</Text> */}
-      <Text style={styles.amount}>{Object.values(item)}</Text>
+      <Text style={styles.valuerow}>{Object.values(item)}</Text>
     </View>
   ));
   return <Fragment>{rows}</Fragment>;

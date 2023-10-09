@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     fontStyle: "bold",
     flexGrow: 1,
   },
-  description: {
+  subjectrow: {
     width: "70%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
@@ -28,17 +28,17 @@ const styles = StyleSheet.create({
   //   borderRightColor: borderColor,
   //   borderRightWidth: 1,
   // },
-  amount: {
+  valuerow: {
     width: "30%",
   },
 });
 
 const SSTTableHeader = () => (
   <View style={styles.container}>
-    <Text style={styles.description}>Subjects</Text>
+    <Text style={styles.subjectrow}>Subjects</Text>
 
     {/* <Text style={styles.rate}>Marks</Text> */}
-    <Text style={styles.amount}>Marks</Text>
+    <Text style={styles.valuerow}>Marks</Text>
   </View>
 );
 
