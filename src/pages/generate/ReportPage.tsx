@@ -46,11 +46,11 @@ export default function ReportPage() {
                           xmlnsXlink="http://www.w3.org/1999/xlink"
                           fill="currentColor"
                         >
-                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                           <g
                             id="SVGRepo_tracerCarrier"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           ></g>
                           <g id="SVGRepo_iconCarrier">
                             {" "}
@@ -60,9 +60,9 @@ export default function ReportPage() {
                             <g
                               id="Page-1"
                               stroke="none"
-                              stroke-width="1"
+                              strokeWidth="1"
                               fill="currentColor"
-                              fill-rule="evenodd"
+                              fillRule="evenodd"
                             >
                               {" "}
                               <g
@@ -94,17 +94,17 @@ export default function ReportPage() {
                           viewBox="0 0 1920 1920"
                           xmlns="http://www.w3.org/2000/svg"
                         >
-                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                           <g
                             id="SVGRepo_tracerCarrier"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           ></g>
                           <g id="SVGRepo_iconCarrier">
                             {" "}
                             <path
                               d="M1920 428.266v1189.54l-464.16-580.146-88.203 70.585 468.679 585.904H83.684l468.679-585.904-88.202-70.585L0 1617.805V428.265l959.944 832.441L1920 428.266ZM1919.932 226v52.627l-959.943 832.44L.045 278.628V226h1919.887Z"
-                              fill-rule="evenodd"
+                              fillRule="evenodd"
                             ></path>{" "}
                           </g>
                         </svg>
@@ -125,11 +125,11 @@ export default function ReportPage() {
                           xmlSpace="preserve"
                           fill="currentColor"
                         >
-                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                           <g
                             id="SVGRepo_tracerCarrier"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           ></g>
                           <g id="SVGRepo_iconCarrier">
                             {" "}
@@ -195,9 +195,9 @@ export default function ReportPage() {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          fill-rule="evenodd"
+                          fillRule="evenodd"
                           d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                          clip-rule="evenodd"
+                          clipRule="evenodd"
                         />
                       </svg>
                     </div>
@@ -230,8 +230,8 @@ export default function ReportPage() {
                     aria-hidden="true"
                   >
                     <path
-                      clip-rule="evenodd"
-                      fill-rule="evenodd"
+                      clipRule="evenodd"
+                      fillRule="evenodd"
                       d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
                     />
                   </svg>
@@ -252,8 +252,8 @@ export default function ReportPage() {
                       aria-hidden="true"
                     >
                       <path
-                        clip-rule="evenodd"
-                        fill-rule="evenodd"
+                        clipRule="evenodd"
+                        fillRule="evenodd"
                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                       />
                     </svg>
@@ -299,11 +299,11 @@ export default function ReportPage() {
                       id="b7babb3a-07a5-4f0e-b9ad-475301dbdd9c"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                       <g
                         id="SVGRepo_tracerCarrier"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       ></g>
                       <g id="SVGRepo_iconCarrier">
                         <path d="M17.5,23.1a1.25,1.25,0,0,1-1.25-1.25V3.154a1.25,1.25,0,0,1,2.5,0V21.848A1.25,1.25,0,0,1,17.5,23.1Z"></path>
@@ -443,7 +443,10 @@ export default function ReportPage() {
                 <tbody>
                   {items.map((item, index) => {
                     return (
-                      <tr className="border-b dark:border-gray-700" key={index}>
+                      <tr
+                        className="border-b dark:border-gray-700"
+                        key={item.index}
+                      >
                         <th
                           scope="row"
                           className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white "
@@ -457,9 +460,9 @@ export default function ReportPage() {
                             {item.index}
                           </div>
                         </td>
-                        {item.subjects.map((subject, index) => {
+                        {item.subjects.map((subject) => {
                           return (
-                            <td className="px-4 py-3" key={index}>
+                            <td className="px-4 py-3" key={Math.random()}>
                               <div className="flex justify-center w-full">
                                 {Object.values(subject)}
                               </div>
@@ -472,12 +475,12 @@ export default function ReportPage() {
                             {item.totalMark}
                           </div>
                         </td>
-                        <td className="px-4 py-3" key={index}>
+                        <td className="px-4 py-3">
                           <div className="flex justify-center w-full">
                             {item.avarage}
                           </div>
                         </td>
-                        <td className="px-4 py-3" key={index}>
+                        <td className="px-4 py-3">
                           <div className="flex justify-center w-full">
                             {item.rank}
                           </div>
@@ -578,9 +581,9 @@ export default function ReportPage() {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                       />
                     </svg>
                   </a>
@@ -588,7 +591,7 @@ export default function ReportPage() {
 
                 {range.map((item, index) => {
                   return (
-                    <li key={index}>
+                    <li key={Math.random()}>
                       {typeof item === "number" ? (
                         <a
                           href="#"
@@ -627,9 +630,9 @@ export default function ReportPage() {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                       />
                     </svg>
                   </a>

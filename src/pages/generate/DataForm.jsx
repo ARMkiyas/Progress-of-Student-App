@@ -450,7 +450,7 @@ export default function DataForm() {
                                                 <p className={`mb-2 text-sm  ${invalidinput.includes("file") & !datafile ? "text-red-500 dark:text-red-400" : "text-gray-500 dark:text-gray-400"} `}><span className="font-semibold">Click to upload  or drag and drop </span></p>
                                                 <p className={`text-xs ${invalidinput.includes("file") & !datafile ? "text-red-500 dark:text-red-400" : "text-gray-500 dark:text-gray-400"}`}>Excel File (xlsx) or CSV (MAX SIZE. 10mb)</p>
                                             </div>
-                                            <input id="dropzone-file" type="file" className="hidden" />
+                                            <input id="dropzone-file" type="file" className="hidden" accept=".xlsx" />
 
                                         </label>
 

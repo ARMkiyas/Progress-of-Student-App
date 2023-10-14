@@ -13,6 +13,7 @@ export interface TStudentDetails {
 }
 
 export type TStudentData = {
+    index?: number,
     totalMark: number,
     avarage: number,
     subjects: TSubject[],
@@ -40,7 +41,7 @@ export type TStoreState = {
     schoolDetails: TSchoolDetails | undefined,
     acedamicDetail: TAcedamicDetails | undefined,
     studentData: TStudentData[] | undefined,
-    loading: boolean
+    loading: boolean,
     header: string[] | undefined
 }
 
