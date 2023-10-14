@@ -83,7 +83,7 @@ export default function Cruosal() {
                         tempore modi architecto.
                       </p>
 
-                      <GetStarted/>
+                      <GetStarted />
 
 
 
@@ -107,8 +107,8 @@ export default function Cruosal() {
                         doloremque accusamus repellendus deleniti vel. Minus et
                         tempore modi architecto.
                       </p>
-                   
-                      <GetStarted/>
+
+                      <GetStarted />
                     </div>
                   </div>
                 </div>
@@ -129,8 +129,8 @@ export default function Cruosal() {
                         doloremque accusamus repellendus deleniti vel. Minus et
                         tempore modi architecto.
                       </p>
-                   
-                      <GetStarted/>
+
+                      <GetStarted />
                     </div>
                   </div>
                 </div>

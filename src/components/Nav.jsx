@@ -13,7 +13,7 @@ export default function Nav() {
 
   return (
     <header className={loc.pathname !== "/" ? "relative w-full h-20 " : ""}>
-      <input id="navtogglemobile" class="peer hidden" type="checkbox" ref={navmobilenavtoggle} />
+      <input id="navtogglemobile" className="hidden peer" type="checkbox" ref={navmobilenavtoggle} />
       <nav className="absolute z-20 w-full shadow-2xl h-fit backdrop-blur cusnavbar shadow-gray-600/5 peer-checked:cusnavbar-active dark:shadow-none " >
         <div className="px-6 m-auto xl:container md:px-12 lg:px-6 ">
           <div className="flex flex-wrap items-center justify-between gap-6 md:py-3 md:gap-0 lg:py-5">

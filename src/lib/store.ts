@@ -4,17 +4,20 @@ import { handleFileRead } from "./datafilehandler";
 
 import { TempStudentData, TempAcedamicData, TempSchoolData, TempHeaderData } from './tempData/data'
 
+import db from "@/lib/models/db"
+
+
 
 
 
 
 
 const initialState: TStoreState = {
-    schoolDetails: TempSchoolData,
-    acedamicDetail: TempAcedamicData,
-    studentData: TempStudentData,
+    schoolDetails: undefined,
+    acedamicDetail: undefined,
+    studentData: undefined,
     loading: false,
-    header: TempHeaderData,
+    header: undefined,
 }
 
 
@@ -26,12 +29,23 @@ const actions = (set) => ({
 
         const data = await handleFileRead(studentData);
 
+        await db.acedamicDetail.put(TempAcedamicData)
+        await db.schoolDetails.put(TempSchoolData)
+        await db.studentData.bulkPut(TempStudentData)
+        await db.header.put(TempHeaderData)
+
+
         return set({ schoolDetails, acedamicDetail, studentData: data })
     },
 
     setLoading(loading) { return set({ loading }) },
 
-    setHeader(header) { return set({ header }) }
+    async setHeader(header) {
+        return set({ header })
+    },
+
+
+
 
 })
 
