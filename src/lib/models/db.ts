@@ -30,8 +30,12 @@ const db = new DB();
 
 
 
-
-
-
 export default db;
+
+
+export const resetDatabase = () => {
+    return db.transaction('rw', db.acedamicDetail, db.studentData, db.schoolDetails, db.header, async () => {
+        await Promise.all(db.tables.map(table => table.clear()));
+    });
+}
 

@@ -2,9 +2,10 @@ import { create } from 'zustand';
 import { TStoreActions, TStoreState } from './types';
 import { handleFileRead } from "./datafilehandler";
 
-import { TempStudentData, TempAcedamicData, TempSchoolData, TempHeaderData } from './tempData/data'
+import { TempStudentData, TempAcedamicData, TempSchoolData, TempHeaderData } from './tempData/data';
 
-import db from "@/lib/models/db"
+
+import db, { resetDatabase } from "@/lib/models/db"
 
 
 
@@ -43,6 +44,28 @@ const actions = (set) => ({
     async setHeader(header) {
         return set({ header })
     },
+
+
+    async resetDatabase() {
+
+        await resetDatabase();
+        return set({ ...initialState })
+    },
+
+
+
+    async searchAction(search) {
+
+        console.log(search);
+
+
+        const data = await db.studentData.where("index").startsWith(search).toArray();
+
+        console.log(data);
+
+    }
+
+
 
 
 
