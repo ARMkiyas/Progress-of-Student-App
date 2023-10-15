@@ -1,13 +1,25 @@
 import useStore from "@/lib/store";
-import { usePagination } from "@mantine/hooks";
+import { useDebouncedState, useListState, usePagination } from "@mantine/hooks";
 
 import "./style.css";
 import { useState } from "react";
+import { Button, Modal, Tooltip, CustomFlowbiteTheme } from "flowbite-react";
+import { useLiveQuery } from "dexie-react-hooks";
+import db from "@/lib/models/db";
 
 const ITEM_PER_PAGE = 10;
 
 export default function ReportPage() {
-  const { acedamicDetail, schoolDetails, studentData, header } = useStore();
+  const {
+    acedamicDetail,
+    schoolDetails,
+    studentData,
+    header,
+    resetDatabase,
+    searchAction,
+  } = useStore();
+
+  const [openModal, setOpenModal] = useState<string | undefined>();
 
   const [items, setItems] = useState(studentData.slice(0, ITEM_PER_PAGE));
 
@@ -21,15 +33,104 @@ export default function ReportPage() {
     },
   });
 
-  console.log(range);
+  const [searchValue, setSearchValue] = useDebouncedState("", 500);
+
+  const resetAll = () => {
+    resetDatabase();
+    setOpenModal("undefined");
+  };
+
+  const searchStudent = () => {
+    searchAction(searchValue);
+  };
+
+  console.log(studentData);
 
   return (
     <>
+      <Modal
+        show={openModal === "pop-up-reset"}
+        size="lg"
+        popup
+        onClose={() => setOpenModal(undefined)}
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <svg
+              className="mx-auto mb-4 text-gray-400 h-14 w-14 dark:text-gray-200"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+
+            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              Are you sure you want to Reset and Clear all ?
+            </h3>
+            <div className="flex justify-center gap-4">
+              <Button className="border-0 " color="failure" onClick={resetAll}>
+                Yes, I'm sure
+              </Button>
+              <Button
+                color="gray"
+                className="border-0 "
+                onClick={() => setOpenModal(undefined)}
+              >
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
       <section className="p-3 sm:p-5">
         <div className="max-w-screen-xl px-4 mx-auto lg:px-12">
           <div className="relative overflow-hidden shadow-md dark:bg-gray-800 sm:rounded-lg">
+            <div className="inline-flex flex-col items-start justify-start pl-6 ">
+              <button
+                type="button"
+                className="absolute top-0 right-0 flex items-center p-3 "
+                onClick={() => {
+                  setOpenModal("pop-up-reset");
+                }}
+              >
+                <Tooltip content="reset/Clear All" placement="top">
+                  <div className="w-6 h-6 ">
+                    <svg
+                      viewBox="0 0 16 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                    >
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g
+                        id="SVGRepo_tracerCarrier"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></g>
+                      <g id="SVGRepo_iconCarrier">
+                        {" "}
+                        <path
+                          d="m 6.976562 -0.0195312 c -0.800781 0.0078124 -1.59375 0.3125002 -2.203124 0.9101562 l -2.773438 2.707031 v -0.597656 c 0 -0.550781 -0.449219 -1 -1 -1 s -1 0.449219 -1 1 v 3 c 0 0.550781 0.449219 1 1 1 h 3 c 0.550781 0 1 -0.449219 1 -1 s -0.449219 -1 -1 -1 h -0.574219 l 2.753907 -2.707031 c 0.367187 -0.359375 1.246093 -0.367188 1.601562 -0.019531 l 5.519531 5.4375 c 0.390625 0.390624 1.023438 0.382812 1.410157 -0.011719 c 0.390624 -0.390625 0.382812 -1.023438 -0.007813 -1.410157 l -5.519531 -5.417968 c -0.613282 -0.601563 -1.410156 -0.8906252 -2.207032 -0.8906252 z m -4.828124 8.0312502 c -0.316407 -0.046875 -0.636719 0.058593 -0.859376 0.289062 c -0.386718 0.390625 -0.386718 1.023438 0.007813 1.410157 l 5.484375 5.378906 c 0.617188 0.609375 1.4375 0.875 2.242188 0.882812 c 0.804687 0.007813 1.636718 -0.246094 2.265624 -0.871094 l 2.710938 -2.6875 v 0.585938 c 0 0.550781 0.449219 1 1 1 s 1 -0.449219 1 -1 v -3 c 0 -0.550781 -0.449219 -1 -1 -1 h -3 c -0.550781 0 -1 0.449219 -1 1 s 0.449219 1 1 1 h 0.585938 l -2.710938 2.710938 c -0.15625 0.15625 -0.476562 0.285156 -0.832031 0.28125 c -0.355469 0 -0.691407 -0.140626 -0.863281 -0.304688 l -5.480469 -5.398438 c -0.148438 -0.148437 -0.339844 -0.246093 -0.550781 -0.277343 z m 0 0"
+                          fill="currentColor"
+                        ></path>{" "}
+                      </g>
+                    </svg>
+                  </div>
+                </Tooltip>
+              </button>
+            </div>
+
             {/* top header */}
-            <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4">
+            <div className="flex flex-col items-center justify-between p-4 my-3 space-y-3 md:flex-row md:space-y-0 md:space-x-4">
               <div className="inline-flex flex-col items-start justify-start gap-1">
                 <div className="dark:text-white text-base font-semibold font-['Inter'] leading-normal">
                   {schoolDetails.schoolname.trim()}
@@ -114,40 +215,36 @@ export default function ReportPage() {
                       </div>
                     </div>
                     <div className="text-gray-400 text-sm font-normal font-['Inter'] leading-tight flex items-center space-x-1">
-                      <div>
-                        <svg
-                          className="text-gray-400 w-3 h-3 font-normal font-['Inter'] leading-tight"
-                          version="1.1"
-                          id="_x32_"
-                          xmlns="http://www.w3.org/2000/svg"
-                          xmlnsXlink="http://www.w3.org/1999/xlink"
-                          viewBox="0 0 512 512"
-                          xmlSpace="preserve"
-                          fill="currentColor"
-                        >
-                          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                          <g
-                            id="SVGRepo_tracerCarrier"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          ></g>
-                          <g id="SVGRepo_iconCarrier">
-                            {" "}
-                            <style type="text/css"> </style>{" "}
-                            <g>
-                              {" "}
-                              <path
-                                fill="currentColor"
-                                d="M337.469,206.488v-79.735l-42.812,7.654v32.814H217.34v-32.814l-42.809-7.654v79.735h-50.883L65.566,333.609 v25.135v18.062v53.512v7.096v10.341c0,10.862,8.016,19.668,17.898,19.668h345.066c9.887,0,17.902-8.806,17.902-19.668v-10.341 v-7.096v-53.512v-18.062v-25.135l-58.82-127.121H337.469z M256,410.493c-39.942,0-72.32-32.38-72.32-72.322 c0-39.942,32.379-72.322,72.32-72.322s72.32,32.38,72.32,72.322C328.32,378.113,295.942,410.493,256,410.493z"
-                              ></path>{" "}
-                              <path
-                                fill="currentColor"
-                                d="M434.02,70.476c-38.508-16.331-123.258-25.9-178.02-25.9c-53.02,0-139.512,9.568-178.02,25.9 C39.016,87,0,123.985,0,167.556c0,23.89,11.906,38.075,14.754,41.373c0,0,16.304,0,20.652,0h24.308c13.367,0,29.328,0,37.938,0 c4.934,0,15.734-21.419,15.734-30.166c0-15.386-8.148-36.78-8.148-36.78c0.469-10.588,4.676-18.324,21.918-25.736 c31.262-13.438,100.019-14.041,128.844-14.041c28.824,0,97.582,0.604,128.844,14.041c17.242,7.412,21.449,15.148,21.918,25.736 c0,0-8.148,21.394-8.148,36.78c0,8.747,10.801,30.166,15.734,30.166c8.606,0,24.566,0,37.938,0h24.308c4.348,0,20.652,0,20.652,0 c2.848-3.298,14.754-17.484,14.754-41.373C512,123.985,472.984,87,434.02,70.476z"
-                              ></path>{" "}
-                            </g>{" "}
-                          </g>
-                        </svg>
-                      </div>
+                      <svg
+                        className="text-gray-400 w-3 h-3 font-normal font-['Inter'] leading-tight"
+                        version="1.1"
+                        id="_x32_"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlnsXlink="http://www.w3.org/1999/xlink"
+                        viewBox="0 0 512 512"
+                        xmlSpace="preserve"
+                        fill="currentColor"
+                      >
+                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                        <g
+                          id="SVGRepo_tracerCarrier"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        ></g>
+                        <g id="SVGRepo_iconCarrier">
+                          <style type="text/css"> </style>{" "}
+                          <g>
+                            <path
+                              fill="currentColor"
+                              d="M337.469,206.488v-79.735l-42.812,7.654v32.814H217.34v-32.814l-42.809-7.654v79.735h-50.883L65.566,333.609 v25.135v18.062v53.512v7.096v10.341c0,10.862,8.016,19.668,17.898,19.668h345.066c9.887,0,17.902-8.806,17.902-19.668v-10.341 v-7.096v-53.512v-18.062v-25.135l-58.82-127.121H337.469z M256,410.493c-39.942,0-72.32-32.38-72.32-72.322 c0-39.942,32.379-72.322,72.32-72.322s72.32,32.38,72.32,72.322C328.32,378.113,295.942,410.493,256,410.493z"
+                            ></path>{" "}
+                            <path
+                              fill="currentColor"
+                              d="M434.02,70.476c-38.508-16.331-123.258-25.9-178.02-25.9c-53.02,0-139.512,9.568-178.02,25.9 C39.016,87,0,123.985,0,167.556c0,23.89,11.906,38.075,14.754,41.373c0,0,16.304,0,20.652,0h24.308c13.367,0,29.328,0,37.938,0 c4.934,0,15.734-21.419,15.734-30.166c0-15.386-8.148-36.78-8.148-36.78c0.469-10.588,4.676-18.324,21.918-25.736 c31.262-13.438,100.019-14.041,128.844-14.041c28.824,0,97.582,0.604,128.844,14.041c17.242,7.412,21.449,15.148,21.918,25.736 c0,0-8.148,21.394-8.148,36.78c0,8.747,10.801,30.166,15.734,30.166c8.606,0,24.566,0,37.938,0h24.308c4.348,0,20.652,0,20.652,0 c2.848-3.298,14.754-17.484,14.754-41.373C512,123.985,472.984,87,434.02,70.476z"
+                            ></path>{" "}
+                          </g>{" "}
+                        </g>
+                      </svg>
                       <div style={{ textTransform: "capitalize" }}>
                         {schoolDetails.SchoolPhone.trim()}
                       </div>
@@ -166,7 +263,6 @@ export default function ReportPage() {
                     </button>
                   </div>
                   <div className="inline-flex flex-col items-start justify-start pl-6">
-                    {" "}
                     <button
                       type="button"
                       className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-500 focus:outline-none  rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -183,7 +279,7 @@ export default function ReportPage() {
               <div className="w-full md:w-1/2">
                 <form className="flex items-center">
                   <label htmlFor="simple-search" className="sr-only">
-                    Search
+                    Search by Name or index number
                   </label>
                   <div className="relative w-full search">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -206,11 +302,16 @@ export default function ReportPage() {
                       id="simple-search"
                       className="w-full p-2 pl-48 text-sm text-gray-900 border border-gray-300 rounded-lg form-control bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       placeholder="Search"
+                      onChange={(e) => {
+                        setSearchValue(e.target.value);
+                      }}
+                      defaultValue={searchValue}
                     />
 
                     <button
                       className="h-full px-3 btn btn-primary"
                       type="button"
+                      onClick={searchStudent}
                     >
                       Search
                     </button>

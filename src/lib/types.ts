@@ -35,6 +35,8 @@ export type TStoreActions = {
     DataHandler: (schoolDetails: TSchoolDetails, acedamicDetail: TAcedamicDetails, studentData: TStudentDataFile) => void,
     setLoading: (loading: boolean) => void
     setHeader: (header: string[]) => void
+    resetDatabase: () => void
+    searchAction: (search: string) => void
 }
 
 export type TStoreState = {
