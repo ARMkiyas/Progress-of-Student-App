@@ -15,7 +15,7 @@ export const TempStudentData: TStudentData[] = [
 
         "name": 'riswan',
 
-        "index": 3951,
+        "index": "3951",
 
         "subjects": [
 
@@ -43,7 +43,7 @@ export const TempStudentData: TStudentData[] = [
 
         "name": 'farnas',
 
-        "index": 1004,
+        "index": "1004",
 
         "subjects": [
 
@@ -71,7 +71,7 @@ export const TempStudentData: TStudentData[] = [
 
         "name": 'hgkjk',
 
-        "index": 4365,
+        "index": "4365",
 
         "subjects": [
 
@@ -99,7 +99,7 @@ export const TempStudentData: TStudentData[] = [
 
         "name": 'kiyas',
 
-        "index": 1002,
+        "index": "1002",
 
         "subjects": [
 
@@ -124,7 +124,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "John",
-        "index": 1234,
+        "index": "1234",
         "subjects": [
             { "maths": 75 },
             { "science": 85 },
@@ -138,7 +138,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Alice",
-        "index": 5678,
+        "index": "5678",
         "subjects": [
             { "maths": 95 },
             { "science": 92 },
@@ -152,7 +152,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Ella",
-        "index": 9012,
+        "index": "9012",
         "subjects": [
             { "maths": 80 },
             { "science": 78 },
@@ -166,7 +166,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Aisha",
-        "index": 1001,
+        "index": "1001",
         "subjects": [
             { "maths": 85 },
             { "science": 80 },
@@ -180,7 +180,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Balaji",
-        "index": 2003,
+        "index": "2003",
         "subjects": [
             { "maths": 75 },
             { "science": 70 },
@@ -194,7 +194,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Chella",
-        "index": 3005,
+        "index": "3005",
         "subjects": [
             { "maths": 65 },
             { "science": 60 },
@@ -208,7 +208,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Dinesh",
-        "index": 4007,
+        "index": "4007",
         "subjects": [
             { "maths": 55 },
             { "science": 50 },
@@ -222,7 +222,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Esther",
-        "index": 5009,
+        "index": "5009",
         "subjects": [
             { "maths": 45 },
             { "science": 40 },
@@ -236,7 +236,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Aiswarya",
-        "index": 1001,
+        "index": "1001",
         "subjects": [
             { "maths": 95 },
             { "science": 90 },
@@ -250,7 +250,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Bharath",
-        "index": 2003,
+        "index": "2003",
         "subjects": [
             { "maths": 80 },
             { "science": 75 },
@@ -264,7 +264,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Charulatha",
-        "index": 3005,
+        "index": "3005",
         "subjects": [
             { "maths": 70 },
             { "science": 65 },
@@ -278,7 +278,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Dinesh",
-        "index": 4007,
+        "index": "4007",
         "subjects": [
             { "maths": 60 },
             { "science": 55 },
@@ -292,7 +292,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Esther",
-        "index": 5009,
+        "index": "5009",
         "subjects": [
             { "maths": 50 },
             { "science": 45 },
@@ -306,7 +306,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Fathima",
-        "index": 6011,
+        "index": "6011",
         "subjects": [
             { "maths": 90 },
             { "science": 85 },
@@ -320,7 +320,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Gnaneswaran",
-        "index": 7013,
+        "index": "7013",
         "subjects": [
             { "maths": 80 },
             { "science": 75 },
@@ -334,7 +334,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Harsha",
-        "index": 8015,
+        "index": "8015",
         "subjects": [
             { "maths": 70 },
             { "science": 65 },
@@ -348,7 +348,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Ishan",
-        "index": 9017,
+        "index": "9017",
         "subjects": [
             { "maths": 60 },
             { "science": 55 },
@@ -362,7 +362,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Janani",
-        "index": 10019,
+        "index": "10019",
         "subjects": [
             { "maths": 50 },
             { "science": 45 },
@@ -376,7 +376,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Karthik",
-        "index": 11021,
+        "index": "11021",
         "subjects": [
             { "maths": 95 },
             { "science": 90 },
@@ -390,7 +390,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Lakshmi",
-        "index": 12023,
+        "index": "12023",
         "subjects": [
             { "maths": 80 },
             { "science": 75 },
@@ -404,7 +404,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Mohan",
-        "index": 13025,
+        "index": "13025",
         "subjects": [
             { "maths": 70 },
             { "science": 65 },
@@ -418,7 +418,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Nalini",
-        "index": 14027,
+        "index": "14027",
         "subjects": [
             { "maths": 60 },
             { "science": 55 },
@@ -432,7 +432,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Oviya",
-        "index": 15029,
+        "index": "15029",
         "subjects": [
             { "maths": 50 },
             { "science": 45 },

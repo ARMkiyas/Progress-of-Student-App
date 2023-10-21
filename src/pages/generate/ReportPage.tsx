@@ -1,11 +1,17 @@
 import useStore from "@/lib/store";
-import { useDebouncedState, useListState, usePagination } from "@mantine/hooks";
+import {
+  useDebouncedState,
+  getHotkeyHandler,
+  usePagination,
+} from "@mantine/hooks";
 
 import "./style.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Modal, Tooltip, CustomFlowbiteTheme } from "flowbite-react";
 import { useLiveQuery } from "dexie-react-hooks";
 import db from "@/lib/models/db";
+import AlertModel from "./componets/AlertModel";
+import EditModel from "./componets/EditModel";
 
 const ITEM_PER_PAGE = 10;
 
@@ -19,9 +25,13 @@ export default function ReportPage() {
     searchAction,
   } = useStore();
 
+  useEffect(() => {
+    setItems(studentData.slice(0, ITEM_PER_PAGE));
+  }, [studentData]);
+
   const [openModal, setOpenModal] = useState<string | undefined>();
 
-  const [items, setItems] = useState(studentData.slice(0, ITEM_PER_PAGE));
+  const [items, setItems] = useState([]);
 
   const { range, setPage, active, next, previous } = usePagination({
     initialPage: 1,
@@ -33,7 +43,7 @@ export default function ReportPage() {
     },
   });
 
-  const [searchValue, setSearchValue] = useDebouncedState("", 500);
+  const [searchValue, setSearchValue] = useDebouncedState("", 200);
 
   const resetAll = () => {
     resetDatabase();
@@ -44,53 +54,14 @@ export default function ReportPage() {
     searchAction(searchValue);
   };
 
-  console.log(studentData);
-
   return (
     <>
-      <Modal
-        show={openModal === "pop-up-reset"}
-        size="lg"
-        popup
-        onClose={() => setOpenModal(undefined)}
-      >
-        <Modal.Header />
-        <Modal.Body>
-          <div className="text-center">
-            <svg
-              className="mx-auto mb-4 text-gray-400 h-14 w-14 dark:text-gray-200"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-
-            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Are you sure you want to Reset and Clear all ?
-            </h3>
-            <div className="flex justify-center gap-4">
-              <Button className="border-0 " color="failure" onClick={resetAll}>
-                Yes, I'm sure
-              </Button>
-              <Button
-                color="gray"
-                className="border-0 "
-                onClick={() => setOpenModal(undefined)}
-              >
-                No, cancel
-              </Button>
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal>
+      <AlertModel
+        ModalText="Are you sure you want to Reset and Clear all ?"
+        YesFunc={resetAll}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
 
       <section className="p-3 sm:p-5">
         <div className="max-w-screen-xl px-4 mx-auto lg:px-12">
@@ -100,7 +71,7 @@ export default function ReportPage() {
                 type="button"
                 className="absolute top-0 right-0 flex items-center p-3 "
                 onClick={() => {
-                  setOpenModal("pop-up-reset");
+                  setOpenModal("pop-up");
                 }}
               >
                 <Tooltip content="reset/Clear All" placement="top">
@@ -279,7 +250,7 @@ export default function ReportPage() {
               <div className="w-full md:w-1/2">
                 <form className="flex items-center">
                   <label htmlFor="simple-search" className="sr-only">
-                    Search by Name or index number
+                    Search by Name or Index number
                   </label>
                   <div className="relative w-full search">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -301,11 +272,12 @@ export default function ReportPage() {
                       type="text"
                       id="simple-search"
                       className="w-full p-2 pl-48 text-sm text-gray-900 border border-gray-300 rounded-lg form-control bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      placeholder="Search"
+                      placeholder="Search by Name or index number"
                       onChange={(e) => {
                         setSearchValue(e.target.value);
                       }}
                       defaultValue={searchValue}
+                      onKeyDown={getHotkeyHandler([["enter", searchStudent]])}
                     />
 
                     <button

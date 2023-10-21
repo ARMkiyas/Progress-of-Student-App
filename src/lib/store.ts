@@ -59,9 +59,20 @@ const actions = (set) => ({
         console.log(search);
 
 
-        const data = await db.studentData.where("index").startsWith(search).toArray();
+        if (search.trim() === '') {
 
-        console.log(data);
+            const data = await db.studentData.toArray()
+            return set({ studentData: data })
+        }
+
+
+        const dataofindex = await db.studentData.where('index').startsWithIgnoreCase(search.trim()).toArray()
+        const dataofname = await db.studentData.where('name').startsWithIgnoreCase(search.trim()).toArray()
+
+        console.log(Array.prototype.concat(dataofindex, dataofname));
+
+
+        return set({ studentData: Array.prototype.concat(dataofindex, dataofname) })
 
     }
 

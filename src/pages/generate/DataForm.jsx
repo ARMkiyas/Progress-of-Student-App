@@ -1,14 +1,10 @@
 import { useState } from "react";
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
 import { useDebouncedState } from '@mantine/hooks';
 import { cn } from "@/lib/utils";
 import { z } from "zod";
 import { Button } from "@/components/ui/ui/button";
-import { Input } from "@/components/ui/ui/input";
-import { handleFileRead } from "@/lib/datafilehandler.ts";
-import { Calendar } from "@/components/ui/ui/calendar";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/ui/popover";
+import SchoolFormGroup from "./componets/SchoolFormGroup";
+import AceFormGroup from "./componets/AceFormGroup"
 import { SchoolDetailSchema, AcedamicDetailSchema, StudentDataschema } from "@/lib/schema.ts";
 import useStore from "@/lib/store.ts";
 
@@ -45,6 +41,8 @@ export default function DataForm() {
     const [invalidinput, setinvalidinput] = useState([]);
 
 
+    console.log(invalidinput);
+    console.log(invalidinput.includes('file'));
 
     // data input feild onChange event handler
 
@@ -83,6 +81,7 @@ export default function DataForm() {
 
 
         if ((type === "next" && step <= 3)) {
+            console.log("next");
             const validation = step === 1 ? SchoolDetailSchema.safeParse(schoolDetails) : step === 2 ? AcedamicDetailSchema.safeParse(acedamicDetails) : StudentDataschema.safeParse({ file: datafile });
 
 
@@ -91,7 +90,19 @@ export default function DataForm() {
             validation.success ? step < 3 ? setStep(step + 1) : null : setinvalidinput(validation.error.issues.map((item) => item.path[0]));
         }
 
-        if (type === "next" && step === 3 && invalidinput) {
+        if (type === "next" && step === 3 && datafile) {
+
+            // checking file format 
+            const fileformat = datafile.name.split(".").pop();
+            const filesize = (datafile.size / 1000000).toFixed(2);
+
+
+            if (fileformat !== "xlsx" || filesize > 100) {
+                setdatafile(null);
+                setinvalidinput(["file"]);
+                return;
+            }
+
             setLoading(true);
             await DataHandler(schoolDetails, acedamicDetails, datafile);
             setLoading(false);
@@ -234,176 +245,14 @@ export default function DataForm() {
                             // <!-- Step 1 -->
                             step === 1 && (
                                 <div className="space-y-9 animate__animated animate__fadeIn animate__fast">
-                                    <div className="">
-                                        <label
-                                            htmlFor="schoolname"
-                                            className="block mb-1 font-bold form-label"
-                                        >
-                                            School Name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className={"w-full px-4 py-3 font-medium rounded-lg shadow-sm focus:outline-none focus:shadow-outline form-control" + (invalidinput.includes("schoolname") ? " is-invalid" : "")}
-                                            placeholder="Your school name..."
-                                            id="schoolname"
-                                            value={schoolDetails.schoolname}
-                                            onChange={inputHandeler}
-                                        />
-                                        <div id="schoolnameFeedback" className="invalid-feedback">
-                                            School Name can not be empty .
-                                        </div>
-                                    </div>
-                                    <div className="">
-                                        <label
-                                            htmlFor="SchoolAddress"
-                                            className="block mb-1 font-bold form-label"
-                                        >
-                                            School Address
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className={"w-full px-4 py-3 font-medium rounded-lg shadow-sm focus:outline-none focus:shadow-outline form-control" + (invalidinput.includes("SchoolAddress") ? " is-invalid" : "")}
-                                            placeholder="Your school name..."
-                                            id="SchoolAddress"
-                                            value={schoolDetails.SchoolAddress}
-                                            onChange={inputHandeler}
-                                        />
-                                        <div id="SchoolAddressFeedback" className="invalid-feedback">
-                                            School Address can not be empty .
-                                        </div>
-                                    </div>
-                                    <div className="">
-                                        <label
-                                            htmlFor="SchoolEmail"
-                                            className="block mb-1 font-bold form-label"
-                                        >
-                                            School Email
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className={"w-full px-4 py-3 font-medium rounded-lg shadow-sm focus:outline-none focus:shadow-outline form-control" + (invalidinput.includes("SchoolEmail") ? " is-invalid" : "")}
-                                            placeholder="abcd@school.com"
-                                            id="SchoolEmail"
-                                            value={schoolDetails.SchoolEmail}
-                                            onChange={inputHandeler}
-
-                                        />
-                                        <div id="SchoolEmailFeedback" className="invalid-feedback">
-                                            School Email can not be empty or invalid
-                                        </div>
-                                    </div>
-                                    <div className="">
-                                        <label
-                                            htmlFor="SchoolPhone"
-                                            className="block mb-1 font-bold form-label"
-                                        >
-                                            School Phone
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className={"w-full px-4 py-3 font-medium rounded-lg shadow-sm focus:outline-none focus:shadow-outline form-control" + (invalidinput.includes("SchoolPhone") ? " is-invalid" : "")}
-                                            placeholder="+94123456789"
-                                            id="SchoolPhone"
-                                            value={schoolDetails.SchoolPhone}
-                                            onChange={inputHandeler}
-                                            maxLength={12}
-                                            minLength={12}
-                                        />
-                                        <div id="SchoolPhoneFeedback" className="invalid-feedback">
-                                            School Phone Number can not be empty or invalid
-
-
-                                        </div>
-                                    </div>
+                                    <SchoolFormGroup inputHandeler={inputHandeler} invalidinput={invalidinput} state={schoolDetails} />
                                 </div>
                             )
                         }
 
                         {step === 2 && (
                             <div className="mb-5 animate__animated animate__fadeIn animate__fast space-y-9">
-
-
-
-                                <div className="relative">
-                                    <label
-                                        htmlFor="Grade"
-                                        className="block mb-1 font-bold form-label"
-                                    >
-                                        Grade
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className={"w-full px-4 py-3 font-medium rounded-lg shadow-sm focus:outline-none focus:shadow-outline form-control" + (invalidinput.includes("Grade") ? " is-invalid" : "")}
-                                        placeholder="Your school name..."
-                                        id="Grade"
-                                        value={acedamicDetails.Grade}
-                                        onChange={inputHandeler}
-                                    />
-                                    <div id="GradeFeedback" className="invalid-feedback">
-                                        Grade can not be empty .
-                                    </div>
-
-                                </div>
-                                <div className="relative">
-                                    <label
-                                        htmlFor="Term"
-                                        className="block mb-1 font-bold form-label"
-                                    >
-                                        Term
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className={"w-full px-4 py-3 font-medium rounded-lg shadow-sm focus:outline-none focus:shadow-outline form-control" + (invalidinput.includes("Term") ? " is-invalid" : "")}
-                                        placeholder="Your school name..."
-                                        id="Term"
-                                        value={acedamicDetails.Term}
-                                        onChange={inputHandeler}
-                                    />
-                                    <div id="TermFeedback" className="invalid-feedback">
-                                        Term can not be empty .
-                                    </div>
-
-                                </div>
-
-
-                                <div className="relative">
-                                    <label
-                                        htmlFor="SchoolYear"
-                                        className="block mb-1 font-bold form-label"
-                                    >
-                                        Acedamic Year
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className={"w-full px-4 py-3 font-medium rounded-lg shadow-sm focus:outline-none focus:shadow-outline form-control" + (invalidinput.includes("SchoolYear") ? " is-invalid" : "")}
-                                        placeholder="Your school name..."
-                                        id="SchoolYear"
-                                        value={acedamicDetails.SchoolYear}
-                                        onChange={inputHandeler}
-                                    />
-                                    <div id="SchoolYearFeedback" className="invalid-feedback">
-                                        Acedamic Year can not be empty .
-                                    </div>
-                                </div>
-                                <div className="relative">
-                                    <label
-                                        htmlFor="ClassTeacherName"
-                                        className="block mb-1 font-bold form-label"
-                                    >
-                                        Class Teacher Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className={"w-full px-4 py-3 font-medium rounded-lg shadow-sm focus:outline-none focus:shadow-outline form-control" + (invalidinput.includes("ClassTeacherName") ? " is-invalid" : "")}
-                                        placeholder="Your school name..."
-                                        id="ClassTeacherName"
-                                        value={acedamicDetails.ClassTeacherName}
-                                        onChange={inputHandeler}
-                                    />
-                                    <div id="ClassTeacherNameFeedback" className="invalid-feedback">
-                                        Class Teacher Name can not be empty .
-                                    </div>
-                                </div>
+                                <AceFormGroup inputHandeler={inputHandeler} invalidinput={invalidinput} state={acedamicDetails} />
                                 {/* <div :className="{ 'bg-red-400': passwordStrengthText == 'Too weak' ||  passwordStrengthText == 'Could be stronger' || passwordStrengthText == 'Strong password' }" className="w-1/3 h-2 mr-1 bg-gray-300 rounded-full"></div>
                     <div :className="{ 'bg-orange-400': passwordStrengthText == 'Could be stronger' || passwordStrengthText == 'Strong password' }" className="w-1/3 h-2 mr-1 bg-gray-300 rounded-full"></div>
                     <div :className="{ 'bg-green-400': passwordStrengthText == 'Strong password' }" className="w-1/3 h-2 bg-gray-300 rounded-full"></div> */}
@@ -448,7 +297,7 @@ export default function DataForm() {
                                                 }
 
                                                 <p className={`mb-2 text-sm  ${invalidinput.includes("file") & !datafile ? "text-red-500 dark:text-red-400" : "text-gray-500 dark:text-gray-400"} `}><span className="font-semibold">Click to upload  or drag and drop </span></p>
-                                                <p className={`text-xs ${invalidinput.includes("file") & !datafile ? "text-red-500 dark:text-red-400" : "text-gray-500 dark:text-gray-400"}`}>Excel File (xlsx) or CSV (MAX SIZE. 10mb)</p>
+                                                <p className={`text-xs ${invalidinput.includes("file") & !datafile ? "text-red-500 dark:text-red-400" : "text-gray-500 dark:text-gray-400"}`}>Excel File (xlsx) or CSV (MAX SIZE. 100mb)</p>
                                             </div>
                                             <input id="dropzone-file" type="file" className="hidden" accept=".xlsx" />
 

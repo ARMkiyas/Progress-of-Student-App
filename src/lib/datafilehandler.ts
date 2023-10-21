@@ -30,7 +30,7 @@ export const handleFileRead = async (file: any) => {
 
             header?.forEach((column: any, index: any) => {
                 if (column === 'name' || column === 'index') {
-                    details[column] = row[index]
+                    details[column] = String(row[index]).trim()
                 }
                 else {
                     total = total + row[index]
@@ -67,6 +67,9 @@ export const handleFileRead = async (file: any) => {
         // set header to state for table header
 
         useStore.setState({ header: Array.prototype.concat(header, ["Total,", "Avarage", "Rank"]) })
+
+        console.log(sortedarr);
+
 
         return sortedarr
     }

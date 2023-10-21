@@ -13,7 +13,7 @@ export interface TStudentDetails {
 }
 
 export type TStudentData = {
-    index?: number,
+    index?: string,
     totalMark: number,
     avarage: number,
     subjects: TSubject[],

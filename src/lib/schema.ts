@@ -22,5 +22,5 @@ export const AcedamicDetailSchema = z.object({
 })
 
 export const StudentDataschema = z.object({
-  file: z.instanceof(File).refine((File) => File.type === "application/vnd.ms-excel", { message: "Invalid file type" }),
+  file: z.instanceof(File)
 })
