@@ -76,11 +76,10 @@ export default function Cruosal() {
                         Welcome to <span>POS</span>
                       </h2>
                       <p className="animate__animated animate__fadeInUp">
-                        Ut velit est quam dolor ad a aliquid qui aliquid. Sequi
-                        ea ut et est quaerat sequi nihil ut aliquam. Occaecati
-                        alias dolorem mollitia ut. Similique ea voluptatem. Esse
-                        doloremque accusamus repellendus deleniti vel. Minus et
-                        tempore modi architecto.
+                       The Progress of Student is the, One such advancement in the
+                        creation of students' progress reports in online, PDF format. 
+                        This innovative approach saves time, resources and provides a convenient 
+                        and secure methed.  
                       </p>
 
                       <GetStarted />
@@ -98,14 +97,14 @@ export default function Cruosal() {
                   <div className="carousel-container">
                     <div className="carousel-content">
                       <h2 className="animate__animated animate__fadeInDown">
-                        Lorem Ipsum Dolor
+                      The Utilization of POS
                       </h2>
                       <p className="animate__animated animate__fadeInUp">
-                        Ut velit est quam dolor ad a aliquid qui aliquid. Sequi
-                        ea ut et est quaerat sequi nihil ut aliquam. Occaecati
-                        alias dolorem mollitia ut. Similique ea voluptatem. Esse
-                        doloremque accusamus repellendus deleniti vel. Minus et
-                        tempore modi architecto.
+                      The process of creating and distributing students' progress reports. 
+                      This digital transformation offers numerous benefits, such as real-time 
+                      access to student performance data, reduced administrative workload, 
+                      and enhanced data security.
+
                       </p>
 
                       <GetStarted />
@@ -120,14 +119,13 @@ export default function Cruosal() {
                   <div className="carousel-container">
                     <div className="carousel-content">
                       <h2 className="animate__animated animate__fadeInDown">
-                        Sequi ea ut et est quaerat
+                      Process for crafting POS
                       </h2>
                       <p className="animate__animated animate__fadeInUp">
-                        Ut velit est quam dolor ad a aliquid qui aliquid. Sequi
-                        ea ut et est quaerat sequi nihil ut aliquam. Occaecati
-                        alias dolorem mollitia ut. Similique ea voluptatem. Esse
-                        doloremque accusamus repellendus deleniti vel. Minus et
-                        tempore modi architecto.
+                      We will guide the step-by-step process of creating students' 
+                      progress reports online in PDF format. We will cover the tools 
+                      and techniques required to ensure a smooth transition to a 
+                      digital progress reporting system.
                       </p>
 
                       <GetStarted />
