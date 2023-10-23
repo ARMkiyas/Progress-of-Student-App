@@ -5,7 +5,7 @@ import { TAcedamicDetails, TSchoolDetails, TStudentData } from '../types';
 class DB extends Dexie {
     schoolDetails: Table<TSchoolDetails, number>
     acedamicDetail: Table<TAcedamicDetails, number>
-    studentData: Table<TStudentData>
+    studentData: Table<TStudentData, number>
     header: Table<string[], number>
 
     constructor() {
@@ -13,7 +13,7 @@ class DB extends Dexie {
         this.version(1).stores({
             schoolDetails: "++id",
             acedamicDetail: "++id",
-            studentData: "index",
+            studentData: "index,name",
             header: "++id"
 
         })

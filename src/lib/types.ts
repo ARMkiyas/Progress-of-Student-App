@@ -13,7 +13,8 @@ export interface TStudentDetails {
 }
 
 export type TStudentData = {
-    index?: number,
+
+    index?: string,
     totalMark: number,
     avarage: number,
     subjects: TSubject[],
@@ -24,19 +25,26 @@ export type TStudentData = {
 
 // store types
 
-export type TSchoolDetails = z.infer<typeof SchoolDetailSchema>
-export type TAcedamicDetails = z.infer<typeof AcedamicDetailSchema>
+export type TSchoolDetails = {
+    id?: number,
+} & z.infer<typeof SchoolDetailSchema>
+export type TAcedamicDetails = {
+    id?: number,
+} & z.infer<typeof AcedamicDetailSchema>
 export type TStudentDataFile = z.infer<typeof StudentDataschema>
 
 
 
 export type TStoreActions = {
 
-    DataHandler: (schoolDetails: TSchoolDetails, acedamicDetail: TAcedamicDetails, studentData: TStudentDataFile) => void,
-    setLoading: (loading: boolean) => void
+    DataHandler: (schoolDetails: TSchoolDetails, acedamicDetail: TAcedamicDetails, studentData: TStudentDataFile) => Promise<void>,
+    setLoading: (loading: boolean) => Boolean
     setHeader: (header: string[]) => void
-    resetDatabase: () => void
-    searchAction: (search: string) => void
+    resetDatabase: () => Promise<void>
+    searchAction: (search: string) => Promise<void>
+    updateSchool: (schoolDetails: TSchoolDetails) => Promise<boolean | void>
+    updateAcedamic: (acedamicDetail: TAcedamicDetails) => Promise<boolean | void>
+    setupdatebtnspinner: (updatebtnspinner: boolean) => void
 }
 
 export type TStoreState = {
@@ -45,6 +53,7 @@ export type TStoreState = {
     studentData: TStudentData[] | undefined,
     loading: boolean,
     header: string[] | undefined
+    updatebtnspinner: boolean
 }
 
 
