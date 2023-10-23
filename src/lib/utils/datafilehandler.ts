@@ -1,8 +1,8 @@
 
 import readXlsxFile from 'read-excel-file'
-import { TSubject, TStudentDetails, TStudentData } from './types'
+import { TSubject, TStudentDetails, TStudentData } from '../types'
 import Papa from 'papaparse';
-import useStore from './store';
+import useStore from '../state/store';
 
 
 

@@ -1,4 +1,4 @@
-import useStore from "@/lib/store";
+import useStore from "@/lib/state/store";
 import {
   useDebouncedState,
   getHotkeyHandler,
@@ -12,6 +12,8 @@ import { useLiveQuery } from "dexie-react-hooks";
 import db from "@/lib/models/db";
 import AlertModel from "./componets/AlertModel";
 import EditModel from "./componets/EditModel";
+import ResetAllBtn from "./componets/ResetAllBtn";
+import DataTable from "./componets/DataTable";
 
 const ITEM_PER_PAGE = 10;
 
@@ -29,7 +31,12 @@ export default function ReportPage() {
     setItems(studentData.slice(0, ITEM_PER_PAGE));
   }, [studentData]);
 
-  const [openModal, setOpenModal] = useState<string | undefined>();
+  const [openAlertModel, setOpenAlertModel] = useState<string | undefined>();
+
+  const [openEditModel, setOpenEditModel] = useState({
+    type: "acedamic" as "acedamic" | "school",
+    open: false,
+  });
 
   const [items, setItems] = useState([]);
 
@@ -47,7 +54,7 @@ export default function ReportPage() {
 
   const resetAll = () => {
     resetDatabase();
-    setOpenModal("undefined");
+    setOpenAlertModel("undefined");
   };
 
   const searchStudent = () => {
@@ -59,45 +66,23 @@ export default function ReportPage() {
       <AlertModel
         ModalText="Are you sure you want to Reset and Clear all ?"
         YesFunc={resetAll}
-        openModal={openModal}
-        setOpenModal={setOpenModal}
+        openModal={openAlertModel}
+        setOpenModal={setOpenAlertModel}
+      />
+
+      <EditModel
+        openModal={openEditModel}
+        setOpenModal={setOpenEditModel}
+        Editdata={
+          openEditModel.type === "acedamic" ? acedamicDetail : schoolDetails
+        }
       />
 
       <section className="p-3 sm:p-5">
         <div className="max-w-screen-xl px-4 mx-auto lg:px-12">
           <div className="relative overflow-hidden shadow-md dark:bg-gray-800 sm:rounded-lg">
             <div className="inline-flex flex-col items-start justify-start pl-6 ">
-              <button
-                type="button"
-                className="absolute top-0 right-0 flex items-center p-3 "
-                onClick={() => {
-                  setOpenModal("pop-up");
-                }}
-              >
-                <Tooltip content="reset/Clear All" placement="top">
-                  <div className="w-6 h-6 ">
-                    <svg
-                      viewBox="0 0 16 16"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                    >
-                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                      <g
-                        id="SVGRepo_tracerCarrier"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></g>
-                      <g id="SVGRepo_iconCarrier">
-                        {" "}
-                        <path
-                          d="m 6.976562 -0.0195312 c -0.800781 0.0078124 -1.59375 0.3125002 -2.203124 0.9101562 l -2.773438 2.707031 v -0.597656 c 0 -0.550781 -0.449219 -1 -1 -1 s -1 0.449219 -1 1 v 3 c 0 0.550781 0.449219 1 1 1 h 3 c 0.550781 0 1 -0.449219 1 -1 s -0.449219 -1 -1 -1 h -0.574219 l 2.753907 -2.707031 c 0.367187 -0.359375 1.246093 -0.367188 1.601562 -0.019531 l 5.519531 5.4375 c 0.390625 0.390624 1.023438 0.382812 1.410157 -0.011719 c 0.390624 -0.390625 0.382812 -1.023438 -0.007813 -1.410157 l -5.519531 -5.417968 c -0.613282 -0.601563 -1.410156 -0.8906252 -2.207032 -0.8906252 z m -4.828124 8.0312502 c -0.316407 -0.046875 -0.636719 0.058593 -0.859376 0.289062 c -0.386718 0.390625 -0.386718 1.023438 0.007813 1.410157 l 5.484375 5.378906 c 0.617188 0.609375 1.4375 0.875 2.242188 0.882812 c 0.804687 0.007813 1.636718 -0.246094 2.265624 -0.871094 l 2.710938 -2.6875 v 0.585938 c 0 0.550781 0.449219 1 1 1 s 1 -0.449219 1 -1 v -3 c 0 -0.550781 -0.449219 -1 -1 -1 h -3 c -0.550781 0 -1 0.449219 -1 1 s 0.449219 1 1 1 h 0.585938 l -2.710938 2.710938 c -0.15625 0.15625 -0.476562 0.285156 -0.832031 0.28125 c -0.355469 0 -0.691407 -0.140626 -0.863281 -0.304688 l -5.480469 -5.398438 c -0.148438 -0.148437 -0.339844 -0.246093 -0.550781 -0.277343 z m 0 0"
-                          fill="currentColor"
-                        ></path>{" "}
-                      </g>
-                    </svg>
-                  </div>
-                </Tooltip>
-              </button>
+              <ResetAllBtn onClick={setOpenAlertModel} />
             </div>
 
             {/* top header */}
@@ -229,6 +214,12 @@ export default function ReportPage() {
                     <button
                       type="button"
                       className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-500 focus:outline-none  rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                      onClick={() => {
+                        setOpenEditModel({
+                          open: true,
+                          type: "school",
+                        });
+                      }}
                     >
                       Edit school Info
                     </button>
@@ -237,6 +228,12 @@ export default function ReportPage() {
                     <button
                       type="button"
                       className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-500 focus:outline-none  rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                      onClick={() => {
+                        setOpenEditModel({
+                          open: true,
+                          type: "acedamic",
+                        });
+                      }}
                     >
                       Edit Acedamic Info
                     </button>
@@ -474,150 +471,7 @@ export default function ReportPage() {
             </div>
             {/* body table */}
             <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                {/* table header */}
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                  <tr>
-                    {/* <th scope="col" className="px-4 py-3">
-                      Product name
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Category
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Brand
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Description
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Price
-                    </th> */}
-                    {header.map((item) => {
-                      return (
-                        item && (
-                          <th scope="col" className="px-4 py-3 " key={item}>
-                            <div className="flex justify-center w-full">
-                              {item}
-                            </div>
-                          </th>
-                        )
-                      );
-                    })}
-
-                    <th scope="col" className="px-4 py-3">
-                      <span className="flex justify-center w-full sr-only">
-                        Actions
-                      </span>
-                    </th>
-                  </tr>
-                </thead>
-                {/* table body */}
-                <tbody>
-                  {items.map((item, index) => {
-                    return (
-                      <tr
-                        className="border-b dark:border-gray-700"
-                        key={item.index}
-                      >
-                        <th
-                          scope="row"
-                          className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white "
-                        >
-                          <div className="flex justify-center w-full">
-                            {item.name}
-                          </div>
-                        </th>
-                        <td className="px-4 py-3">
-                          <div className="flex justify-center w-full">
-                            {item.index}
-                          </div>
-                        </td>
-                        {item.subjects.map((subject) => {
-                          return (
-                            <td className="px-4 py-3" key={Math.random()}>
-                              <div className="flex justify-center w-full">
-                                {Object.values(subject)}
-                              </div>
-                            </td>
-                          );
-                        })}
-
-                        <td className="px-4 py-3">
-                          <div className="flex justify-center w-full">
-                            {item.totalMark}
-                          </div>
-                        </td>
-                        <td className="px-4 py-3">
-                          <div className="flex justify-center w-full">
-                            {item.avarage}
-                          </div>
-                        </td>
-                        <td className="px-4 py-3">
-                          <div className="flex justify-center w-full">
-                            {item.rank}
-                          </div>
-                        </td>
-
-                        <td className="flex items-center justify-end px-4 py-3">
-                          <div className="flex justify-center w-full">
-                            <button
-                              id="apple-imac-27-dropdown-button"
-                              data-dropdown-toggle="apple-imac-27-dropdown"
-                              className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-                              type="button"
-                            >
-                              <svg
-                                className="w-5 h-5"
-                                aria-hidden="true"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                              </svg>
-                            </button>
-                            <div
-                              id="apple-imac-27-dropdown"
-                              className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
-                            >
-                              <ul
-                                className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                aria-labelledby="apple-imac-27-dropdown-button"
-                              >
-                                <li>
-                                  <a
-                                    href="#"
-                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                  >
-                                    Show
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    href="#"
-                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                  >
-                                    Edit
-                                  </a>
-                                </li>
-                              </ul>
-                              <div className="py-1">
-                                <a
-                                  href="#"
-                                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                >
-                                  Delete
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+              <DataTable TableData={items} TableHeader={header} />
             </div>
             {/* table footer */}
             <nav

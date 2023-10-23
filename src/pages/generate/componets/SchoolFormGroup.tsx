@@ -11,6 +11,8 @@ export default function SchoolFormGroup({
   inputHandeler,
   invalidinput,
 }: schoolFormGroupProps) {
+  console.log(state);
+
   return (
     <>
       <div className="">
@@ -25,7 +27,7 @@ export default function SchoolFormGroup({
           }
           placeholder="Your school name..."
           id="schoolname"
-          value={state.schoolname}
+          defaultValue={state.schoolname}
           onChange={inputHandeler}
         />
         <div id="schoolnameFeedback" className="invalid-feedback">
@@ -47,7 +49,7 @@ export default function SchoolFormGroup({
           }
           placeholder="Your school name..."
           id="SchoolAddress"
-          value={state.SchoolAddress}
+          defaultValue={state.SchoolAddress}
           onChange={inputHandeler}
         />
         <div id="SchoolAddressFeedback" className="invalid-feedback">
@@ -69,7 +71,7 @@ export default function SchoolFormGroup({
           }
           placeholder="abcd@school.com"
           id="SchoolEmail"
-          value={state.SchoolEmail}
+          defaultValue={state.SchoolEmail}
           onChange={inputHandeler}
         />
         <div id="SchoolEmailFeedback" className="invalid-feedback">
@@ -91,7 +93,7 @@ export default function SchoolFormGroup({
           }
           placeholder="+94123456789"
           id="SchoolPhone"
-          value={state.SchoolPhone}
+          defaultValue={state.SchoolPhone}
           onChange={inputHandeler}
           maxLength={12}
           minLength={12}

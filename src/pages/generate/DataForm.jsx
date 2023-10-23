@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useDebouncedState } from '@mantine/hooks';
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { z } from "zod";
 import { Button } from "@/components/ui/ui/button";
 import SchoolFormGroup from "./componets/SchoolFormGroup";
 import AceFormGroup from "./componets/AceFormGroup"
 import { SchoolDetailSchema, AcedamicDetailSchema, StudentDataschema } from "@/lib/schema.ts";
-import useStore from "@/lib/store.ts";
-
-
+import useStore from "@/lib/state/store";
+import useFormValidation from "@/lib/custom_hooks/useFormValidation"
 
 
 export default function DataForm() {
@@ -26,23 +25,23 @@ export default function DataForm() {
         SchoolAddress: "",
         SchoolEmail: "",
         SchoolPhone: "",
-    });
+    }, 100);
 
     const [acedamicDetails, setacedamicDetails] = useDebouncedState({
         Grade: "",
         Term: "",
         SchoolYear: "",
         ClassTeacherName: "",
-    });
+    }, 100);
 
 
 
 
-    const [invalidinput, setinvalidinput] = useState([]);
 
+    const [invalidinput, validate] = useFormValidation();
 
-    console.log(invalidinput);
-    console.log(invalidinput.includes('file'));
+    // const [invalidinput, setinvalidinput] = useState([]);
+
 
     // data input feild onChange event handler
 
@@ -79,18 +78,16 @@ export default function DataForm() {
             setStep(step - 1);
         }
 
+        let validation = false;
 
         if ((type === "next" && step <= 3)) {
-            console.log("next");
-            const validation = step === 1 ? SchoolDetailSchema.safeParse(schoolDetails) : step === 2 ? AcedamicDetailSchema.safeParse(acedamicDetails) : StudentDataschema.safeParse({ file: datafile });
 
+            validation = step === 1 ? validate(SchoolDetailSchema, schoolDetails) : step === 2 ? validate(AcedamicDetailSchema, acedamicDetails) : validate(StudentDataschema, { file: datafile });
 
-            validation && invalidinput.length !== 0 && setinvalidinput([])
-
-            validation.success ? step < 3 ? setStep(step + 1) : null : setinvalidinput(validation.error.issues.map((item) => item.path[0]));
+            validation && step < 3 ? setStep(step + 1) : null
         }
 
-        if (type === "next" && step === 3 && datafile) {
+        if (type === "next" && step === 3 && validation) {
 
             // checking file format 
             const fileformat = datafile.name.split(".").pop();

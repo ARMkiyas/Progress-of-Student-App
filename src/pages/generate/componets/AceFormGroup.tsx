@@ -25,7 +25,7 @@ export default function AceFormGroup({
           }
           placeholder="Your school name..."
           id="Grade"
-          value={state.Grade}
+          defaultValue={state.Grade}
           onChange={inputHandeler}
         />
         <div id="GradeFeedback" className="invalid-feedback">
@@ -44,7 +44,7 @@ export default function AceFormGroup({
           }
           placeholder="Your school name..."
           id="Term"
-          value={state.Term}
+          defaultValue={state.Term}
           onChange={inputHandeler}
         />
         <div id="TermFeedback" className="invalid-feedback">
@@ -64,7 +64,7 @@ export default function AceFormGroup({
           }
           placeholder="Your school name..."
           id="SchoolYear"
-          value={state.SchoolYear}
+          defaultValue={state.SchoolYear}
           onChange={inputHandeler}
         />
         <div id="SchoolYearFeedback" className="invalid-feedback">
@@ -86,7 +86,7 @@ export default function AceFormGroup({
           }
           placeholder="Your school name..."
           id="ClassTeacherName"
-          value={state.ClassTeacherName}
+          defaultValue={state.ClassTeacherName}
           onChange={inputHandeler}
         />
         <div id="ClassTeacherNameFeedback" className="invalid-feedback">

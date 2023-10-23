@@ -1,8 +1,8 @@
 import { create } from 'zustand';
-import { TStoreActions, TStoreState } from './types';
-import { handleFileRead } from "./datafilehandler";
-
-import { TempStudentData, TempAcedamicData, TempSchoolData, TempHeaderData } from './tempData/data';
+import { TStoreActions, TStoreState } from '../types';
+import { handleFileRead } from "../utils/datafilehandler";
+import initialState from './initialState';
+import { TempStudentData, TempAcedamicData, TempSchoolData, TempHeaderData } from '../tempData/data';
 
 
 import db, { resetDatabase } from "@/lib/models/db"
@@ -12,20 +12,9 @@ import db, { resetDatabase } from "@/lib/models/db"
 
 
 
-
-const initialState: TStoreState = {
-    schoolDetails: undefined,
-    acedamicDetail: undefined,
-    studentData: undefined,
-    loading: false,
-    header: undefined,
-}
-
-
-
 const actions = (set) => ({
 
-    DataHandler: async (schoolDetails, acedamicDetail, studentData) => {
+    async DataHandler(schoolDetails, acedamicDetail, studentData) {
 
 
         const data = await handleFileRead(studentData);
@@ -41,7 +30,7 @@ const actions = (set) => ({
 
     setLoading(loading) { return set({ loading }) },
 
-    async setHeader(header) {
+    setHeader(header) {
         return set({ header })
     },
 
@@ -74,8 +63,51 @@ const actions = (set) => ({
 
         return set({ studentData: Array.prototype.concat(dataofindex, dataofname) })
 
-    }
 
+    },
+
+
+    async updateSchool(schoolDetails) {
+
+        const data = await db.schoolDetails.toArray()
+
+
+        await db.schoolDetails.update(data[0].id, schoolDetails).then((updated) => {
+            if (updated) {
+                set({ schoolDetails })
+
+
+
+            } else {
+
+            }
+        }).catch((err) => {
+            console.log(err);
+
+
+        })
+
+
+    },
+
+
+    async updateAcedamic(acedamicDetail) {
+        const data = await db.acedamicDetail.toArray()
+        await db.acedamicDetail.update(data[0].id, acedamicDetail).then((updated) => {
+            if (updated) {
+                set({ acedamicDetail })
+
+            } else {
+
+            }
+        }).catch((err) => {
+            console.log(err);
+
+        })
+    },
+
+
+    setupdatebtnspinner(updatebtnspinner) { set({ updatebtnspinner: updatebtnspinner }) },
 
 
 
