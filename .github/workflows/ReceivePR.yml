@@ -1,0 +1,28 @@
+name: Receive PR
+
+# read-only repo token
+# no access to secrets
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+      - name: install dependacies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: node-app
+          path: dist/ # path to the build folder
