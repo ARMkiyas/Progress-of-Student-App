@@ -10,6 +10,9 @@ import useStore from "@/lib/state/store";
 import useFormValidation from "@/lib/custom_hooks/useFormValidation"
 
 
+const ValidFileFormats = ["xlsx", "csv"];
+
+
 export default function DataForm() {
 
     const { DataHandler, setLoading, loading } = useStore();
@@ -94,7 +97,9 @@ export default function DataForm() {
             const filesize = (datafile.size / 1000000).toFixed(2);
 
 
-            if (fileformat !== "xlsx" || filesize > 100) {
+
+
+            if (!ValidFileFormats.includes(fileformat) && filesize > 100) {
                 setdatafile(null);
                 setinvalidinput(["file"]);
                 return;
@@ -296,7 +301,7 @@ export default function DataForm() {
                                                 <p className={`mb-2 text-sm  ${invalidinput.includes("file") & !datafile ? "text-red-500 dark:text-red-400" : "text-gray-500 dark:text-gray-400"} `}><span className="font-semibold">Click to upload  or drag and drop </span></p>
                                                 <p className={`text-xs ${invalidinput.includes("file") & !datafile ? "text-red-500 dark:text-red-400" : "text-gray-500 dark:text-gray-400"}`}>Excel File (xlsx) or CSV (MAX SIZE. 100mb)</p>
                                             </div>
-                                            <input id="dropzone-file" type="file" className="hidden" accept=".xlsx" />
+                                            <input id="dropzone-file" type="file" className="hidden" accept=".xlsx,.csv" />
 
                                         </label>
 
