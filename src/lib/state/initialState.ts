@@ -7,7 +7,7 @@ const initialState: TStoreState = {
     acedamicDetail: undefined,
     studentData: undefined,
     loading: false,
-    header: undefined,
+    header: [],
     updatebtnspinner: false
 }
 

@@ -28,7 +28,7 @@ export default function useFormValidation() {
       if (!check.success) {
         const { error } = check as SafeParseError<TSchema>;
         console.log(error);
-        setInvalidinput(error.issues.map((e) => e.path[0]));
+        setInvalidinput(error.issues.map((e) => e.path[e.path.length - 1]));
         return false;
       }
 
@@ -38,8 +38,6 @@ export default function useFormValidation() {
       return error;
     }
   };
-
-  console.log(invalidinput);
 
   return [invalidinput, validate];
 }

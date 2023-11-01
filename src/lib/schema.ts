@@ -1,9 +1,12 @@
 
 import { z } from "zod";
-
+import useStore from "@/lib/state/store"
+import { calculatedData, studentDetailsOtherThenSubject } from "./utils/processFileData";
 
 
 // Input validation schema
+
+
 
 export const SchoolDetailSchema = z.object({
   schoolname: z.string().min(3).max(50),
@@ -24,3 +27,4 @@ export const AcedamicDetailSchema = z.object({
 export const StudentDataschema = z.object({
   file: z.instanceof(File)
 })
+

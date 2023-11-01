@@ -9,16 +9,16 @@ export interface TSubject {
 }
 
 export interface TStudentDetails {
+    name: string,
+    index: string,
+    total?: number,
+    avarage?: number,
+    rank?: number,
     [key: string]: any   //string | number | undefined
 }
 
 export type TStudentData = {
-
-    index?: string,
-    totalMark: number,
-    avarage: number,
     subjects: TSubject[],
-    rank: number
 } & TStudentDetails
 
 

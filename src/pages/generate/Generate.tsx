@@ -1,7 +1,6 @@
 import DataForm from "./DataForm";
 import useStore from "@/lib/state/store";
 import ReportPage from "./ReportPage";
-import { useEffect } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import db from "@/lib/models/db";
 

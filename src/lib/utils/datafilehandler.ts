@@ -1,100 +1,36 @@
 
-import readXlsxFile from 'read-excel-file'
-import { TSubject, TStudentDetails, TStudentData } from '../types'
-import Papa from 'papaparse';
-import useStore from '../state/store';
+import readXlsxFile, { Row } from 'read-excel-file'
+import { TStudentData } from '../types'
+import readCSV from './readCSV';
+import processFileData from './processFileData';
 
 
-
-
-
-export const handleFileRead = async (file: any) => {
+// function for handling the data from the file
+export const handleFileRead = async (file: File) => {
 
     const fileType = file.name.split('.').pop().toLowerCase();
 
-    console.log(fileType);
 
-    let data: any
+    let dataOut: TStudentData[] = []
 
     if (fileType === 'xlsx') {
 
         const rows = await readXlsxFile(file)
-        const header = rows.shift()
 
 
+        dataOut = await processFileData(rows)
 
-        data = rows.map((row: any) => {
-            let details: TStudentDetails = {}
-            let sub: TSubject[] = []
-            let total = 0
-
-            header?.forEach((column: any, index: any) => {
-                if (column === 'name' || column === 'index') {
-                    details[column] = String(row[index]).trim()
-                }
-                else {
-                    total = total + row[index]
-                    sub.push({ [column]: row[index] })
-                }
-
-            })
-
-
-            return <TStudentData>{
-                ...details, subjects: sub, totalMark: total, avarage: total / Object.keys(sub).length
-            }
-
-        })
-
-
-
-        const sortedarr = data.sort((a: any, b: any) => {
-            return b.totalMark - a.totalMark
-        })
-
-
-        sortedarr.forEach((student: TStudentData, index: any) => {
-            let temp = sortedarr[index - 1]
-            if (temp && temp.totalMark === student.totalMark) {
-                student.rank = temp.rank
-            }
-            else {
-                student.rank = index + 1
-            }
-
-        })
-
-        // set header to state for table header
-
-        useStore.setState({ header: Array.prototype.concat(header, ["Total,", "Avarage", "Rank"]) })
-
-        console.log(sortedarr);
-
-
-        return sortedarr
     }
     else if (fileType === 'csv') {
-        const data = await readCSV(file)
-        console.log(data);
+        const rows = await readCSV(file)
+
+        dataOut = await processFileData(rows as Row[])
+
     }
+
+
+    return dataOut
 
 
 }
 
-const readCSV = async (csvFile: any) => {
-    const csvData = csvFile
-    return new Promise(resolve => {
-        Papa.parse(csvData, {
-            delimiter: ",",
-            header: false,
-            skipEmptyLines: true,
-            dynamicTyping: true,
-            transformHeader: function (h) {
-                return h.trim();
-            },
-            complete: results => {
-                resolve(results.data);
-            }
-        });
-    });
-};
