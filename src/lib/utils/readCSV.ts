@@ -1,7 +1,7 @@
 import Papa from 'papaparse';
 
 
-const readCSV = async (csvFile: any) => {
+const readCSV = async (csvFile: File) => {
     const csvData = csvFile
     return new Promise(resolve => {
         Papa.parse(csvData, {

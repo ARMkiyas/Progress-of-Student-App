@@ -6,7 +6,7 @@ import processFileData from './processFileData';
 
 
 // function for handling the data from the file
-export const handleFileRead = async (file: any) => {
+export const handleFileRead = async (file: File) => {
 
     const fileType = file.name.split('.').pop().toLowerCase();
 
@@ -16,7 +16,7 @@ export const handleFileRead = async (file: any) => {
     if (fileType === 'xlsx') {
 
         const rows = await readXlsxFile(file)
-        console.log("xlsx", rows);
+
 
         dataOut = await processFileData(rows)
 
@@ -27,9 +27,6 @@ export const handleFileRead = async (file: any) => {
         dataOut = await processFileData(rows as Row[])
 
     }
-
-
-    console.log(dataOut);
 
 
     return dataOut

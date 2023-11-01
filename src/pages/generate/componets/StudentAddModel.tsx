@@ -1,82 +1,98 @@
-import { TAcedamicDetails, TSchoolDetails } from "@/lib/types";
 import { useDebouncedState } from "@mantine/hooks";
-import SchoolFormGroup from "./SchoolFormGroup";
-import { useEffect } from "react";
-import AceFormGroup from "./AceFormGroup";
-import useFormValidation from "@/lib/custom_hooks/useFormValidation";
-import { AcedamicDetailSchema, SchoolDetailSchema } from "@/lib/schema";
+import StudentFormGroup from "./StudentFormGroup";
+import { TStudentData } from "@/lib/types";
+import {
+  studentDetailsOtherThenSubject,
+  calculatedData,
+} from "@/lib/utils/processFileData";
+import { z } from "zod";
 import useStore from "@/lib/state/store";
+import { useEffect, useMemo } from "react";
+import useFormValidation from "@/lib/custom_hooks/useFormValidation";
+import useSiteColorSCheme from "@/lib/custom_hooks/useSiteColorSCheme";
 
-type openmodelType = {
-  type: "acedamic" | "school";
-  open: boolean;
+type TStudentAddModel = {
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<any>>;
+  onSubmitHandler?: (e: React.FormEvent<HTMLFormElement>) => void;
+  updatebtnspinner?: boolean;
 };
 
-type EditModelProps = {
-  Editdata?: TAcedamicDetails | TSchoolDetails;
-  openModal: openmodelType;
-  setOpenModal: React.Dispatch<React.SetStateAction<openmodelType>>;
-};
-
-export default function EditModel({
-  Editdata,
+export default function StudentAddModel({
   openModal,
   setOpenModal,
-}: EditModelProps) {
-  let initialData: TAcedamicDetails | TSchoolDetails = {};
-  const [data, setData] = useDebouncedState<TAcedamicDetails | TSchoolDetails>(
-    initialData,
-    0,
-  );
+  updatebtnspinner,
+}: TStudentAddModel) {
+  const { header } = useStore();
 
-  const {
-    updateSchool,
-    updateAcedamic,
-    schoolDetails,
-    acedamicDetail,
-    updatebtnspinner,
-    setupdatebtnspinner,
-  } = useStore();
-
-  useEffect(() => {
-    if (openModal.type === "acedamic") {
-      setData(acedamicDetail);
-    } else if (openModal.type === "school") {
-      setData(schoolDetails);
-    } else {
-      setData(Editdata);
-    }
-    return () => {
-      setData(initialData);
+  const initalState = useMemo((): TStudentData => {
+    const temp = {
+      subjects: [],
     };
-  }, [openModal.type, Editdata]);
+    header.map((item) => {
+      if (studentDetailsOtherThenSubject.includes(item.trim().toLowerCase())) {
+        temp[item.toLowerCase()] = null;
+      } else if (!calculatedData.includes(item.trim().toLowerCase())) {
+        temp.subjects.push({
+          [item.trim().toLowerCase()]: null,
+        });
+      }
+    });
+    return temp as TStudentData;
+  }, [header]);
 
-  const inputHandeler = (e) => {
-    setData({ ...data, [e.target.id]: e.target.value });
+  const [data, setData] = useDebouncedState<TStudentData>(initalState, 100);
+
+  const subje = () => {
+    let temp = {};
+    let nosbu = 0;
+
+    header.map((item) => {
+      if (studentDetailsOtherThenSubject.includes(item.trim().toLowerCase())) {
+        temp[item.toLowerCase()] = z.string().min(1).max(100);
+      } else if (!calculatedData.includes(item.trim().toLowerCase())) {
+        nosbu++;
+      }
+    });
+    temp["subjects"] = z.record(z.string(), z.number()).array().length(nosbu);
+    return temp;
   };
+
+  const studentSchema = z.object(subje());
 
   const [invalidinput, validate] = useFormValidation();
 
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
+  const inputHandeler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (studentDetailsOtherThenSubject.includes(e.target.id)) {
+      setData({ ...data, [e.target.id]: e.target.value });
+    } else {
+      setData((prevstate: TStudentData) => {
+        const subject = prevstate.subjects?.filter(
+          (item) => Object.keys(item)[0] !== e.target.id,
+        );
 
-    const validation =
-      openModal.type === "acedamic"
-        ? validate(AcedamicDetailSchema, data)
-        : validate(SchoolDetailSchema, data);
-
-    if (validation) {
-      setupdatebtnspinner(true);
-      if (openModal.type === "acedamic") {
-        await updateAcedamic(data as TAcedamicDetails);
-      } else if (openModal.type === "school") {
-        await updateSchool(data as TSchoolDetails);
-      }
-      setupdatebtnspinner(false);
-
-      setOpenModal({ ...openModal, open: false });
+        return {
+          ...prevstate,
+          subjects: [
+            ...subject,
+            {
+              [e.target.id]: parseInt(e.target.value),
+            },
+          ],
+        };
+      });
     }
   };
+
+  const onSubmitHandler = async (
+    e: React.MouseEvent<HTMLFormElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
+    const check = validate(studentSchema, data);
+    console.log(invalidinput);
+  };
+
+  const colorscheme = useSiteColorSCheme();
 
   return (
     <>
@@ -86,22 +102,26 @@ export default function EditModel({
         tabIndex={-1}
         aria-hidden="true"
         className={`fixed top-0 left-0 right-0 z-50 ${
-          !openModal.open ? "hidden" : "flex"
+          !openModal ? "hidden" : "flex"
         } items-center justify-center w-full overflow-x-hidden overflow-y-auto bg-gray-900 bg-opacity-50 md:inset-0 h-modal md:h-full dark:bg-opacity-80 animate__animated animate__fadeIn animate__fast`}
       >
         <div className="relative w-full h-full max-w-4xl p-4 md:h-auto animate__animated animate__zoomIn animate__faster">
           {/* <!-- Modal content --> */}
-          <div className="relative p-4 rounded-lg shadow dark:bg-gray-800 sm:p-5">
+          <div
+            className={`relative p-4 rounded-lg shadow dark:bg-gray-800 sm:p-5 ${
+              colorscheme === "light" && "bg-white"
+            }`}
+          >
             {/* <!-- Modal header --> */}
             <div className="flex items-center justify-between pb-4 mb-4 border-b rounded-t sm:mb-5 dark:border-gray-600">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Edit {openModal.type}
+                Add Student Data
               </h3>
               <button
                 type="button"
                 className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 data-modal-toggle="defaultModal"
-                onClick={() => setOpenModal({ ...openModal, open: false })}
+                onClick={() => setOpenModal(false)}
               >
                 <svg
                   aria-hidden="true"
@@ -122,28 +142,21 @@ export default function EditModel({
             {/* <!-- Modal body --> */}
             <form action="" method="post" onSubmit={onSubmitHandler}>
               <div className="grid gap-4 mb-4 sm:grid-cols-2">
-                {openModal.type === "school" ? (
-                  <SchoolFormGroup
-                    state={data as TSchoolDetails}
-                    inputHandeler={inputHandeler}
-                    invalidinput={invalidinput as string[]}
-                  />
-                ) : (
-                  <AceFormGroup
-                    state={data as TAcedamicDetails}
-                    inputHandeler={inputHandeler}
-                    invalidinput={invalidinput as string[]}
-                  />
-                )}
+                <StudentFormGroup
+                  inputHandeler={inputHandeler}
+                  state={data}
+                  invalidinput={invalidinput}
+                />
               </div>
               <div className="flex justify-end w-full space-x-3">
                 <button
                   type="button"
                   className="btn btn-secondary py-2.5 px-5 mr-2 mb-2 flex items-center text-sm font-medium  focus:outline-none  rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                  onClick={() => setOpenModal({ ...openModal, open: false })}
+                  onClick={() => setOpenModal(false)}
                 >
                   Cancel
                 </button>
+
                 <button
                   type="submit"
                   className="btn btn-success py-2.5 px-5 mr-2 mb-2 flex items-center text-sm font-medium  focus:outline-none  rounded-lg border border-gray-200 bg-lime-950"
@@ -168,7 +181,7 @@ export default function EditModel({
                       fill="currentColor"
                     />
                   </svg>
-                  {updatebtnspinner ? "Updating..." : "Update"}
+                  {updatebtnspinner ? "Adding..." : "Add"}
                 </button>
               </div>
             </form>

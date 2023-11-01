@@ -14,6 +14,7 @@ import AlertModel from "./componets/AlertModel";
 import EditModel from "./componets/EditModel";
 import ResetAllBtn from "./componets/ResetAllBtn";
 import DataTable from "./componets/DataTable";
+import StudentAddModel from "./componets/StudentAddModel";
 
 const ITEM_PER_PAGE = 10;
 
@@ -38,6 +39,8 @@ export default function ReportPage() {
     open: false,
   });
 
+  const [openStudentAddModel, setOpenStudentAddModel] = useState(false);
+
   const [items, setItems] = useState([]);
 
   const { range, setPage, active, next, previous } = usePagination({
@@ -61,6 +64,13 @@ export default function ReportPage() {
     searchAction(searchValue);
   };
 
+  function addStudent(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ): void {
+    e.preventDefault();
+    setOpenStudentAddModel(true);
+  }
+
   return (
     <>
       <AlertModel
@@ -76,6 +86,11 @@ export default function ReportPage() {
         Editdata={
           openEditModel.type === "acedamic" ? acedamicDetail : schoolDetails
         }
+      />
+
+      <StudentAddModel
+        openModal={openStudentAddModel}
+        setOpenModal={setOpenStudentAddModel}
       />
 
       <section className="p-3 sm:p-5">
@@ -288,34 +303,14 @@ export default function ReportPage() {
                 </form>
               </div>
               <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
-                <button
-                  type="button"
-                  className="flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg dark:text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
-                >
-                  <svg
-                    className="h-3.5 w-3.5 mr-2"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      clipRule="evenodd"
-                      fillRule="evenodd"
-                      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                    />
-                  </svg>
-                  Add
-                </button>
-                <div className="flex items-center w-full space-x-3 md:w-auto">
+                <div className="flex items-center w-full pl-3 space-x-3 md:w-auto">
                   <button
-                    id="actionsDropdownButton"
-                    data-dropdown-toggle="actionsDropdown"
-                    className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     type="button"
+                    className="flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg dark:text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 "
+                    onClick={addStudent}
                   >
                     <svg
-                      className="-ml-1 mr-1.5 w-5 h-5"
+                      className="h-3.5 w-3.5 mr-2"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
@@ -324,11 +319,38 @@ export default function ReportPage() {
                       <path
                         clipRule="evenodd"
                         fillRule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
                       />
                     </svg>
-                    Actions
+                    Add
                   </button>
+                  <div className="dropdown">
+                    <button
+                      className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Actions
+                    </button>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <a className="dropdown-item" href="#">
+                          Action
+                        </a>
+                      </li>
+                      <li>
+                        <a className="dropdown-item" href="#">
+                          Another action
+                        </a>
+                      </li>
+                      <li>
+                        <a className="dropdown-item" href="#">
+                          Something else here
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                   <div
                     id="actionsDropdown"
                     className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
@@ -356,8 +378,6 @@ export default function ReportPage() {
                     </div>
                   </div>
                   <button
-                    id="filterDropdownButton"
-                    data-dropdown-toggle="filterDropdown"
                     className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     type="button"
                   >
@@ -383,89 +403,6 @@ export default function ReportPage() {
                     </svg>
                     Export Mark Sheet as PDF (All)
                   </button>
-                  <div
-                    id="filterDropdown"
-                    className="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700"
-                  >
-                    <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">
-                      Choose brand
-                    </h6>
-                    <ul
-                      className="space-y-2 text-sm"
-                      aria-labelledby="filterDropdownButton"
-                    >
-                      <li className="flex items-center">
-                        <input
-                          id="apple"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="apple"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          Apple (56)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          id="fitbit"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="fitbit"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          Microsoft (16)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          id="razor"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="razor"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          Razor (49)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          id="nikon"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="nikon"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          Nikon (12)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          id="benq"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="benq"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          BenQ (74)
-                        </label>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
             </div>

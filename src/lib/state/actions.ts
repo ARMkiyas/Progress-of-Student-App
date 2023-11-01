@@ -37,8 +37,6 @@ const actions = (set) => ({
 
         const data = await handleFileRead(studentData);
 
-        console.log(data);
-
 
         await db.acedamicDetail.put(TempAcedamicData)
         await db.schoolDetails.put(TempSchoolData)

@@ -31,7 +31,7 @@ export const TempStudentData: TStudentData[] = [
 
         ],
 
-        "totalMark": 480,
+        "total": 480,
 
         "avarage": 96,
 
@@ -59,7 +59,7 @@ export const TempStudentData: TStudentData[] = [
 
         ],
 
-        "totalMark": 367,
+        "total": 367,
 
         "avarage": 73.4,
 
@@ -87,7 +87,7 @@ export const TempStudentData: TStudentData[] = [
 
         ],
 
-        "totalMark": 250,
+        "total": 250,
 
         "avarage": 50,
 
@@ -115,7 +115,7 @@ export const TempStudentData: TStudentData[] = [
 
         ],
 
-        "totalMark": 201,
+        "total": 201,
 
         'avarage': 40.2,
 
@@ -132,7 +132,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 78 },
             { "ICT": 88 }
         ],
-        "totalMark": 416,
+        "total": 416,
         "avarage": 83.2,
         "rank": 5
     },
@@ -146,7 +146,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 87 },
             { "ICT": 96 }
         ],
-        "totalMark": 458,
+        "total": 458,
         "avarage": 91.6,
         "rank": 6
     },
@@ -160,7 +160,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 85 },
             { "ICT": 89 }
         ],
-        "totalMark": 424,
+        "total": 424,
         "avarage": 84.8,
         "rank": 7
     },
@@ -174,7 +174,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 81 },
             { "ICT": 78 }
         ],
-        "totalMark": 406,
+        "total": 406,
         "avarage": 81.2,
         "rank": 10
     },
@@ -188,7 +188,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 71 },
             { "ICT": 68 }
         ],
-        "totalMark": 356,
+        "total": 356,
         "avarage": 71.2,
         "rank": 11
     },
@@ -202,7 +202,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 61 },
             { "ICT": 58 }
         ],
-        "totalMark": 306,
+        "total": 306,
         "avarage": 61.2,
         "rank": 12
     },
@@ -216,7 +216,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 51 },
             { "ICT": 48 }
         ],
-        "totalMark": 256,
+        "total": 256,
         "avarage": 51.2,
         "rank": 13
     },
@@ -230,7 +230,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 41 },
             { "ICT": 38 }
         ],
-        "totalMark": 206,
+        "total": 206,
         "avarage": 41.2,
         "rank": 14
     },
@@ -244,7 +244,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 93 },
             { "ICT": 94 }
         ],
-        "totalMark": 464,
+        "total": 464,
         "avarage": 92.8,
         "rank": 5
     },
@@ -258,7 +258,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 81 },
             { "ICT": 78 }
         ],
-        "totalMark": 396,
+        "total": 396,
         "avarage": 79.2,
         "rank": 6
     },
@@ -272,7 +272,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 71 },
             { "ICT": 68 }
         ],
-        "totalMark": 346,
+        "total": 346,
         "avarage": 69.2,
         "rank": 7
     },
@@ -286,7 +286,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 61 },
             { "ICT": 58 }
         ],
-        "totalMark": 306,
+        "total": 306,
         "avarage": 61.2,
         "rank": 8
     },
@@ -300,7 +300,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 51 },
             { "ICT": 48 }
         ],
-        "totalMark": 246,
+        "total": 246,
         "avarage": 49.2,
         "rank": 9
     },
@@ -314,7 +314,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 91 },
             { "ICT": 94 }
         ],
-        "totalMark": 452,
+        "total": 452,
         "avarage": 90.4,
         "rank": 15
     },
@@ -328,7 +328,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 81 },
             { "ICT": 78 }
         ],
-        "totalMark": 396,
+        "total": 396,
         "avarage": 79.2,
         "rank": 16
     },
@@ -342,7 +342,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 71 },
             { "ICT": 68 }
         ],
-        "totalMark": 346,
+        "total": 346,
         "avarage": 69.2,
         "rank": 17
     },
@@ -356,7 +356,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 61 },
             { "ICT": 58 }
         ],
-        "totalMark": 306,
+        "total": 306,
         "avarage": 61.2,
         "rank": 18
     },
@@ -370,7 +370,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 51 },
             { "ICT": 48 }
         ],
-        "totalMark": 246,
+        "total": 246,
         "avarage": 49.2,
         "rank": 19
     },
@@ -384,7 +384,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 93 },
             { "ICT": 94 }
         ],
-        "totalMark": 464,
+        "total": 464,
         "avarage": 92.8,
         "rank": 20
     },
@@ -398,7 +398,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 81 },
             { "ICT": 78 }
         ],
-        "totalMark": 396,
+        "total": 396,
         "avarage": 79.2,
         "rank": 21
     },
@@ -412,7 +412,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 71 },
             { "ICT": 68 }
         ],
-        "totalMark": 346,
+        "total": 346,
         "avarage": 69.2,
         "rank": 22
     },
@@ -426,7 +426,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 61 },
             { "ICT": 58 }
         ],
-        "totalMark": 306,
+        "total": 306,
         "avarage": 61.2,
         "rank": 23
     },
@@ -440,7 +440,7 @@ export const TempStudentData: TStudentData[] = [
             { "tamil": 51 },
             { "ICT": 48 }
         ],
-        "totalMark": 246,
+        "total": 246,
         "avarage": 49.2,
         "rank": 24
     },
@@ -478,7 +478,7 @@ export const TempSchoolData =
 
 export const TempHeaderData = [
 
-    'name', 'index', 'maths', 'science', 'english', 'tamil', 'ICT', 'Total,', 'Avarage',
+    'name', 'index', 'maths', 'science', 'english', 'tamil', 'ICT', 'total', 'Avarage',
 
     'Rank'
 
