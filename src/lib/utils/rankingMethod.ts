@@ -22,7 +22,6 @@ const rankingMethod = (data: TStudentData[]) => {
 
     })
 
-    console.log(sortedarr);
 
 
     return sortedarr
