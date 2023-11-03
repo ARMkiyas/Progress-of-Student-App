@@ -9,7 +9,7 @@
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest --run"
   },
   "dependencies": {
     "@mantine/hooks": "^6.0.20",
