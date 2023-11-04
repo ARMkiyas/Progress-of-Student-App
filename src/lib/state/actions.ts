@@ -3,7 +3,8 @@ import { handleFileRead } from "../utils/datafilehandler";
 import { TempStudentData, TempAcedamicData, TempSchoolData, TempHeaderData } from '../tempData/data';
 import initialState from './initialState';
 import db, { resetDatabase } from "@/lib/models/db"
-
+import rankingMethod from "../utils/rankingMethod";
+import { TStudentData } from "../types";
 
 
 // function for simulate delay for testing loading state 
@@ -86,6 +87,13 @@ const actions = (set) => ({
     },
 
 
+    removetoast(id) {
+        set(state => ({
+            toast: state.toast.filter((item, index) => index !== id),
+        }))
+    },
+
+
     async updateSchool(schoolDetails) {
 
         const data = await db.schoolDetails.toArray()
@@ -101,7 +109,13 @@ const actions = (set) => ({
 
             }
         }).catch((err) => {
-            console.log(err);
+
+
+            set(state => {
+                return {
+                    toast: [...state.toast, { message: 'Somthing went wrong check your', type: 'error' }]
+                }
+            })
 
 
         })
@@ -129,6 +143,71 @@ const actions = (set) => ({
     setupdatebtnspinner(updatebtnspinner) { set({ updatebtnspinner: updatebtnspinner }) },
 
 
+    async updateStudentData(studentData: TStudentData) {
+        try {
+
+            set({ updatebtnspinner: true })
+
+            const checkDuplidatedData = await db.studentData.where('index').equals(studentData.index.trim()).toArray()
+            if (checkDuplidatedData.length > 0) {
+                set(state => {
+                    return {
+                        toast: [...state.toast, { message: 'Duplicate Index, the index number provided already exsist', type: 'error' }]
+                    }
+                })
+
+            }
+
+            set(state => {
+
+
+
+                let totalmark = 0
+
+                studentData.subjects.forEach((subject) => {
+                    totalmark += Object.values(subject)[0]
+                })
+
+                const data = [...state.studentData, { ...studentData, total: totalmark, avarage: totalmark / studentData.subjects.length }]
+
+                const rerankedData = rankingMethod(data)
+
+
+
+                const uploaded = db.studentData.bulkPut(rerankedData)
+
+                if (uploaded) {
+                    return {
+                        studentData: rerankedData,
+                        toast: [...state.toast, { message: 'Student data updated successfully', type: 'success' }]
+                    }
+                }
+
+
+
+
+
+
+
+
+            })
+
+
+        } catch (error) {
+
+            set(state => {
+                return {
+                    toast: [...state.toast, { message: 'Somthing went wrong check your', type: 'error' }]
+                }
+            })
+        } finally {
+            set({ updatebtnspinner: false })
+        }
+
+
+
+
+    },
 
 
 

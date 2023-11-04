@@ -15,15 +15,13 @@ type TStudentAddModel = {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<any>>;
   onSubmitHandler?: (e: React.FormEvent<HTMLFormElement>) => void;
-  updatebtnspinner?: boolean;
 };
 
 export default function StudentAddModel({
   openModal,
   setOpenModal,
-  updatebtnspinner,
 }: TStudentAddModel) {
-  const { header } = useStore();
+  const { header, updateStudentData, updatebtnspinner } = useStore();
 
   const initalState = useMemo((): TStudentData => {
     const temp = {
@@ -89,7 +87,7 @@ export default function StudentAddModel({
   ) => {
     e.preventDefault();
     const check = validate(studentSchema, data);
-    console.log(invalidinput);
+    check && updateStudentData(data);
   };
 
   const colorscheme = useSiteColorSCheme();
@@ -101,7 +99,7 @@ export default function StudentAddModel({
         id="defaultModal"
         tabIndex={-1}
         aria-hidden="true"
-        className={`fixed top-0 left-0 right-0 z-50 ${
+        className={`fixed top-0 left-0 right-0 z-10 ${
           !openModal ? "hidden" : "flex"
         } items-center justify-center w-full overflow-x-hidden overflow-y-auto bg-gray-900 bg-opacity-50 md:inset-0 h-modal md:h-full dark:bg-opacity-80 animate__animated animate__fadeIn animate__fast`}
       >

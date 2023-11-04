@@ -8,7 +8,8 @@ const initialState: TStoreState = {
     studentData: undefined,
     loading: false,
     header: [],
-    updatebtnspinner: false
+    updatebtnspinner: false,
+    toast: []
 }
 
 export default initialState;
