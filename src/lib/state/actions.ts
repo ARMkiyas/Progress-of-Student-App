@@ -31,7 +31,7 @@ const data = await db.schoolDetails.toArray()
 
 
 
-const actions = (set) => ({
+const actions = (set, get) => ({
 
     async DataHandler(schoolDetails, acedamicDetail, studentData) {
 
@@ -144,64 +144,65 @@ const actions = (set) => ({
 
 
     async updateStudentData(studentData: TStudentData) {
+        let status = {
+            status: false,
+            message: '',
+            type: "error"
+        }
+
         try {
 
             set({ updatebtnspinner: true })
 
             const checkDuplidatedData = await db.studentData.where('index').equals(studentData.index.trim()).toArray()
             if (checkDuplidatedData.length > 0) {
-                set(state => {
-                    return {
-                        toast: [...state.toast, { message: 'Duplicate Index, the index number provided already exsist', type: 'error' }]
-                    }
-                })
+                status = {
+                    status: false,
+                    message: 'Duplicate Index, the index number provided already exsist',
+                    type: "error"
+                }
 
-            }
-
-            set(state => {
-
-
+            } else {
 
                 let totalmark = 0
+                const getstate = get().studentData
+                console.log(getstate);
 
                 studentData.subjects.forEach((subject) => {
                     totalmark += Object.values(subject)[0]
                 })
-
-                const data = [...state.studentData, { ...studentData, total: totalmark, avarage: totalmark / studentData.subjects.length }]
-
+                const data = [...getstate, { ...studentData, total: totalmark, avarage: totalmark / studentData.subjects.length }]
                 const rerankedData = rankingMethod(data)
-
-
-
-                const uploaded = db.studentData.bulkPut(rerankedData)
-
+                const uploaded = await db.studentData.bulkPut(rerankedData)
                 if (uploaded) {
-                    return {
-                        studentData: rerankedData,
-                        toast: [...state.toast, { message: 'Student data updated successfully', type: 'success' }]
+                    status = {
+                        status: true,
+                        message: 'Successfully Updated',
+                        type: "success"
                     }
+                    set({ studentData: rerankedData })
                 }
 
-
-
-
-
-
-
-
-            })
+            }
 
 
         } catch (error) {
+            console.log(error);
 
-            set(state => {
-                return {
-                    toast: [...state.toast, { message: 'Somthing went wrong check your', type: 'error' }]
-                }
-            })
-        } finally {
-            set({ updatebtnspinner: false })
+            status = {
+                status: false,
+                message: "Somthing went wrong check your",
+                type: "error"
+            }
+
+        }
+        finally {
+            console.log(status);
+            set(state => ({
+                updatebtnspinner: false,
+                toast: [...state.toast, { message: status.message, type: status.type }]
+            }))
+            return status.status
         }
 
 

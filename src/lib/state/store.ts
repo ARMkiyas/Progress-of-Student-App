@@ -5,12 +5,12 @@ import actions from './actions';
 
 
 
-const useStore = create<TStoreActions & TStoreState>((set) => ({
+const useStore = create<TStoreActions & TStoreState>((set, get) => ({
 
 
     ...initialState,
 
-    ...actions(set),
+    ...actions(set, get),
 
 
 

@@ -1,5 +1,5 @@
 import useStore from "@/lib/state/store";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   calculatedData,
   studentDetailsOtherThenSubject,
@@ -31,17 +31,39 @@ const customTheme: CustomFlowbiteTheme["tooltip"] = {
 };
 
 type schoolFormGroupProps = {
-  inputHandeler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setstate: React.Dispatch<React.SetStateAction<TStudentData>>;
   invalidinput?: string[];
   state: TStudentData;
 };
 
 export default function StudentFormGroup({
   invalidinput,
-  inputHandeler,
+  setstate,
   state,
 }: schoolFormGroupProps) {
   const { header } = useStore();
+
+  const inputHandeler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (studentDetailsOtherThenSubject.includes(e.target.id)) {
+      setstate({ ...state, [e.target.id]: e.target.value });
+    } else {
+      setstate((prevstate: TStudentData) => {
+        const subject = prevstate.subjects?.filter(
+          (item) => Object.keys(item)[0] !== e.target.id,
+        );
+
+        return {
+          ...prevstate,
+          subjects: [
+            ...subject,
+            {
+              [e.target.id]: parseInt(e.target.value),
+            },
+          ],
+        };
+      });
+    }
+  };
 
   return (
     <>
