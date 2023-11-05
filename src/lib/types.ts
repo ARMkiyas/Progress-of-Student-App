@@ -47,6 +47,7 @@ export type TStoreActions = {
     setupdatebtnspinner: (updatebtnspinner: boolean) => void
     updateStudentData: (studentData: TStudentData) => Promise<boolean | void>
     removetoast: (id: number) => void
+    deleteStudentData: (id: string) => Promise<void>
 }
 
 export type TStoreState = {

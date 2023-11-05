@@ -1,3 +1,4 @@
+import useStore from "@/lib/state/store";
 import { TStudentData } from "@/lib/types";
 
 type TableDataProps = {
@@ -6,6 +7,14 @@ type TableDataProps = {
 };
 
 export default function DataTable({ TableData, TableHeader }) {
+  const { deleteStudentData } = useStore();
+
+  function DeleteFun(
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  ): void {
+    deleteStudentData(event.currentTarget.id);
+  }
+
   return (
     <>
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -107,12 +116,17 @@ export default function DataTable({ TableData, TableHeader }) {
                       style={{ minWidth: "auto" }}
                     >
                       <li>
-                        <a className="dropdown-item" href="#">
+                        <a className="dropdown-item" href="#" id={item.index}>
                           Edit
                         </a>
                       </li>
                       <li>
-                        <a className=" dropdown-item" href="#">
+                        <a
+                          className=" dropdown-item"
+                          href="#"
+                          id={item.index}
+                          onClick={DeleteFun}
+                        >
                           Delete
                         </a>
                       </li>

@@ -207,9 +207,27 @@ const actions = (set, get) => ({
 
 
 
-
     },
 
+
+    async deleteStudentData(index) {
+
+        try {
+
+            await db.studentData.delete(index)
+            const data = await db.studentData.toArray()
+            const rerankedData = rankingMethod(data)
+            await db.studentData.bulkPut(rerankedData)
+
+            set({ studentData: rerankedData })
+
+
+        } catch (error) {
+            console.log(error);
+
+        }
+
+    }
 
 
 })
