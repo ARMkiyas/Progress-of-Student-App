@@ -3,6 +3,8 @@
 import { useEffect, useState, useRef } from "react";
 import Nav from "../components/Nav";
 import { Outlet } from "react-router-dom";
+import ToastMessage from "@/components/ToastMessage";
+
 
 const setTheme = (theme) => {
   if (
@@ -23,10 +25,9 @@ export default function Mainlayout({ children }) {
     setTheme(thame);
     iconswitch.current.setAttribute(
       "href",
-      `#${
-        thame === "auto"
-          ? "circle-half"
-          : thame === "dark"
+      `#${thame === "auto"
+        ? "circle-half"
+        : thame === "dark"
           ? "moon-stars-fill"
           : "sun-fill"
       }`
@@ -41,8 +42,10 @@ export default function Mainlayout({ children }) {
   return (
     <>
       <Nav />
-
-      <div ><Outlet/></div>
+      <div className="fixed z-40 right-3">
+        <ToastMessage />
+      </div>
+      <div ><Outlet /></div>
       <div style={{ display: "none" }}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="check2" viewBox="0 0 16 16">
@@ -61,16 +64,16 @@ export default function Mainlayout({ children }) {
         </svg>
       </div>
       {/* <!-- thame switch  --> */}
-      <div className="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+      <div className="bottom-0 mb-3 dropdown position-fixed end-0 me-3 bd-mode-toggle">
         <button
-          className="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
+          className="py-2 btn btn-bd-primary dropdown-toggle d-flex align-items-center"
           id="bd-theme"
           type="button"
           aria-expanded="false"
           data-bs-toggle="dropdown"
           aria-label="Toggle theme (light)"
         >
-          <svg className="bi my-1 theme-icon-active" width="1em" height="1em">
+          <svg className="my-1 bi theme-icon-active" width="1em" height="1em">
             <use href="#sun-fill" ref={iconswitch}></use>
           </svg>
           <span className="visually-hidden" id="bd-theme-text">
@@ -78,21 +81,20 @@ export default function Mainlayout({ children }) {
           </span>
         </button>
         <ul
-          className="dropdown-menu dropdown-menu-end shadow"
+          className="shadow dropdown-menu dropdown-menu-end"
           aria-labelledby="bd-theme-text"
         >
           <li>
             <button
               type="button"
-              className={`dropdown-item d-flex align-items-center ${
-                thame === "light" ? "active" : ""
-              }`}
+              className={`dropdown-item d-flex align-items-center ${thame === "light" ? "active" : ""
+                }`}
               data-bs-theme-value="light"
               aria-pressed="true"
               onClick={thameselect}
             >
               <svg
-                className="bi me-2 opacity-50 theme-icon "
+                className="opacity-50 bi me-2 theme-icon "
                 width="1em"
                 height="1em"
               >
@@ -107,15 +109,14 @@ export default function Mainlayout({ children }) {
           <li>
             <button
               type="button"
-              className={`dropdown-item d-flex align-items-center ${
-                thame === "dark" ? "active" : ""
-              }`}
+              className={`dropdown-item d-flex align-items-center ${thame === "dark" ? "active" : ""
+                }`}
               data-bs-theme-value="dark"
               aria-pressed="false"
               onClick={thameselect}
             >
               <svg
-                className="bi me-2 opacity-50 theme-icon"
+                className="opacity-50 bi me-2 theme-icon"
                 width="1em"
                 height="1em"
               >
@@ -130,15 +131,14 @@ export default function Mainlayout({ children }) {
           <li>
             <button
               type="button"
-              className={`dropdown-item d-flex align-items-center ${
-                thame === "auto" ? "active" : ""
-              }`}
+              className={`dropdown-item d-flex align-items-center ${thame === "auto" ? "active" : ""
+                }`}
               data-bs-theme-value="auto"
               aria-pressed="false"
               onClick={thameselect}
             >
               <svg
-                className="bi me-2 opacity-50 theme-icon"
+                className="opacity-50 bi me-2 theme-icon"
                 width="1em"
                 height="1em"
               >

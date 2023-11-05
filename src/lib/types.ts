@@ -45,6 +45,9 @@ export type TStoreActions = {
     updateSchool: (schoolDetails: TSchoolDetails) => Promise<boolean | void>
     updateAcedamic: (acedamicDetail: TAcedamicDetails) => Promise<boolean | void>
     setupdatebtnspinner: (updatebtnspinner: boolean) => void
+    updateStudentData: (studentData: TStudentData) => Promise<boolean | void>
+    removetoast: (id: number) => void
+    deleteStudentData: (id: string) => Promise<void>
 }
 
 export type TStoreState = {
@@ -54,6 +57,11 @@ export type TStoreState = {
     loading: boolean,
     header: string[] | undefined
     updatebtnspinner: boolean
+    toast: {
+        id: string,
+        message: string,
+        type: "error" | "success" | "warning" | "info" | undefined,
+    }[]
 }
 
 

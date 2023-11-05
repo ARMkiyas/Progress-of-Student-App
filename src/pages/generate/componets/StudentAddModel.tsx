@@ -7,7 +7,7 @@ import {
 } from "@/lib/utils/processFileData";
 import { z } from "zod";
 import useStore from "@/lib/state/store";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import useFormValidation from "@/lib/custom_hooks/useFormValidation";
 import useSiteColorSCheme from "@/lib/custom_hooks/useSiteColorSCheme";
 
@@ -15,15 +15,16 @@ type TStudentAddModel = {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<any>>;
   onSubmitHandler?: (e: React.FormEvent<HTMLFormElement>) => void;
-  updatebtnspinner?: boolean;
+  type?: "add" | "edit";
+  id?: string;
 };
 
 export default function StudentAddModel({
   openModal,
   setOpenModal,
-  updatebtnspinner,
+  type = "add",
 }: TStudentAddModel) {
-  const { header } = useStore();
+  const { header, updateStudentData, updatebtnspinner } = useStore();
 
   const initalState = useMemo((): TStudentData => {
     const temp = {
@@ -31,7 +32,7 @@ export default function StudentAddModel({
     };
     header.map((item) => {
       if (studentDetailsOtherThenSubject.includes(item.trim().toLowerCase())) {
-        temp[item.toLowerCase()] = null;
+        temp[item.toLowerCase()] = "";
       } else if (!calculatedData.includes(item.trim().toLowerCase())) {
         temp.subjects.push({
           [item.trim().toLowerCase()]: null,
@@ -62,26 +63,11 @@ export default function StudentAddModel({
 
   const [invalidinput, validate] = useFormValidation();
 
-  const inputHandeler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (studentDetailsOtherThenSubject.includes(e.target.id)) {
-      setData({ ...data, [e.target.id]: e.target.value });
-    } else {
-      setData((prevstate: TStudentData) => {
-        const subject = prevstate.subjects?.filter(
-          (item) => Object.keys(item)[0] !== e.target.id,
-        );
+  const formref = useRef<HTMLFormElement>(null);
 
-        return {
-          ...prevstate,
-          subjects: [
-            ...subject,
-            {
-              [e.target.id]: parseInt(e.target.value),
-            },
-          ],
-        };
-      });
-    }
+  const rest = () => {
+    formref.current?.reset();
+    setData(initalState);
   };
 
   const onSubmitHandler = async (
@@ -89,7 +75,14 @@ export default function StudentAddModel({
   ) => {
     e.preventDefault();
     const check = validate(studentSchema, data);
-    console.log(invalidinput);
+    if (check) {
+      const sa = await updateStudentData(data);
+      console.log(sa);
+      if (sa) {
+        console.log(initalState);
+        rest();
+      }
+    }
   };
 
   const colorscheme = useSiteColorSCheme();
@@ -101,7 +94,7 @@ export default function StudentAddModel({
         id="defaultModal"
         tabIndex={-1}
         aria-hidden="true"
-        className={`fixed top-0 left-0 right-0 z-50 ${
+        className={`fixed top-0 left-0 right-0 z-10 ${
           !openModal ? "hidden" : "flex"
         } items-center justify-center w-full overflow-x-hidden overflow-y-auto bg-gray-900 bg-opacity-50 md:inset-0 h-modal md:h-full dark:bg-opacity-80 animate__animated animate__fadeIn animate__fast`}
       >
@@ -140,10 +133,15 @@ export default function StudentAddModel({
               </button>
             </div>
             {/* <!-- Modal body --> */}
-            <form action="" method="post" onSubmit={onSubmitHandler}>
+            <form
+              action=""
+              method="post"
+              onSubmit={onSubmitHandler}
+              ref={formref}
+            >
               <div className="grid gap-4 mb-4 sm:grid-cols-2">
                 <StudentFormGroup
-                  inputHandeler={inputHandeler}
+                  setstate={setData}
                   state={data}
                   invalidinput={invalidinput}
                 />
