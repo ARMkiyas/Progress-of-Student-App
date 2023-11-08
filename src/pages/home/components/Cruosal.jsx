@@ -7,11 +7,11 @@ import curs03 from "../assets/img/curs-03.jpg";
 
 
 
-const GetStarted = () => {
+export const GetStarted = () => {
   return (
     <Link
       to="/generate"
-      className="btn-get-started animate__animated animate__fadeInUp scrollto"
+      className="no-underline btn-get-started animate__animated animate__fadeInUp scrollto"
     >    Get Started</Link>
   )
 }
@@ -47,6 +47,10 @@ export default function Cruosal() {
           "'></li>");
     });
 
+    return () => {
+      heroCarouselIndicators.innerHTML = "";
+    }
+
   }, []);
 
   return (
@@ -76,10 +80,10 @@ export default function Cruosal() {
                         Welcome to <span>POS</span>
                       </h2>
                       <p className="animate__animated animate__fadeInUp">
-                       The Progress of Student is the, One such advancement in the
-                        creation of students' progress reports in online, PDF format. 
-                        This innovative approach saves time, resources and provides a convenient 
-                        and secure methed.  
+                        The Progress of Student is the, One such advancement in the
+                        creation of students' progress reports in online, PDF format.
+                        This innovative approach saves time, resources and provides a convenient
+                        and secure methed.
                       </p>
 
                       <GetStarted />
@@ -97,13 +101,13 @@ export default function Cruosal() {
                   <div className="carousel-container">
                     <div className="carousel-content">
                       <h2 className="animate__animated animate__fadeInDown">
-                      The Utilization of POS
+                        The Utilization of POS
                       </h2>
                       <p className="animate__animated animate__fadeInUp">
-                      The process of creating and distributing students' progress reports. 
-                      This digital transformation offers numerous benefits, such as real-time 
-                      access to student performance data, reduced administrative workload, 
-                      and enhanced data security.
+                        The process of creating and distributing students' progress reports.
+                        This digital transformation offers numerous benefits, such as real-time
+                        access to student performance data, reduced administrative workload,
+                        and enhanced data security.
 
                       </p>
 
@@ -119,13 +123,13 @@ export default function Cruosal() {
                   <div className="carousel-container">
                     <div className="carousel-content">
                       <h2 className="animate__animated animate__fadeInDown">
-                      Process for crafting POS
+                        Process for crafting POS
                       </h2>
                       <p className="animate__animated animate__fadeInUp">
-                      We will guide the step-by-step process of creating students' 
-                      progress reports online in PDF format. We will cover the tools 
-                      and techniques required to ensure a smooth transition to a 
-                      digital progress reporting system.
+                        We will guide the step-by-step process of creating students'
+                        progress reports online in PDF format. We will cover the tools
+                        and techniques required to ensure a smooth transition to a
+                        digital progress reporting system.
                       </p>
 
                       <GetStarted />

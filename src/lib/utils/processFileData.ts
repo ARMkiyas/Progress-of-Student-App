@@ -26,14 +26,14 @@ const processFileData = async (rows: Row[]) => {
         // loop through each column and set the value to the object
         header?.forEach((column: string, index) => {
             if (studentDetailsOtherThenSubject.includes(column.trim())) {
-                details[column.trim()] = String(row[index]).trim()
+                details[column.toLowerCase().trim()] = String(row[index]).trim()
             }
             else {
                 // check if the value is number or not if not then set it to 0 
                 const temp = isNaN(row[index] as number) ? 0 : parseInt(row[index] as string) as number
 
                 total = total + temp
-                sub.push({ [column.trim()]: temp })
+                sub.push({ [column.toLowerCase().trim()]: temp })
 
             }
 

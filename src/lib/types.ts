@@ -40,14 +40,16 @@ export type TStoreActions = {
     DataHandler: (schoolDetails: TSchoolDetails, acedamicDetail: TAcedamicDetails, studentData: TStudentDataFile) => Promise<void>,
     setLoading: (loading: boolean) => Boolean
     setHeader: (header: string[]) => void
+    getStudentDataById: (id: string) => Promise<TStudentData>
     resetDatabase: () => Promise<void>
     searchAction: (search: string) => Promise<void>
     updateSchool: (schoolDetails: TSchoolDetails) => Promise<boolean | void>
     updateAcedamic: (acedamicDetail: TAcedamicDetails) => Promise<boolean | void>
     setupdatebtnspinner: (updatebtnspinner: boolean) => void
-    updateStudentData: (studentData: TStudentData) => Promise<boolean | void>
+    updateStudentData: (studentData: TStudentData, editId: string) => Promise<boolean | void>
     removetoast: (id: number) => void
     deleteStudentData: (id: string) => Promise<void>
+    addNewStudent: (studentData: TStudentData) => Promise<boolean | void>
 }
 
 export type TStoreState = {
@@ -66,6 +68,14 @@ export type TStoreState = {
 
 
 
+
+export type TopenStudentAddModel = {
+    open: boolean,
+    type: "add" | "edit",
+    id?: string
+};
+
+
 // types of pdf generators
 
 export type TPDFGenProps = {
@@ -75,4 +85,7 @@ export type TPDFGenProps = {
     TableHeader: string[] | undefined
 
 }
+
+
+
 

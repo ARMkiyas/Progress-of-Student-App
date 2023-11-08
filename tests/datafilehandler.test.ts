@@ -10,7 +10,7 @@ describe('processFileData', () => {
 
     it('should return an array of TStudentData when rows is not empty', async () => {
         const rows = [
-            ['name', 'index', 'maths', 'science', 'english'],
+            ['name', 'index', 'maths', 'science', 'English'],
             ['John', '1', '80', '90', '70'],
             ['Jane', '2', '60', '80', '70'],
         ];
