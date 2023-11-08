@@ -1,6 +1,6 @@
 import { useDebouncedState } from "@mantine/hooks";
 import StudentFormGroup from "./StudentFormGroup";
-import { TStudentData } from "@/lib/types";
+import { TStudentData, TopenStudentAddModel } from "@/lib/types";
 import {
   studentDetailsOtherThenSubject,
   calculatedData,
@@ -12,19 +12,21 @@ import useFormValidation from "@/lib/custom_hooks/useFormValidation";
 import useSiteColorSCheme from "@/lib/custom_hooks/useSiteColorSCheme";
 
 type TStudentAddModel = {
-  openModal: boolean;
+  openModal: TopenStudentAddModel;
   setOpenModal: React.Dispatch<React.SetStateAction<any>>;
-  onSubmitHandler?: (e: React.FormEvent<HTMLFormElement>) => void;
-  type?: "add" | "edit";
-  id?: string;
 };
 
 export default function StudentAddModel({
   openModal,
   setOpenModal,
-  type = "add",
 }: TStudentAddModel) {
-  const { header, updateStudentData, updatebtnspinner } = useStore();
+  const {
+    header,
+    updateStudentData,
+    updatebtnspinner,
+    getStudentDataById,
+    addNewStudent,
+  } = useStore();
 
   const initalState = useMemo((): TStudentData => {
     const temp = {
@@ -75,15 +77,41 @@ export default function StudentAddModel({
   ) => {
     e.preventDefault();
     const check = validate(studentSchema, data);
+    console.log(check);
+
     if (check) {
-      const sa = await updateStudentData(data);
+      const sa =
+        openModal.type === "edit"
+          ? await updateStudentData(data, openModal.id)
+          : await addNewStudent(data);
       console.log(sa);
-      if (sa) {
+      if (sa && openModal.type !== "edit") {
         console.log(initalState);
         rest();
+      } else if (sa) {
+        rest();
+        setOpenModal({ open: false });
       }
     }
   };
+
+  useEffect(() => {
+    if (openModal.type === "edit") {
+      getStudentDataById(openModal.id).then((res) => {
+        if (res) {
+          setData(res);
+          validate(studentSchema, res);
+          return;
+        }
+      });
+    }
+
+    setData(initalState);
+
+    return () => {
+      setData(initalState);
+    };
+  }, [openModal.type, openModal.id]);
 
   const colorscheme = useSiteColorSCheme();
 
@@ -95,7 +123,7 @@ export default function StudentAddModel({
         tabIndex={-1}
         aria-hidden="true"
         className={`fixed top-0 left-0 right-0 z-10 ${
-          !openModal ? "hidden" : "flex"
+          !openModal.open ? "hidden" : "flex"
         } items-center justify-center w-full overflow-x-hidden overflow-y-auto bg-gray-900 bg-opacity-50 md:inset-0 h-modal md:h-full dark:bg-opacity-80 animate__animated animate__fadeIn animate__fast`}
       >
         <div className="relative w-full h-full max-w-4xl p-4 md:h-auto animate__animated animate__zoomIn animate__faster">
@@ -114,7 +142,11 @@ export default function StudentAddModel({
                 type="button"
                 className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 data-modal-toggle="defaultModal"
-                onClick={() => setOpenModal(false)}
+                onClick={() =>
+                  setOpenModal({
+                    open: false,
+                  })
+                }
               >
                 <svg
                   aria-hidden="true"
@@ -144,21 +176,25 @@ export default function StudentAddModel({
                   setstate={setData}
                   state={data}
                   invalidinput={invalidinput}
+                  initstate={initalState}
+                  type={openModal.type}
+                  id={openModal.id}
                 />
               </div>
               <div className="flex justify-end w-full space-x-3">
                 <button
                   type="button"
                   className="btn btn-secondary py-2.5 px-5 mr-2 mb-2 flex items-center text-sm font-medium  focus:outline-none  rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                  onClick={() => setOpenModal(false)}
+                  onClick={() => setOpenModal({ open: false })}
                 >
                   Cancel
                 </button>
 
                 <button
                   type="submit"
-                  className="btn btn-success py-2.5 px-5 mr-2 mb-2 flex items-center text-sm font-medium  focus:outline-none  rounded-lg border border-gray-200 bg-lime-950"
+                  className="btn btn-success py-2.5 px-5 mr-2 mb-2 flex items-center text-sm  font-medium  focus:outline-none  rounded-lg border border-gray-200 bg-lime-950 "
                   disabled={updatebtnspinner}
+                  style={{ textTransform: "capitalize" }}
                 >
                   <svg
                     aria-hidden="true"
@@ -179,7 +215,10 @@ export default function StudentAddModel({
                       fill="currentColor"
                     />
                   </svg>
-                  {updatebtnspinner ? "Adding..." : "Add"}
+
+                  {updatebtnspinner
+                    ? `${openModal.type}ing`
+                    : `${openModal.type}`}
                 </button>
               </div>
             </form>

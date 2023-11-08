@@ -4,16 +4,17 @@ import { TStudentData } from "@/lib/types";
 type TableDataProps = {
   TableData: TStudentData;
   TableHeader: Array<string>;
+  editfun: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  deletefun: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 };
 
-export default function DataTable({ TableData, TableHeader }) {
+export default function DataTable({
+  TableData,
+  TableHeader,
+  editfun,
+  deletefun,
+}) {
   const { deleteStudentData } = useStore();
-
-  function DeleteFun(
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-  ): void {
-    deleteStudentData(event.currentTarget.id);
-  }
 
   return (
     <>
@@ -116,7 +117,12 @@ export default function DataTable({ TableData, TableHeader }) {
                       style={{ minWidth: "auto" }}
                     >
                       <li>
-                        <a className="dropdown-item" href="#" id={item.index}>
+                        <a
+                          className="dropdown-item"
+                          href="#"
+                          id={item.index}
+                          onClick={editfun}
+                        >
                           Edit
                         </a>
                       </li>
@@ -125,7 +131,7 @@ export default function DataTable({ TableData, TableHeader }) {
                           className=" dropdown-item"
                           href="#"
                           id={item.index}
-                          onClick={DeleteFun}
+                          onClick={deletefun}
                         >
                           Delete
                         </a>

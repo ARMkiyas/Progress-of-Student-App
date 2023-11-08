@@ -8,14 +8,14 @@ const Contact = () => {
           <div className="flex flex-wrap -mx-4 lg:justify-between">
             <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
               <div className="mb-12 max-w-[570px] lg:mb-0">
-                <span className="block mb-4 text-body-color font-semibold">
+                <span className="block mb-4 font-semibold text-body-color">
                   Contact Us
                 </span>
                 <h2 className="mb-6 text-[32px] font-bold uppercase text-body-color sm:text-[40px] lg:text-[36px] xl:text-[40px]">
                   GET IN TOUCH WITH US
                 </h2>
                 <p className="text-base leading-relaxed mb-9 text-body-color">
-                  We are here to assist you with our student progress report system. If you have any questions or feedback? reach out to us using the details bellow or fill out the form, and we'll get back to you shortly. 
+                  We are here to assist you with our student progress report system. If you have any questions or feedback? reach out to us using the details bellow or fill out the form, and we'll get back to you shortly.
                 </p>
                 <div className="mb-8 flex w-full max-w-[370px]">
                   <div className="mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded bg-primary bg-opacity-5 text-primary text-white sm:h-[70px] sm:max-w-[70px]">
@@ -82,7 +82,7 @@ const Contact = () => {
               </div>
             </div>
             <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
-              <div className="relative p-8 bg-white rounded-lg shadow-lg sm:p-12">
+              <div className="relative p-8 bg-white rounded-lg shadow-lg dark:bg-gray-900 sm:p-12">
                 <form>
                   <ContactInputBox
                     type="text"

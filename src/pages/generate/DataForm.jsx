@@ -161,38 +161,7 @@ export default function DataForm() {
 
 
 
-                    {/* Registration Success */}
-                    <div>
-                        <div className="flex items-center justify-between hidden p-10 bg-white rounded-lg shadow">
-                            <div>
-                                <svg
-                                    className="w-20 h-20 mx-auto mb-4 text-green-500"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                >
-                                    {" "}
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
 
-                                <h2 className="mb-4 text-2xl font-bold text-center text-gray-800">
-                                    Registration Success
-                                </h2>
-
-                                <div className="mb-8 text-gray-600">
-                                    Thank you. We have sent you an email to demo@demo.test. Please
-                                    click the link in the message to activate your account.
-                                </div>
-
-                                <button className="block w-40 px-5 py-2 mx-auto font-medium text-center text-gray-600 bg-white border rounded-lg shadow-sm focus:outline-none hover:bg-gray-100">
-                                    Back to home
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                     {/* top nav */}
                     <div className="py-4 border-b-2">
                         <div className="mb-1 text-xs font-bold leading-tight tracking-wide text-gray-500 uppercase">
@@ -240,7 +209,7 @@ export default function DataForm() {
                     </div>
 
                     {/* <!-- Step Content --> */}
-                    <div className="py-14">
+                    <div className="pt-14">
                         {
                             // <!-- Step 1 -->
                             step === 1 && (
@@ -251,7 +220,7 @@ export default function DataForm() {
                         }
 
                         {step === 2 && (
-                            <div className="mb-5 animate__animated animate__fadeIn animate__fast space-y-9">
+                            <div className=" animate__animated animate__fadeIn animate__fast space-y-9">
                                 <AceFormGroup inputHandeler={inputHandeler} invalidinput={invalidinput} state={acedamicDetails} />
                                 {/* <div :className="{ 'bg-red-400': passwordStrengthText == 'Too weak' ||  passwordStrengthText == 'Could be stronger' || passwordStrengthText == 'Strong password' }" className="w-1/3 h-2 mr-1 bg-gray-300 rounded-full"></div>
                     <div :className="{ 'bg-orange-400': passwordStrengthText == 'Could be stronger' || passwordStrengthText == 'Strong password' }" className="w-1/3 h-2 mr-1 bg-gray-300 rounded-full"></div>
@@ -262,7 +231,7 @@ export default function DataForm() {
                         )}
                         {step === 3 && (
                             <div className="animate__animated animate__fadeIn animate__fast" >
-                                <div className="mb-5" >
+                                <div className="" >
                                     <div className="flex items-center justify-center w-full" >
                                         <label onChange={datafile_handler} onDragOver={handleDragOver}
                                             onDragEnter={handleDragEnter} onDragLeave={handleDragLeave}
@@ -324,7 +293,7 @@ export default function DataForm() {
 
                 {/* bottom nav */}
 
-                <div className="fixed bottom-0 left-0 right-0 py-5 shadow-md">
+                <div className="py-2 ">
                     <div className="max-w-3xl px-4 mx-auto">
                         <div className="flex justify-between">
                             <div className="w-1/2">
@@ -343,7 +312,7 @@ export default function DataForm() {
                                 <Button
                                     onClick={handlesteps}
                                     id="next"
-                                    className="w-32 px-5 py-2 font-medium text-center text-white bg-blue-500 border border-transparent rounded-lg shadow-sm focus:outline-none hover:bg-blue-600"
+                                    className="w-32 px-5 py-2 font-medium text-center text-white bg-green-500 border border-transparent rounded-lg shadow-sm dark:bg-green-400 focus:outline-none hover:bg-green-600 dark:hover:bg-green-500"
                                 >
                                     {
                                         step === 3 ? "Submit" : "Next"

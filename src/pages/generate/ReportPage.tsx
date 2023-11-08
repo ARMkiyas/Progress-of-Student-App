@@ -15,6 +15,7 @@ import EditModel from "./componets/EditModel";
 import ResetAllBtn from "./componets/ResetAllBtn";
 import DataTable from "./componets/DataTable";
 import StudentAddModel from "./componets/StudentAddModel";
+import { TopenStudentAddModel } from "@/lib/types";
 
 const ITEM_PER_PAGE = 10;
 
@@ -26,6 +27,7 @@ export default function ReportPage() {
     header,
     resetDatabase,
     searchAction,
+    deleteStudentData,
   } = useStore();
 
   useEffect(() => {
@@ -39,7 +41,11 @@ export default function ReportPage() {
     open: false,
   });
 
-  const [openStudentAddModel, setOpenStudentAddModel] = useState(false);
+  const [openStudentAddModel, setOpenStudentAddModel] =
+    useState<TopenStudentAddModel>({
+      open: false,
+      type: "add",
+    });
 
   const [items, setItems] = useState([]);
 
@@ -68,7 +74,29 @@ export default function ReportPage() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ): void {
     e.preventDefault();
-    setOpenStudentAddModel(true);
+    setOpenStudentAddModel({
+      open: true,
+      type: "add",
+    });
+  }
+
+  function editfun(
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  ): void {
+    event.preventDefault();
+
+    setOpenStudentAddModel({
+      type: "edit",
+      open: true,
+      id: event.currentTarget.id,
+    });
+  }
+
+  function DeleteFun(
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  ): void {
+    event.preventDefault();
+    deleteStudentData(event.currentTarget.id);
   }
 
   return (
@@ -408,7 +436,12 @@ export default function ReportPage() {
             </div>
             {/* body table */}
             <div className="overflow-x-auto">
-              <DataTable TableData={items} TableHeader={header} />
+              <DataTable
+                TableData={items}
+                TableHeader={header}
+                deletefun={DeleteFun}
+                editfun={editfun}
+              />
             </div>
             {/* table footer */}
             <nav

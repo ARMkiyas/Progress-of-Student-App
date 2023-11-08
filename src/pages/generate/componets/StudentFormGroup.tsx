@@ -34,14 +34,22 @@ type schoolFormGroupProps = {
   setstate: React.Dispatch<React.SetStateAction<TStudentData>>;
   invalidinput?: string[];
   state: TStudentData;
+  initstate?: TStudentData;
+  type?: "edit" | "add";
+  id?: string;
 };
 
 export default function StudentFormGroup({
   invalidinput,
   setstate,
   state,
+  initstate,
+  type,
+  id,
 }: schoolFormGroupProps) {
-  const { header } = useStore();
+  const { header, getStudentDataById } = useStore();
+
+  console.log("header", header);
 
   const inputHandeler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (studentDetailsOtherThenSubject.includes(e.target.id)) {
@@ -49,7 +57,8 @@ export default function StudentFormGroup({
     } else {
       setstate((prevstate: TStudentData) => {
         const subject = prevstate.subjects?.filter(
-          (item) => Object.keys(item)[0] !== e.target.id,
+          (item) =>
+            Object.keys(item)[0].toLocaleLowerCase().trim() !== e.target.id,
         );
 
         return {
@@ -63,6 +72,16 @@ export default function StudentFormGroup({
         };
       });
     }
+  };
+
+  const getSubjectMarks = (subject: string) => {
+    const subjectMarks = state.subjects?.filter(
+      (item) =>
+        Object.keys(item)[0].toLocaleLowerCase().trim() ===
+        subject.toLowerCase().trim(),
+    );
+
+    return subjectMarks?.length ? Object.values(subjectMarks[0])[0] : "";
   };
 
   return (
@@ -103,9 +122,15 @@ export default function StudentFormGroup({
                       : "")
                   }
                   placeholder={`Enter ${item}...`}
-                  id={item.toLowerCase()}
+                  id={item.toLowerCase().trim()}
                   onChange={inputHandeler}
-                  defaultValue={state[item]}
+                  defaultValue={
+                    studentDetailsOtherThenSubject.includes(
+                      item.toLowerCase().trim(),
+                    )
+                      ? state[item]
+                      : getSubjectMarks(item)
+                  }
                 />
                 <div
                   id="schoolnameFeedback"

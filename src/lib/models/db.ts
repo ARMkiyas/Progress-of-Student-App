@@ -5,7 +5,7 @@ import { TAcedamicDetails, TSchoolDetails, TStudentData } from '../types';
 class DB extends Dexie {
     schoolDetails: Table<TSchoolDetails, number>
     acedamicDetail: Table<TAcedamicDetails, number>
-    studentData: Table<TStudentData, number>
+    studentData: Table<TStudentData, string>
     header: Table<string[], number>
 
     constructor() {

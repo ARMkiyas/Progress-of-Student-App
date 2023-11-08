@@ -4,7 +4,7 @@ import { TempStudentData, TempAcedamicData, TempSchoolData, TempHeaderData } fro
 import initialState from './initialState';
 import db, { resetDatabase } from "@/lib/models/db"
 import rankingMethod from "../utils/rankingMethod";
-import { TStudentData } from "../types";
+import { TStoreActions, TStudentData } from "../types";
 
 
 // function for simulate delay for testing loading state 
@@ -28,7 +28,16 @@ const data = await db.schoolDetails.toArray()
 
 */
 
+const reRanking = (studentData: TStudentData, currentstate: TStudentData[]) => {
+    let totalmark = 0
+    studentData.subjects.forEach((subject) => {
+        totalmark += Object.values(subject)[0]
+    })
+    const data = [...currentstate, { ...studentData, total: totalmark, avarage: totalmark / studentData.subjects.length }]
+    const rerankedData = rankingMethod(data)
 
+    return rerankedData
+}
 
 
 const actions = (set, get) => ({
@@ -38,11 +47,10 @@ const actions = (set, get) => ({
 
         const data = await handleFileRead(studentData);
 
-
-        await db.acedamicDetail.put(TempAcedamicData)
-        await db.schoolDetails.put(TempSchoolData)
-        await db.studentData.bulkPut(TempStudentData)
-        await db.header.put(TempHeaderData)
+        await db.acedamicDetail.put(acedamicDetail)
+        await db.schoolDetails.put(schoolDetails)
+        await db.studentData.bulkPut(data)
+        await db.header.put(get().header)
 
 
         return set({ schoolDetails, acedamicDetail, studentData: data })
@@ -124,6 +132,27 @@ const actions = (set, get) => ({
     },
 
 
+    async getStudentDataById(id: string) {
+        console.log(id);
+        try {
+
+            const data = await db.studentData.get(id)
+
+            console.log(data);
+
+            if (data) {
+                return data
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+
+
+    },
+
+
     async updateAcedamic(acedamicDetail) {
         const data = await db.acedamicDetail.toArray()
         await db.acedamicDetail.update(data[0].id, acedamicDetail).then((updated) => {
@@ -143,7 +172,7 @@ const actions = (set, get) => ({
     setupdatebtnspinner(updatebtnspinner) { set({ updatebtnspinner: updatebtnspinner }) },
 
 
-    async updateStudentData(studentData: TStudentData) {
+    async addNewStudent(studentData: TStudentData) {
         let status = {
             status: false,
             message: '',
@@ -162,22 +191,16 @@ const actions = (set, get) => ({
                     type: "error"
                 }
 
-            } else {
+            }
+            else {
 
-                let totalmark = 0
                 const getstate = get().studentData
-                console.log(getstate);
-
-                studentData.subjects.forEach((subject) => {
-                    totalmark += Object.values(subject)[0]
-                })
-                const data = [...getstate, { ...studentData, total: totalmark, avarage: totalmark / studentData.subjects.length }]
-                const rerankedData = rankingMethod(data)
+                const rerankedData = reRanking(studentData, getstate)
                 const uploaded = await db.studentData.bulkPut(rerankedData)
                 if (uploaded) {
                     status = {
                         status: true,
-                        message: 'Successfully Updated',
+                        message: 'Successfully Adde New Student Data',
                         type: "success"
                     }
                     set({ studentData: rerankedData })
@@ -205,6 +228,61 @@ const actions = (set, get) => ({
             return status.status
         }
 
+
+
+    },
+
+    async updateStudentData(studentData: TStudentData, editId) {
+        let status = {
+            status: false,
+            message: '',
+            type: "error"
+        }
+
+
+        try {
+
+            set({ updatebtnspinner: true })
+
+            if (editId !== studentData.index) {
+                const checkDuplidatedData = await db.studentData.where('index').equals(studentData.index.trim()).toArray()
+                if (checkDuplidatedData.length > 0) {
+                    status = {
+                        status: false,
+                        message: 'Duplicate Index, the index number provided already exsist, please check the index number',
+                        type: "error"
+                    }
+                    return false
+                }
+            }
+
+            await db.studentData.delete(editId)
+
+            const alldata = await db.studentData.toArray()
+            const rerankedData = reRanking(studentData, alldata)
+
+            const update = await db.studentData.bulkPut(rerankedData)
+            if (update) {
+                status = {
+                    status: true,
+                    message: 'Successfully Updated',
+                    type: "success"
+                }
+                set({ studentData: rerankedData })
+            }
+
+
+        } catch (error) {
+            console.log(error);
+        } finally {
+            console.log(status);
+            set(state => ({
+                updatebtnspinner: false,
+                toast: [...state.toast, { message: status.message, type: status.type }]
+            }))
+            return status.status
+
+        }
 
 
     },
