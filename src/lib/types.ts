@@ -35,6 +35,8 @@ export type TStudentDataFile = z.infer<typeof StudentDataschema>
 
 
 
+
+
 export type TStoreActions = {
 
     DataHandler: (schoolDetails: TSchoolDetails, acedamicDetail: TAcedamicDetails, studentData: TStudentDataFile) => Promise<void>,
@@ -50,6 +52,7 @@ export type TStoreActions = {
     removetoast: (id: number) => void
     deleteStudentData: (id: string) => Promise<void>
     addNewStudent: (studentData: TStudentData) => Promise<boolean | void>
+    getPDF: (type: "allinone" | "allmultiple" | "byId", id?: string) => Promise<Blob | string | void>
 }
 
 export type TStoreState = {
@@ -75,6 +78,11 @@ export type TopenStudentAddModel = {
     id?: string
 };
 
+
+export type Tblobstore = {
+    id: string,
+    blob: Blob
+}
 
 // types of pdf generators
 

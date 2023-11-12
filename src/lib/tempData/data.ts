@@ -9,6 +9,18 @@ This page contains the temporary data for the application to test and develop th
 
 import { TStudentData } from "../types";
 
+
+
+
+
+
+
+
+
+
+
+
+
 export const TempStudentData: TStudentData[] = [
 
     {
@@ -180,7 +192,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Balaji",
-        "index": "2003",
+        "index": "2266",
         "subjects": [
             { "maths": 75 },
             { "science": 70 },
@@ -208,7 +220,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Dinesh",
-        "index": "4007",
+        "index": "4054",
         "subjects": [
             { "maths": 55 },
             { "science": 50 },
@@ -222,7 +234,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Esther",
-        "index": "5009",
+        "index": "5063",
         "subjects": [
             { "maths": 45 },
             { "science": 40 },
@@ -236,7 +248,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Aiswarya",
-        "index": "1001",
+        "index": "1093",
         "subjects": [
             { "maths": 95 },
             { "science": 90 },
@@ -250,7 +262,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Bharath",
-        "index": "2003",
+        "index": "2036",
         "subjects": [
             { "maths": 80 },
             { "science": 75 },
@@ -264,7 +276,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Charulatha",
-        "index": "3005",
+        "index": "3045",
         "subjects": [
             { "maths": 70 },
             { "science": 65 },
@@ -278,7 +290,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Dinesh",
-        "index": "4007",
+        "index": "4065",
         "subjects": [
             { "maths": 60 },
             { "science": 55 },
@@ -292,7 +304,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Esther",
-        "index": "5009",
+        "index": "5433",
         "subjects": [
             { "maths": 50 },
             { "science": 45 },
@@ -362,7 +374,7 @@ export const TempStudentData: TStudentData[] = [
     },
     {
         "name": "Janani",
-        "index": "10019",
+        "index": "10443",
         "subjects": [
             { "maths": 50 },
             { "science": 45 },
