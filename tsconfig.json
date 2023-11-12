@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["vitest/globals"],
 
     /* Basic Options */
     "baseUrl": ".",
@@ -9,8 +10,9 @@
     "target": "esnext" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */,
     "module": "commonjs" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
     "lib": [
-      "esnext",
-      "dom"
+      "dom",
+      "dom.iterable",
+      "esnext"
     ] /* Specify library files to be included in the compilation. */,
     // "allowJs": true,                       /* Allow javascript files to be compiled. */
     // "checkJs": true,                       /* Report errors in .js files. */
@@ -60,8 +62,7 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules"]
 }

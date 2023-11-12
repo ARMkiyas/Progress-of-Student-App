@@ -4,9 +4,12 @@ import { TempStudentData, TempAcedamicData, TempSchoolData, TempHeaderData } fro
 import initialState from './initialState';
 import db, { resetDatabase } from "@/lib/models/db"
 import rankingMethod from "../utils/rankingMethod";
-import { TStoreActions, TStudentData } from "../types";
-
-
+import { TStoreActions, TStudentData, Tblobstore } from "../types";
+import ReportCardPdfMain from "@/pdfGen/ReportCardPdfMain";
+import { pdf } from "@react-pdf/renderer";
+import pdfGenMethod from "@/lib/pdfGenMethod";
+import JSZip from 'jszip';
+import { PDFDocument } from 'pdf-lib';
 // function for simulate delay for testing loading state 
 const delay = async (delay = 1000, callback = () => { }) => {
 
@@ -16,6 +19,41 @@ const delay = async (delay = 1000, callback = () => { }) => {
     callback()
 }
 
+
+
+
+async function mergePDFBlobs(blobstore: Tblobstore[]) {
+    const mergedPdf = await PDFDocument.create();
+
+    for (const blob of blobstore) {
+        const arrayBuffer = await blob.blob.arrayBuffer();
+        const pdfDoc = await PDFDocument.load(arrayBuffer);
+
+        for (let i = 0; i < pdfDoc.getPageCount(); i++) {
+            const [copiedPage] = await mergedPdf.copyPages(pdfDoc, [i]);
+            mergedPdf.addPage(copiedPage);
+        }
+    }
+
+    const mergedPdfBytes = await mergedPdf.save();
+    return new Blob([mergedPdfBytes], { type: 'application/pdf' });
+}
+
+
+
+
+
+async function createZipFromBlobs(blobstore: Tblobstore[]) {
+    const zip = new JSZip();
+
+    for (const { id, blob } of blobstore) {
+        const arrayBuffer = await blob.arrayBuffer();
+        zip.file(`${id}.pdf`, arrayBuffer);
+    }
+
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    return zipBlob;
+}
 /*
 
 simulate delay for testing loading state
@@ -46,6 +84,8 @@ const actions = (set, get) => ({
 
 
         const data = await handleFileRead(studentData);
+
+        console.log(data.length);
 
         await db.acedamicDetail.put(acedamicDetail)
         await db.schoolDetails.put(schoolDetails)
@@ -107,11 +147,11 @@ const actions = (set, get) => ({
         const data = await db.schoolDetails.toArray()
 
 
-        await db.schoolDetails.update(data[0].id, schoolDetails).then((updated) => {
+        await db.schoolDetails.update(data[0].id, schoolDetails).then(async (updated) => {
             if (updated) {
+
+                await db.blobstore.clear()
                 set({ schoolDetails })
-
-
 
             } else {
 
@@ -155,8 +195,9 @@ const actions = (set, get) => ({
 
     async updateAcedamic(acedamicDetail) {
         const data = await db.acedamicDetail.toArray()
-        await db.acedamicDetail.update(data[0].id, acedamicDetail).then((updated) => {
+        await db.acedamicDetail.update(data[0].id, acedamicDetail).then(async (updated) => {
             if (updated) {
+                await db.blobstore.clear()
                 set({ acedamicDetail })
 
             } else {
@@ -198,6 +239,7 @@ const actions = (set, get) => ({
                 const rerankedData = reRanking(studentData, getstate)
                 const uploaded = await db.studentData.bulkPut(rerankedData)
                 if (uploaded) {
+                    await db.blobstore.clear()
                     status = {
                         status: true,
                         message: 'Successfully Adde New Student Data',
@@ -263,12 +305,14 @@ const actions = (set, get) => ({
 
             const update = await db.studentData.bulkPut(rerankedData)
             if (update) {
+                await db.blobstore.clear()
+                set({ studentData: rerankedData })
                 status = {
                     status: true,
                     message: 'Successfully Updated',
                     type: "success"
                 }
-                set({ studentData: rerankedData })
+
             }
 
 
@@ -297,6 +341,8 @@ const actions = (set, get) => ({
             const rerankedData = rankingMethod(data)
             await db.studentData.bulkPut(rerankedData)
 
+            await db.blobstore.clear()
+
             set({ studentData: rerankedData })
 
 
@@ -304,6 +350,56 @@ const actions = (set, get) => ({
             console.log(error);
 
         }
+
+    },
+
+    async getPDF(type, id) {
+        try {
+            const studata = get().studentData
+            let blobstore = await db.blobstore.toArray()
+            if (blobstore.length !== studata.length && studata.length > 0 && blobstore.length === 0) {
+
+                const promises = studata.map(async (studentData) => {
+                    const blob = await pdf(ReportCardPdfMain({ schoolDetails: get().schoolDetails, acedamicDetail: get().acedamicDetail, studentData: studentData, TableHeader: get().header }),).toBlob();
+                    return { id: studentData.index, blob };
+                });
+
+                const tempdata = await Promise.all(promises);
+
+                console.log(tempdata);
+
+                if (tempdata.length === studata.length) {
+                    await db.blobstore.bulkPut(tempdata)
+                    blobstore = tempdata
+                }
+
+
+
+            }
+
+
+            if (type === "allmultiple" || type === "allinone") {
+
+                if (type === "allinone") {
+                    const allReportinOne = await mergePDFBlobs(blobstore)
+                    return allReportinOne
+                }
+                else if (type === "allmultiple") {
+                    const zipBlob = await createZipFromBlobs(blobstore)
+                    return zipBlob
+                }
+
+            } else if (type === "byId" && id) {
+                const blobstore = await db.blobstore.get(id)
+                return blobstore.blob
+            }
+
+        }
+        catch (error) {
+            console.log(error);
+        }
+        finally { }
+
 
     }
 

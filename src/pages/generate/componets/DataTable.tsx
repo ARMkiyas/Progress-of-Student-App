@@ -14,7 +14,18 @@ export default function DataTable({
   editfun,
   deletefun,
 }) {
-  const { deleteStudentData } = useStore();
+  const { getPDF } = useStore();
+
+  async function downPdfFun(
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  ) {
+    const pdf = await getPDF("byId", event.currentTarget.id);
+
+    if (pdf) {
+      const url = window.URL.createObjectURL(pdf as Blob);
+      window.open(url, "_blank");
+    }
+  }
 
   return (
     <>
@@ -124,6 +135,16 @@ export default function DataTable({
                           onClick={editfun}
                         >
                           Edit
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="dropdown-item"
+                          href="#"
+                          id={item.index}
+                          onClick={downPdfFun}
+                        >
+                          Download Report
                         </a>
                       </li>
                       <li>

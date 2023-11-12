@@ -6,7 +6,7 @@ import {
 } from "@mantine/hooks";
 
 import "./style.css";
-import { useEffect, useState } from "react";
+import { AnchorHTMLAttributes, useEffect, useState } from "react";
 import { Button, Modal, Tooltip, CustomFlowbiteTheme } from "flowbite-react";
 import { useLiveQuery } from "dexie-react-hooks";
 import db from "@/lib/models/db";
@@ -28,6 +28,7 @@ export default function ReportPage() {
     resetDatabase,
     searchAction,
     deleteStudentData,
+    getPDF,
   } = useStore();
 
   useEffect(() => {
@@ -97,6 +98,18 @@ export default function ReportPage() {
   ): void {
     event.preventDefault();
     deleteStudentData(event.currentTarget.id);
+  }
+
+  async function pdfGenatonce(
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  ) {
+    event.preventDefault();
+    type TgetPDF = "allinone" | "allmultiple" | "byId";
+    const file = await getPDF(event.currentTarget.id as TgetPDF);
+    if (file) {
+      const url = window.URL.createObjectURL(file as Blob);
+      window.open(url, "_blank");
+    }
   }
 
   return (
@@ -405,9 +418,10 @@ export default function ReportPage() {
                       </a>
                     </div>
                   </div>
-                  <button
+                  {/* <button
                     className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     type="button"
+                    onClick={pdfGenatonce}
                   >
                     <svg
                       className="w-5 h-5 mr-2 -ml-1"
@@ -430,7 +444,59 @@ export default function ReportPage() {
                       </g>
                     </svg>
                     Export Mark Sheet as PDF (All)
-                  </button>
+                  </button> */}
+                  <div className="dropdown">
+                    <button
+                      className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <svg
+                        className="w-5 h-5 mr-2 -ml-1"
+                        fill="currentColor"
+                        viewBox="0 0 35 35"
+                        data-name="Layer 2"
+                        id="b7babb3a-07a5-4f0e-b9ad-475301dbdd9c"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                        <g
+                          id="SVGRepo_tracerCarrier"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        ></g>
+                        <g id="SVGRepo_iconCarrier">
+                          <path d="M17.5,23.1a1.25,1.25,0,0,1-1.25-1.25V3.154a1.25,1.25,0,0,1,2.5,0V21.848A1.25,1.25,0,0,1,17.5,23.1Z"></path>
+                          <path d="M9.371,11.163a1.251,1.251,0,0,1-.884-2.134l6.751-6.751a3.2,3.2,0,0,1,4.524,0l6.752,6.751A1.25,1.25,0,0,1,24.746,10.8L18,4.046a.7.7,0,0,0-.99,0L10.254,10.8A1.243,1.243,0,0,1,9.371,11.163Z"></path>
+                          <path d="M31.436,34.466H3.564A3.317,3.317,0,0,1,.25,31.153V22.415a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.813H31.436a.815.815,0,0,0,.814-.813V22.415a1.25,1.25,0,0,1,2.5,0v8.738A3.317,3.317,0,0,1,31.436,34.466Z"></path>
+                        </g>
+                      </svg>
+                      Export All Mark Sheet
+                    </button>
+                    <ul className="w-full dropdown-menu">
+                      <li className="w-full text-center">
+                        <a
+                          className=" dropdown-item"
+                          href="#"
+                          id="allinone"
+                          onClick={pdfGenatonce}
+                        >
+                          As in Single PDF
+                        </a>
+                      </li>
+                      <li className="w-full text-center">
+                        <a
+                          className="dropdown-item"
+                          href="#"
+                          onClick={pdfGenatonce}
+                          id="allmultiple"
+                        >
+                          As in Multiple PDF in zip
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>

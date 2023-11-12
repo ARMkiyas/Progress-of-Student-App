@@ -1,20 +1,25 @@
 import Dexie, { Table } from 'dexie';
-import { TAcedamicDetails, TSchoolDetails, TStudentData } from '../types';
+import { TAcedamicDetails, TSchoolDetails, TStudentData, Tblobstore } from '../types';
+import indexedDB from "fake-indexeddb"
 
 
-class DB extends Dexie {
+
+
+export class DB extends Dexie {
     schoolDetails: Table<TSchoolDetails, number>
     acedamicDetail: Table<TAcedamicDetails, number>
     studentData: Table<TStudentData, string>
     header: Table<string[], number>
+    blobstore: Table<Tblobstore, number>
 
-    constructor() {
-        super("POSDB");
+    constructor(dbname: string, test: boolean = false) {
+        super(dbname, { indexedDB: test ? indexedDB : window.indexedDB });
         this.version(1).stores({
             schoolDetails: "++id",
             acedamicDetail: "++id",
             studentData: "index,name",
-            header: "++id"
+            header: "++id",
+            blobstore: "++id,id"
 
         })
         this.schoolDetails = this.table("schoolDetails")
@@ -26,16 +31,16 @@ class DB extends Dexie {
 }
 
 
-const db = new DB();
+const db = new DB("POSDB");
 
 
 
 export default db;
 
 
-export const resetDatabase = () => {
-    return db.transaction('rw', db.acedamicDetail, db.studentData, db.schoolDetails, db.header, async () => {
-        await Promise.all(db.tables.map(table => table.clear()));
+export const resetDatabase = (dbinstance = db) => {
+    return dbinstance.transaction('rw', dbinstance.acedamicDetail, dbinstance.studentData, dbinstance.schoolDetails, dbinstance.header, dbinstance.blobstore, async () => {
+        await Promise.all(dbinstance.tables.map(table => table.clear()));
     });
 }
 
