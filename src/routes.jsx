@@ -9,7 +9,7 @@ import PdfTestPage from "@/pdfGen/PdfTestPage"
 export const router = createBrowserRouter([
 
   {
-
+    path: "/",
     element: <Mainlayout />,
     children: [
       {
@@ -18,15 +18,15 @@ export const router = createBrowserRouter([
 
       },
       {
-        path: "generate",
+        path: "/generate",
         element: <Generate />,
       },
       {
-        path: "about",
+        path: "/about",
         element: <About />,
       },
       {
-        path: "contact",
+        path: "/contact",
         element: <Contact />,
       },
       {
