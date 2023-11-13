@@ -135,7 +135,7 @@ export default function ReportPage() {
       />
 
       <section className="p-3 sm:p-5">
-        <div className="max-w-screen-xl px-4 mx-auto lg:px-12">
+        <div className="px-4 mx-auto lg:px-12">
           <div className="relative overflow-hidden shadow-md dark:bg-gray-800 sm:rounded-lg">
             <div className="inline-flex flex-col items-start justify-start pl-6 ">
               <ResetAllBtn onClick={setOpenAlertModel} />
@@ -343,7 +343,7 @@ export default function ReportPage() {
                   </div>
                 </form>
               </div>
-              <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
+              <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3 ">
                 <div className="flex items-center w-full pl-3 space-x-3 md:w-auto">
                   <button
                     type="button"
@@ -365,7 +365,7 @@ export default function ReportPage() {
                     </svg>
                     Add
                   </button>
-                  <div className="dropdown">
+                  {/* <div className="dropdown">
                     <button
                       className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dropdown-toggle"
                       type="button"
@@ -391,7 +391,7 @@ export default function ReportPage() {
                         </a>
                       </li>
                     </ul>
-                  </div>
+                  </div> */}
                   <div
                     id="actionsDropdown"
                     className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600"

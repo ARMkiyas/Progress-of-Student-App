@@ -91,7 +91,9 @@ export default function EditModel({
       >
         <div className="relative w-full h-full max-w-4xl p-4 md:h-auto animate__animated animate__zoomIn animate__faster">
           {/* <!-- Modal content --> */}
-          <div className="relative p-4 rounded-lg shadow dark:bg-gray-800 sm:p-5">
+          <div
+            className={`relative p-4 rounded-lg shadow dark:bg-gray-800 sm:p-5 bg-gray-50 `}
+          >
             {/* <!-- Modal header --> */}
             <div className="flex items-center justify-between pb-4 mb-4 border-b rounded-t sm:mb-5 dark:border-gray-600">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">

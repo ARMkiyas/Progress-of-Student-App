@@ -9,7 +9,8 @@ const initialState: TStoreState = {
     loading: false,
     header: [],
     updatebtnspinner: false,
-    toast: []
+    toast: [],
+    sliceedData: [],
 }
 
 export default initialState;

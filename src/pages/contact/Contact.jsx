@@ -1,6 +1,50 @@
+import { useDebouncedState } from '@mantine/hooks';
 import React from 'react'
+import { z } from 'zod'
+
+
+
+const contactSchema = z.object({
+  name: z.string().min(3).max(50),
+  email: z.string().email(),
+  message: z.string().min(10).max(500),
+
+})
+
+
 
 const Contact = () => {
+
+  const [data, setData] = useDebouncedState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  }, 100);
+
+  const [isvalid, setIsvalid] = React.useState([]);
+
+  const SendMessageHandler = (e) => {
+    e.preventDefault();
+    const result = contactSchema.safeParse(data);
+    if (!result.success) {
+      setIsvalid(result.error.issues.map((e) => e.path[e.path.length - 1]));
+      return
+    }
+    setIsvalid([]);
+
+
+
+  }
+
+
+
+
+  const inputOnChangeHandler = (e) => {
+    console.log(e.target.value);
+    setData({ ...data, [e.target.name]: e.target.value });
+  }
+
   return (
     <>
       <section className=" py-20 lg:py-[120px] overflow-hidden relative z-10">
@@ -83,32 +127,48 @@ const Contact = () => {
             </div>
             <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
               <div className="relative p-8 bg-white rounded-lg shadow-lg dark:bg-gray-900 sm:p-12">
-                <form>
+                <form onSubmit={SendMessageHandler}>
+
                   <ContactInputBox
                     type="text"
                     name="name"
                     placeholder="Your Name"
+                    onchange={inputOnChangeHandler}
+                    value={data.name}
+                    validata={isvalid}
                   />
+
                   <ContactInputBox
                     type="text"
                     name="email"
                     placeholder="Your Email"
+                    onchange={inputOnChangeHandler}
+                    value={data.email}
+                    validata={isvalid}
                   />
                   <ContactInputBox
                     type="text"
                     name="phone"
                     placeholder="Your Phone"
+                    onchange={inputOnChangeHandler}
+                    value={data.phone}
+                    validata={isvalid}
                   />
                   <ContactTextArea
                     row="6"
                     placeholder="Your Message"
-                    name="details"
+                    name="message"
                     defaultValue=""
+                    onchange={inputOnChangeHandler}
+                    value={data.message}
+                    validata={isvalid}
+
                   />
                   <div>
                     <button
                       type="submit"
                       className="w-full p-3 text-white transition border rounded border-primary bg-primary hover:bg-opacity-90"
+
                     >
                       Send Message
                     </button>
@@ -933,7 +993,9 @@ const Contact = () => {
 
 export default Contact;
 
-const ContactTextArea = ({ row, placeholder, name, defaultValue }) => {
+const ContactTextArea = ({ row, placeholder, name, defaultValue, onchange, validata }) => {
+
+  console.log(validata.includes("message"));
   return (
     <>
       <div className="mb-6">
@@ -941,15 +1003,22 @@ const ContactTextArea = ({ row, placeholder, name, defaultValue }) => {
           rows={row}
           placeholder={placeholder}
           name={name}
-          className="border-[f0f0f0] w-full resize-none rounded border py-3 px-[14px] text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+          className={"border-[f0f0f0] w-full resize-none text-black rounded border py-3 px-[14px] text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none" + (validata.includes("message") ? "is-invalid" : "")}
           defaultValue={defaultValue}
+          onChange={onchange}
         />
+        <div id="TermFeedback" className="invalid-feedback">
+          {name} can not be empty or invalid .
+        </div>
       </div>
+
     </>
   );
 };
 
-const ContactInputBox = ({ type, placeholder, name }) => {
+const ContactInputBox = ({ type, placeholder, name, onchange, value, validata }) => {
+
+
   return (
     <>
       <div className="mb-6">
@@ -957,8 +1026,13 @@ const ContactInputBox = ({ type, placeholder, name }) => {
           type={type}
           placeholder={placeholder}
           name={name}
-          className="border-[f0f0f0] w-full rounded border py-3 px-[14px] text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+          defaultValue={value}
+          className={"border-[f0f0f0] w-full  text-black rounded border py-3 px-[14px] text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none " + (validata.includes(name) ? "is-invalid" : "")}
+          onChange={onchange}
         />
+        <div id="TermFeedback" className="invalid-feedback">
+          {name} can not be empty or invalid .
+        </div>
       </div>
     </>
   );

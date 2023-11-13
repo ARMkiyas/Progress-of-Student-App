@@ -18,17 +18,15 @@ const styles = StyleSheet.create({
     height: 24,
   },
   tableitem: {
-    width: "50%",
+    width: "35%",
     paddingLeft: 8,
   },
 });
 
 const ResultSummary = ({ studentData }: { studentData: TStudentData }) => (
   <View style={styles.tableContainer}>
-    <View style={{ ...styles.tableitmeview, borderBottomWidth: 0 }}>
-      <Text style={styles.tableitem}>
-        Total Marks : {studentData.totalMark}
-      </Text>
+    <View style={{ ...styles.tableitmeview }}>
+      <Text style={styles.tableitem}>Total Marks : {studentData.total}</Text>
       <Text
         style={{
           ...styles.tableitem,
@@ -38,19 +36,9 @@ const ResultSummary = ({ studentData }: { studentData: TStudentData }) => (
       >
         Average : {studentData.avarage}
       </Text>
-    </View>
-    <View style={{ ...styles.tableitmeview }}>
       <Text style={styles.tableitem}>Rank : {studentData.rank}</Text>
-      <Text
-        style={{
-          ...styles.tableitem,
-          borderLeftColor: "#bff0fd",
-          borderLeftWidth: 1,
-        }}
-      >
-        Absences : None
-      </Text>
     </View>
+    \
   </View>
 );
 
