@@ -23,7 +23,7 @@ export default function AceFormGroup({
             "w-full px-4 py-3 font-medium rounded-lg shadow-sm focus:outline-none focus:shadow-outline form-control" +
             (invalidinput.includes("Grade") ? " is-invalid" : "")
           }
-          placeholder="Your school name..."
+          placeholder="Enter Grade/class Name... "
           id="Grade"
           defaultValue={state.Grade}
           onChange={inputHandeler}
@@ -42,7 +42,7 @@ export default function AceFormGroup({
             "w-full px-4 py-3 font-medium rounded-lg shadow-sm focus:outline-none focus:shadow-outline form-control" +
             (invalidinput.includes("Term") ? " is-invalid" : "")
           }
-          placeholder="Your school name..."
+          placeholder="Term/Semester..."
           id="Term"
           defaultValue={state.Term}
           onChange={inputHandeler}
@@ -62,7 +62,7 @@ export default function AceFormGroup({
             "w-full px-4 py-3 font-medium rounded-lg shadow-sm focus:outline-none focus:shadow-outline form-control" +
             (invalidinput.includes("SchoolYear") ? " is-invalid" : "")
           }
-          placeholder="Your school name..."
+          placeholder="Aceademic Year..."
           id="SchoolYear"
           defaultValue={state.SchoolYear}
           onChange={inputHandeler}
@@ -84,7 +84,7 @@ export default function AceFormGroup({
             "w-full px-4 py-3 font-medium rounded-lg shadow-sm focus:outline-none focus:shadow-outline form-control" +
             (invalidinput.includes("ClassTeacherName") ? " is-invalid" : "")
           }
-          placeholder="Your school name..."
+          placeholder="Class Teacher name..."
           id="ClassTeacherName"
           defaultValue={state.ClassTeacherName}
           onChange={inputHandeler}
