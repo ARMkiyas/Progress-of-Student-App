@@ -47,7 +47,7 @@ export default function SchoolFormGroup({
             "w-full px-4 py-3 font-medium rounded-lg shadow-sm focus:outline-none focus:shadow-outline form-control" +
             (invalidinput.includes("SchoolAddress") ? " is-invalid" : "")
           }
-          placeholder="Your school name..."
+          placeholder="Your school address..."
           id="SchoolAddress"
           defaultValue={state.SchoolAddress}
           onChange={inputHandeler}
