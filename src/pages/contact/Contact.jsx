@@ -38,7 +38,6 @@ const Contact = () => {
   }
 
 
-  console.log(isvalid);
 
 
   const inputOnChangeHandler = (e) => {
@@ -128,7 +127,8 @@ const Contact = () => {
             </div>
             <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
               <div className="relative p-8 bg-white rounded-lg shadow-lg dark:bg-gray-900 sm:p-12">
-                <form>
+                <form onSubmit={SendMessageHandler}>
+
                   <ContactInputBox
                     type="text"
                     name="name"
@@ -168,7 +168,7 @@ const Contact = () => {
                     <button
                       type="submit"
                       className="w-full p-3 text-white transition border rounded border-primary bg-primary hover:bg-opacity-90"
-                      onClick={SendMessageHandler}
+
                     >
                       Send Message
                     </button>

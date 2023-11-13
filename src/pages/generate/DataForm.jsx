@@ -6,6 +6,7 @@ import AceFormGroup from "./componets/AceFormGroup"
 import { SchoolDetailSchema, AcedamicDetailSchema, StudentDataschema } from "@/lib/schema.ts";
 import useStore from "@/lib/state/store";
 import useFormValidation from "@/lib/custom_hooks/useFormValidation"
+import { Modal } from "flowbite-react";
 
 
 const ValidFileFormats = ["xlsx", "csv"];
@@ -145,12 +146,15 @@ export default function DataForm() {
         e.dataTransfer.dropEffect = 'copy'; // Indicates that a copy of the file will be made
     };
 
+    const [openModal, setOpenModal] = useState(true);
 
 
 
 
     return (
         <>
+
+
 
 
 
