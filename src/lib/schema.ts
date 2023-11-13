@@ -12,7 +12,7 @@ export const SchoolDetailSchema = z.object({
   schoolname: z.string().min(3).max(50),
   SchoolAddress: z.string().min(3).max(50),
   SchoolEmail: z.string().email(),
-  SchoolPhone: z.string().min(12).max(12),
+  SchoolPhone: z.string().min(10).max(12),
 })
 
 
@@ -20,7 +20,7 @@ export const SchoolDetailSchema = z.object({
 export const AcedamicDetailSchema = z.object({
   Grade: z.string().min(1).max(50),
   Term: z.string().min(1).max(50),
-  SchoolYear: z.string().min(1).max(50),
+  SchoolYear: z.string().min(4).max(6),
   ClassTeacherName: z.string().min(1).max(50),
 })
 

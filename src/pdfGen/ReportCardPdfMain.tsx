@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
   page: {
     fontFamily: "Helvetica",
     padding: 20,
+    backgroundColor: "#FEFAE0",
   },
   logo: {
     width: 74,
@@ -56,6 +57,11 @@ const ReportCardPdfMain = ({
             <StudentSubjectTable studentData={studentData} />
             <ResultSummary studentData={studentData} />
           </view>
+          <ReportPDFFooter
+            schoolAddress={schoolDetails.SchoolAddress}
+            phone={schoolDetails.SchoolPhone}
+            email={schoolDetails.SchoolEmail}
+          />
         </view>
       </Page>
     </Document>

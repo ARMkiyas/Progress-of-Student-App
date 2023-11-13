@@ -67,6 +67,7 @@ export type TStoreState = {
         message: string,
         type: "error" | "success" | "warning" | "info" | undefined,
     }[]
+    sliceedData: TStudentData[] | undefined
 }
 
 

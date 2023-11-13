@@ -4,7 +4,6 @@ import { TAcedamicDetails, TStudentData } from "@/lib/types";
 const styles = StyleSheet.create({
   headerContainer: {
     fontSize: 14,
-    marginTop: 15,
   },
   content: {
     // border: "1px",
