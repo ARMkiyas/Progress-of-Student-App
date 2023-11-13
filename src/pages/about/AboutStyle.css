@@ -65,7 +65,7 @@
   top: 0;
   width: 45%;
   min-height: 650px;
-  background: url(../images/about/home-8.jpg) no-repeat;
+  background: url(./images/aboutus.jpeg) no-repeat;
   background-size: cover;
 }
 .about-content {
