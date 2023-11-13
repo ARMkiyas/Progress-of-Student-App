@@ -79,11 +79,11 @@ export default function Cruosal() {
                       <h2 className="animate__animated animate__fadeInDown">
                         Welcome to <span>POS</span>
                       </h2>
-                      <p className="animate__animated animate__fadeInUp">
+                      <p className="animate__animated animate__fadeInUp text-lg sm:text-lg lg:text-3xl xl:text-4xl md:text-3xl">
                         The Progress of Student is the, One such advancement in the
                         creation of students' progress reports in online, PDF format.
                         This innovative approach saves time, resources and provides a convenient
-                        and secure methed.
+                        and secure method.
                       </p>
 
                       <GetStarted />
@@ -103,7 +103,7 @@ export default function Cruosal() {
                       <h2 className="animate__animated animate__fadeInDown">
                         The Utilization of POS
                       </h2>
-                      <p className="animate__animated animate__fadeInUp">
+                      <p className="animate__animated animate__fadeInUp text-lg sm:text-lg lg:text-3xl xl:text-4xl md:text-3xl">
                         The process of creating and distributing students' progress reports.
                         This digital transformation offers numerous benefits, such as real-time
                         access to student performance data, reduced administrative workload,
@@ -125,7 +125,7 @@ export default function Cruosal() {
                       <h2 className="animate__animated animate__fadeInDown">
                         Process for crafting POS
                       </h2>
-                      <p className="animate__animated animate__fadeInUp">
+                      <p className="animate__animated animate__fadeInUp text-lg sm:text-lg lg:text-3xl xl:text-4xl md:text-3xl">
                         We will guide the step-by-step process of creating students'
                         progress reports online in PDF format. We will cover the tools
                         and techniques required to ensure a smooth transition to a
