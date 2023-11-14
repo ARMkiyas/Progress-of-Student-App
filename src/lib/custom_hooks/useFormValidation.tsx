@@ -20,14 +20,12 @@ export default function useFormValidation() {
   const [invalidinput, setInvalidinput] = useState<string[] | any>([]);
 
   const validate: Tvalidate = (schema, data) => {
-    console.log(data);
-
     try {
       const check = schema.safeParse(data);
 
       if (!check.success) {
         const { error } = check as SafeParseError<TSchema>;
-        console.log(error);
+
         setInvalidinput(error.issues.map((e) => e.path[e.path.length - 1]));
         return false;
       }

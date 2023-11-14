@@ -41,7 +41,7 @@ const Contact = () => {
 
 
   const inputOnChangeHandler = (e) => {
-    console.log(e.target.value);
+
     setData({ ...data, [e.target.name]: e.target.value });
   }
 
@@ -995,7 +995,7 @@ export default Contact;
 
 const ContactTextArea = ({ row, placeholder, name, defaultValue, onchange, validata }) => {
 
-  console.log(validata.includes("message"));
+
   return (
     <>
       <div className="mb-6">

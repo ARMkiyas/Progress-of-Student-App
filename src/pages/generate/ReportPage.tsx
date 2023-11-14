@@ -563,7 +563,10 @@ export default function ReportPage() {
                   <a
                     href="#"
                     className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-primary-50 rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
-                    onClick={previous}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      previous();
+                    }}
                   >
                     <span className="sr-only">Previous</span>
                     <svg
@@ -595,9 +598,10 @@ export default function ReportPage() {
                             : ""
                         }
                         `}
-                          onClick={() =>
-                            typeof item === "number" ? setPage(item) : null
-                          }
+                          onClick={(e) => {
+                            e.preventDefault();
+                            typeof item === "number" ? setPage(item) : null;
+                          }}
                         >
                           {item}
                         </a>
@@ -612,7 +616,10 @@ export default function ReportPage() {
                   <a
                     href="#"
                     className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500  rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
-                    onClick={next}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      next();
+                    }}
                   >
                     <span className="sr-only">Next</span>
                     <svg

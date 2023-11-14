@@ -36,17 +36,6 @@ const ReportCardPdfMain = ({
   studentData,
   TableHeader,
 }: TPDFGenProps) => {
-  console.log(
-    "schoolDetails",
-    schoolDetails,
-    "acedamicDetail",
-    acedamicDetail,
-    "studentData",
-    studentData,
-    "TableHeader",
-    TableHeader,
-  );
-
   return (
     <Document>
       <Page size="A4" style={styles.page}>
