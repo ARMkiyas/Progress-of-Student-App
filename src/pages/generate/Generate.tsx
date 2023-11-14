@@ -17,8 +17,6 @@ export default function Generate() {
     const studentdata = await db.studentData.toArray();
     const headerdata = await db.header.toArray();
 
-    console.log(studentdata.length);
-
     if (
       acedata.length > 0 &&
       schooldata.length > 0 &&

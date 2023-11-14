@@ -18,8 +18,6 @@ const customTheme: CustomFlowbiteTheme["toast"] = {
 function ToastMessage() {
   const { toast, removetoast } = useStore();
 
-  console.log(toast);
-
   const toasticonmap = {
     success: (
       <div className="inline-flex items-center justify-center w-8 h-8 text-green-500 bg-green-100 rounded-lg shrink-0 dark:bg-green-800 dark:text-green-200">

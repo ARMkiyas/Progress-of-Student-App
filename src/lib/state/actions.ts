@@ -85,7 +85,6 @@ const actions = (set, get) => ({
 
         const data = await handleFileRead(studentData);
 
-        console.log(data.length);
 
         await db.acedamicDetail.put(acedamicDetail)
         await db.schoolDetails.put(schoolDetails)
@@ -113,7 +112,7 @@ const actions = (set, get) => ({
 
     async searchAction(search) {
 
-        console.log(search);
+
 
 
         if (search.trim() === '') {
@@ -126,7 +125,7 @@ const actions = (set, get) => ({
         const dataofindex = await db.studentData.where('index').startsWithIgnoreCase(search.trim()).toArray()
         const dataofname = await db.studentData.where('name').startsWithIgnoreCase(search.trim()).toArray()
 
-        console.log(Array.prototype.concat(dataofindex, dataofname));
+
 
 
         return set({ studentData: Array.prototype.concat(dataofindex, dataofname) })
@@ -173,12 +172,12 @@ const actions = (set, get) => ({
 
 
     async getStudentDataById(id: string) {
-        console.log(id);
+
         try {
 
             const data = await db.studentData.get(id)
 
-            console.log(data);
+
 
             if (data) {
                 return data
@@ -262,7 +261,7 @@ const actions = (set, get) => ({
 
         }
         finally {
-            console.log(status);
+
             set(state => ({
                 updatebtnspinner: false,
                 toast: [...state.toast, { message: status.message, type: status.type }]
@@ -319,7 +318,7 @@ const actions = (set, get) => ({
         } catch (error) {
             console.log(error);
         } finally {
-            console.log(status);
+
             set(state => ({
                 updatebtnspinner: false,
                 toast: [...state.toast, { message: status.message, type: status.type }]
@@ -367,7 +366,7 @@ const actions = (set, get) => ({
 
                 const tempdata = await Promise.all(promises);
 
-                console.log(tempdata);
+
 
                 if (tempdata.length === studata.length) {
                     await db.blobstore.bulkPut(tempdata)

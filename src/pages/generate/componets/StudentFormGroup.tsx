@@ -49,8 +49,6 @@ export default function StudentFormGroup({
 }: schoolFormGroupProps) {
   const { header, getStudentDataById } = useStore();
 
-  console.log("header", header);
-
   const inputHandeler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (studentDetailsOtherThenSubject.includes(e.target.id)) {
       setstate({ ...state, [e.target.id]: e.target.value });

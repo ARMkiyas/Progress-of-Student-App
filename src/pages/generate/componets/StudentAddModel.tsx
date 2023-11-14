@@ -77,16 +77,15 @@ export default function StudentAddModel({
   ) => {
     e.preventDefault();
     const check = validate(studentSchema, data);
-    console.log(check);
 
     if (check) {
       const sa =
         openModal.type === "edit"
           ? await updateStudentData(data, openModal.id)
           : await addNewStudent(data);
-      console.log(sa);
+
       if (sa && openModal.type !== "edit") {
-        console.log(initalState);
+
         rest();
       } else if (sa) {
         rest();

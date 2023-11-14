@@ -11,8 +11,6 @@ export default function SchoolFormGroup({
   inputHandeler,
   invalidinput,
 }: schoolFormGroupProps) {
-  console.log(state);
-
   return (
     <>
       <div className="">
