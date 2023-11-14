@@ -11,6 +11,7 @@ const initialState: TStoreState = {
     updatebtnspinner: false,
     toast: [],
     sliceedData: [],
+    genpdfloadaing: false
 }
 
 export default initialState;

@@ -355,6 +355,7 @@ const actions = (set, get) => ({
 
     async getPDF(type, id) {
         try {
+            set({ genpdfloadaing: true })
             const studata = get().studentData
             let blobstore = await db.blobstore.toArray()
             if (blobstore.length !== studata.length && studata.length > 0 && blobstore.length === 0) {
@@ -394,11 +395,15 @@ const actions = (set, get) => ({
                 return blobstore.blob
             }
 
+
+
         }
         catch (error) {
             console.log(error);
         }
-        finally { }
+        finally {
+            set({ genpdfloadaing: false })
+        }
 
 
     }

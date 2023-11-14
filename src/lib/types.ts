@@ -68,6 +68,8 @@ export type TStoreState = {
         type: "error" | "success" | "warning" | "info" | undefined,
     }[]
     sliceedData: TStudentData[] | undefined
+
+    genpdfloadaing: boolean
 }
 
 
