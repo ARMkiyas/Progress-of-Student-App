@@ -9,9 +9,9 @@ on:
       - completed
 
 jobs:
-  Deploy:
+  Deploy_TO_Staging:
     runs-on: ubuntu-latest
-    environment: Production
+    environment: staging
     if: >
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success'
@@ -43,5 +43,11 @@ jobs:
           # Action to perform
           action: "upload"
           azure_static_web_apps_api_token: ${{secrets.AZURE_STATIC_WEB_DEPLOY_TOKEN}}
+          deployment_environment: "staging"
           skip_app_build: true
           app_location: ./
+          
+
+
+          
+    
