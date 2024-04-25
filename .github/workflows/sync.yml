@@ -1,3 +1,5 @@
+# this workflow for sync automatically in all forked repo from mail repo ( this workflow only work for forked repos)
+
 name: sync
 
 on:
