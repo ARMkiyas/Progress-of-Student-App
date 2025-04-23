@@ -72,4 +72,4 @@
 
 <hr>
 
-<p>Thank you for your interest in the "Progress-of-Student" app! If you have any questions or need further assistance, please don't hesitate to contact us.</p>
+<p>Thank you for your interest in the "Progress-of-Student" app! If you have any questions or need further assistance, please don't hesitate to contact me.</p>
